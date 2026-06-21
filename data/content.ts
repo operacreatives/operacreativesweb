@@ -7,6 +7,10 @@ const projectSeeds: Array<[string, string]> = [
   ["Orchid Mobile", "Visual Identity & Sound — Signal in Full Colour"],
   ["Alta Cinema", "AI Narrative Feature & Stories for a Crowd"],
   ["Aster Records", "AI Audio-Visual Campaign — The Sound Has Shape"],
+  ["Kindred Coffee", "A Better Morning Ritual & Packaging Showcase"],
+  ["Northbank Arts", "The City Is the Gallery — Dynamic Motion"],
+  ["Form Chair", "Minimalist Seating System Design Showcase"],
+  ["Lume Light", "Ambient Workspace Illumination Design Study"],
 ];
 
 export const projects: Project[] = projectSeeds.map(([client, title], index) => {
@@ -23,9 +27,9 @@ export const projects: Project[] = projectSeeds.map(([client, title], index) => 
   };
 });
 
-const rowHeights: WorkRow["height"][] = ["standard", "standard"];
+const rowHeights: WorkRow["height"][] = ["standard", "standard", "standard", "standard"];
 
-export const workRows: WorkRow[] = Array.from({ length: 2 }, (_, rowIndex) => ({
+export const workRows: WorkRow[] = Array.from({ length: 4 }, (_, rowIndex) => ({
   id: rowIndex + 1,
   height: rowHeights[rowIndex % rowHeights.length],
   projects: projects.slice(rowIndex * 3, rowIndex * 3 + 3),

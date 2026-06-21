@@ -1,6 +1,6 @@
-export const PROJECT_COUNT = 6;
-export const INITIAL_PROJECT_COUNT = 6;
-export const PROJECT_BATCH_SIZE = 6;
+export const PROJECT_COUNT = 10;
+export const INITIAL_PROJECT_COUNT = 10;
+export const PROJECT_BATCH_SIZE = 10;
 
 export function nextVisibleCount(current: number, total = PROJECT_COUNT) {
   return total;

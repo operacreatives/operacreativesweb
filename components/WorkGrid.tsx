@@ -1,84 +1,70 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import { projects } from "@/data/content";
 import { CTABand } from "./CTABand";
 
-interface WorkGridItemProps {
+interface WorkCardProps {
   project: typeof projects[0];
-  index: number;
 }
 
-function WorkGridItem({ project, index }: WorkGridItemProps) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.unobserve(el); // trigger once
-        }
-      },
-      { 
-        threshold: 0.1,
-        rootMargin: "0px 0px -50px 0px"
-      }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
-  const isEven = index % 2 === 0;
-
+function WorkCard({ project }: WorkCardProps) {
   return (
-    <div
-      ref={ref}
-      className={`work-item-row ${isEven ? "work-item-row--even" : "work-item-row--odd"} ${
-        isVisible ? "is-visible" : ""
-      }`}
-    >
-      <div className="work-item-media">
-        <div className="work-item-media-frame">
-          <img
-            src={project.image}
-            alt={project.alt}
-            style={{ objectPosition: project.focalPosition }}
-            className="work-item-img"
-          />
-        </div>
+    <div className="work-card">
+      <div className="work-card__media">
+        <img
+          src={project.image}
+          alt={project.alt}
+          style={{ objectPosition: project.focalPosition }}
+          className="work-card__img"
+        />
+        <span className="work-card__badge">STATIC</span>
       </div>
-      
-      <div className="work-item-info">
-        <span className="work-item-number">0{index + 1}</span>
-        <h3 className="work-item-client">{project.client}</h3>
-        <h4 className="work-item-title">{project.title}</h4>
-        
-        <div className="work-item-tags">
-          <span className="work-item-tag">AI PRODUCTION</span>
-          <span className="work-item-tag">CINEMA GRADE</span>
-        </div>
+      <div className="work-card__caption">
+        <strong className="work-card__client">{project.client}</strong>
+        <span className="work-card__title">{project.title}</span>
       </div>
     </div>
   );
 }
 
 export function WorkGrid() {
+  const row1Items = projects.slice(0, 5);
+  const row2Items = projects.slice(5, 10);
+
   return (
     <section id="work" className="work-section" aria-labelledby="work-title">
       <div className="work-section__heading">
         <p className="section-kicker">SELECTED SHOWCASE</p>
         <h2 id="work-title">Made to be remembered.</h2>
-        <span>6 PROJECTS</span>
+        <span>10 projects</span>
       </div>
 
-      <div className="work-showcase-list">
-        {projects.map((project, index) => (
-          <WorkGridItem key={project.id} project={project} index={index} />
-        ))}
+      <div className="work-marquee-wrapper">
+        {/* Layer 1 - Left to Right */}
+        <div className="work-marquee-row work-marquee-row--left">
+          <div className="work-marquee-track">
+            {row1Items.map((project) => (
+              <WorkCard key={`w1-${project.id}`} project={project} />
+            ))}
+            {/* Duplicate for infinite loop */}
+            {row1Items.map((project) => (
+              <WorkCard key={`w1-dup-${project.id}`} project={project} />
+            ))}
+          </div>
+        </div>
+
+        {/* Layer 2 - Right to Left */}
+        <div className="work-marquee-row work-marquee-row--right">
+          <div className="work-marquee-track">
+            {row2Items.map((project) => (
+              <WorkCard key={`w2-${project.id}`} project={project} />
+            ))}
+            {/* Duplicate for infinite loop */}
+            {row2Items.map((project) => (
+              <WorkCard key={`w2-dup-${project.id}`} project={project} />
+            ))}
+          </div>
+        </div>
       </div>
 
       <CTABand />
