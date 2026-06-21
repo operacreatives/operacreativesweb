@@ -8,19 +8,17 @@ import "@fontsource/newsreader/600.css";
 import "./globals.css";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
-import { CinemaProvider } from "@/context/CinemaContext";
-import { CinemaManager } from "@/components/CinemaManager";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://opera-creatives.example"),
   title: {
-    default: "Opera Creatives — Ideas with a pulse",
+    default: "Opera Creatives — The production house for the next decade of brands",
     template: "%s — Opera Creatives",
   },
-  description: "Opera Creatives is an independent creative company for brands that want to mean more.",
+  description: "Opera Creatives is an AI-native creative studio built for the speed that e-commerce demands.",
   openGraph: {
     title: "Opera Creatives",
-    description: "Ideas with a pulse. Images with staying power.",
+    description: "The production house for the next decade of brands.",
     type: "website",
   },
 };
@@ -29,16 +27,14 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en">
       <body suppressHydrationWarning>
-        <CinemaProvider>
-          <a href="#main-content" className="skip-link">
-            Skip to content
-          </a>
-          <Header />
-          <main id="main-content">{children}</main>
-          <Footer />
-          <CinemaManager />
-        </CinemaProvider>
+        <a href="#main-content" className="skip-link">
+          Skip to content
+        </a>
+        <Header />
+        <main id="main-content">{children}</main>
+        <Footer />
       </body>
     </html>
   );
 }
+

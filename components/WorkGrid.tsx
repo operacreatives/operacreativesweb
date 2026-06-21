@@ -5,6 +5,7 @@ import { workRows } from "@/data/content";
 import { INITIAL_PROJECT_COUNT, nextVisibleCount, PROJECT_COUNT, shouldShowCta } from "@/lib/work-grid";
 import { CTABand } from "./CTABand";
 import { WorkTile } from "./WorkTile";
+import { CustomCursor } from "./CustomCursor";
 
 export function WorkGrid() {
   const [visibleCount, setVisibleCount] = useState(INITIAL_PROJECT_COUNT);
@@ -41,7 +42,8 @@ export function WorkGrid() {
 
   return (
     <section id="work" className="work-section">
-      <div className={`work-grid ${hoveredProjectId !== null ? "has-active-video" : ""}`} data-testid="work-grid">
+      <CustomCursor isHovering={hoveredProjectId !== null} />
+      <div className="work-grid" data-testid="work-grid">
         {renderedRows.map((row) => (
           <Fragment key={row.id}>
             <div className={`work-row work-row--${row.height}`}>
@@ -55,7 +57,6 @@ export function WorkGrid() {
                 />
               ))}
             </div>
-            {(row.id === 6 || row.id === 12) && <div className="work-divider" aria-hidden="true" />}
           </Fragment>
         ))}
         {loading && (

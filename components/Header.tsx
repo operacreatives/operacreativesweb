@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { LogoMark } from "./LogoMark";
-import { SoundToggle } from "./SoundToggle";
 
 export function Header() {
   const pathname = usePathname();
@@ -27,7 +26,6 @@ export function Header() {
     <header className={`site-header ${solid ? "site-header--solid" : ""}`} data-testid="site-header">
       <div className="site-header__inner">
         <div className="site-header__left">
-          <SoundToggle />
         </div>
         <div className="site-header__center">
           <LogoMark className="site-header__logo" priority />

@@ -146,14 +146,12 @@ button {
   z-index: 100;
   inset: 0 0 auto;
   height: 76px;
-  color: var(--black);
-  background: rgba(255, 255, 255, 0.01);
-  backdrop-filter: blur(20px) saturate(150%);
-  -webkit-backdrop-filter: blur(20px) saturate(150%);
-  transition: background-color 260ms ease-out, box-shadow 260ms ease-out;
+  color: #ffffff;
+  background: transparent;
 }
 
 .site-header--solid {
+  color: #ffffff;
   background: transparent;
 }
 
@@ -168,6 +166,25 @@ button {
 .site-header__left {
   display: flex;
   justify-content: flex-start;
+}
+
+.site-header__social {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.site-header__social-link {
+  display: flex;
+  align-items: center;
+  color: currentColor;
+  opacity: 0.85;
+  transition: opacity 0.2s ease;
+  text-decoration: none;
+}
+
+.site-header__social-link:hover {
+  opacity: 1;
 }
 
 .site-header__center {
@@ -465,15 +482,13 @@ button {
   position: relative;
   flex-shrink: 0;
   background: var(--cream);
-  border: 1px solid rgb(0 0 0 / 0.08);
   overflow: hidden;
-  transition: transform 450ms var(--ease-out), box-shadow 450ms var(--ease-out);
+  transition: transform 450ms var(--ease-out);
   cursor: pointer;
 }
 
 .marquee-card:hover {
-  transform: scale(1.04) rotate(0.5deg);
-  box-shadow: 0 25px 50px rgb(0 0 0 / 0.12);
+  transform: scale(1.02);
   z-index: 10;
 }
 
@@ -804,6 +819,7 @@ button {
 .work-section {
   background: var(--cream);
   transition: background-color 0.5s ease-out;
+  padding-bottom: 0;
 }
 
 .work-section__heading {
@@ -844,20 +860,15 @@ button {
 .work-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 4rem;
-  padding: 4rem 0;
+  gap: 3px;
+  padding: 0;
   overflow: hidden;
-}
-
-.work-grid.has-active-video .work-tile:not(.is-active) {
-  opacity: 0.15;
-  filter: grayscale(80%);
 }
 
 @media (min-width: 768px) {
   .work-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 8rem 4rem;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3px;
   }
 }
 
@@ -869,30 +880,19 @@ button {
 .work-skeleton {
   position: relative;
   min-height: 0;
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 16 / 9;
   margin: 0;
   overflow: hidden;
-  background: var(--cream);
+  background: var(--black);
   opacity: 0;
-  transform: translateY(60px);
-  transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.5s ease-out;
+  transform: translateY(40px);
+  transition: opacity 0.6s cubic-bezier(0.2, 0.8, 0.2, 1),
+              transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .work-tile.is-visible {
   opacity: 1;
   transform: translateY(0);
-}
-
-.work-tile.is-active {
-  transform: scale(1.03);
-  z-index: 10;
-  box-shadow: 0 40px 80px rgba(0,0,0,0.15);
-}
-
-.work-tile.is-ugc {
-  aspect-ratio: 9 / 16;
-  max-width: 480px;
-  margin: 0 auto;
 }
 
 .work-tile__video {
@@ -919,27 +919,12 @@ button {
 
 .work-tile__media > img {
   object-fit: cover;
-  will-change: transform;
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-.work-tile__caption {
-  position: absolute;
-  z-index: 2;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  min-height: 45%;
-  padding: 3rem 1rem 1rem;
-  color: var(--white);
-  background: linear-gradient(to top, rgb(0 0 0 / 0.82), transparent);
-  font-size: clamp(0.8rem, 1.1vw, 1rem);
-  opacity: 1;
+.work-tile:hover .work-tile__media > img {
+  transform: scale(1.04);
 }
-
-.work-tile__caption strong { font-weight: 600; }
 
 .work-tile__fallback {
   position: absolute;
@@ -947,7 +932,7 @@ button {
   display: grid;
   place-items: center;
   color: var(--red);
-  background: var(--cream);
+  background: var(--black);
 }
 
 .work-tile__fallback span {
@@ -955,15 +940,10 @@ button {
   font-size: clamp(4rem, 10vw, 10rem);
 }
 
-.work-divider {
-  height: 18px;
-  background: var(--cream);
-}
-
 .work-row--skeleton { display: contents; }
 
 .work-skeleton {
-  background: linear-gradient(110deg, var(--cream) 25%, #fff5ec 42%, var(--cream) 58%);
+  background: linear-gradient(110deg, #1a1a1a 25%, #2a2a2a 42%, #1a1a1a 58%);
   background-size: 220% 100%;
   animation: shimmer 1.2s linear infinite;
 }
@@ -981,12 +961,29 @@ button {
 
 .cta-band h2 {
   max-width: 22ch;
-  margin: 0 0 clamp(3rem, 6vw, 6rem);
+  margin: 0 0 clamp(3rem, 6vw, 4rem);
   font-family: var(--font-sans);
   font-size: clamp(2.4rem, 5.2vw, 6.5rem);
   font-weight: 500;
   line-height: 0.96;
   letter-spacing: -0.045em;
+}
+
+.cta-description {
+  max-width: 65ch;
+  font-family: var(--font-sans);
+  font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+  line-height: 1.6;
+  font-weight: 400;
+  opacity: 0.9;
+}
+
+.cta-description p {
+  margin-bottom: 2rem;
+}
+
+.cta-description p:last-child {
+  margin-bottom: 0;
 }
 
 .arrow-link {
@@ -2057,5 +2054,27 @@ button {
   background-color: #bf0812;
   border-color: #bf0812;
   color: #ffffff;
-  box-shadow: 0 0 15px rgba(234, 9, 22, 0.35);
+}
+
+/* Custom Mascot Cursor (Logo) */
+.mascot-cursor-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Showreel Section */
+.showreel-section {
+  width: 100vw;
+  height: 100vh;
+  background: var(--black);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
