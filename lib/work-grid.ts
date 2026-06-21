@@ -1,11 +1,12 @@
-export const PROJECT_COUNT = 10;
-export const INITIAL_PROJECT_COUNT = 10;
-export const PROJECT_BATCH_SIZE = 10;
+export const PROJECT_COUNT = 48;
+export const INITIAL_PROJECT_COUNT = 18;
+export const PROJECT_BATCH_SIZE = 15;
 
 export function nextVisibleCount(current: number, total = PROJECT_COUNT) {
-  return total;
+  if (current >= total) return total;
+  return Math.min(total, current + PROJECT_BATCH_SIZE);
 }
 
 export function shouldShowCta(visibleCount: number, total = PROJECT_COUNT) {
-  return true;
+  return visibleCount >= total;
 }

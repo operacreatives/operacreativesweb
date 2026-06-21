@@ -1,73 +1,71 @@
 "use client";
 
-import { projects } from "@/data/content";
+import { Fragment, useEffect, useMemo, useRef, useState } from "react";
+import { workRows } from "@/data/content";
+import { INITIAL_PROJECT_COUNT, nextVisibleCount, PROJECT_COUNT, shouldShowCta } from "@/lib/work-grid";
 import { CTABand } from "./CTABand";
-
-interface WorkCardProps {
-  project: typeof projects[0];
-}
-
-function WorkCard({ project }: WorkCardProps) {
-  return (
-    <div className="work-card">
-      <div className="work-card__media">
-        <img
-          src={project.image}
-          alt={project.alt}
-          style={{ objectPosition: project.focalPosition }}
-          className="work-card__img"
-        />
-        <span className="work-card__badge">STATIC</span>
-      </div>
-      <div className="work-card__caption">
-        <strong className="work-card__client">{project.client}</strong>
-        <span className="work-card__title">{project.title}</span>
-      </div>
-    </div>
-  );
-}
+import { WorkTile } from "./WorkTile";
 
 export function WorkGrid() {
-  const row1Items = projects.slice(0, 5);
-  const row2Items = projects.slice(5, 10);
+  const [visibleCount, setVisibleCount] = useState(INITIAL_PROJECT_COUNT);
+  const [loading, setLoading] = useState(false);
+  const loadingRef = useRef(false);
+  const sentinelRef = useRef<HTMLDivElement>(null);
+  const renderedRows = useMemo(() => workRows.slice(0, Math.ceil(visibleCount / 3)), [visibleCount]);
+  const complete = shouldShowCta(visibleCount);
+
+  useEffect(() => {
+    const sentinel = sentinelRef.current;
+    if (!sentinel || complete) return;
+    let timer: ReturnType<typeof setTimeout>;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting || loadingRef.current) return;
+        loadingRef.current = true;
+        setLoading(true);
+        timer = setTimeout(() => {
+          setVisibleCount((current) => nextVisibleCount(current));
+          loadingRef.current = false;
+          setLoading(false);
+        }, 320);
+      },
+      { rootMargin: "500px 0px" },
+    );
+    observer.observe(sentinel);
+    return () => {
+      observer.disconnect();
+      clearTimeout(timer);
+    };
+  }, [complete]);
 
   return (
     <section id="work" className="work-section" aria-labelledby="work-title">
       <div className="work-section__heading">
-        <p className="section-kicker">SELECTED SHOWCASE</p>
+        <p className="section-kicker">Selected work</p>
         <h2 id="work-title">Made to be remembered.</h2>
-        <span>10 projects</span>
+        <span>{PROJECT_COUNT} projects</span>
       </div>
-
-      <div className="work-marquee-wrapper">
-        {/* Layer 1 - Left to Right */}
-        <div className="work-marquee-row work-marquee-row--left">
-          <div className="work-marquee-track">
-            {row1Items.map((project) => (
-              <WorkCard key={`w1-${project.id}`} project={project} />
-            ))}
-            {/* Duplicate for infinite loop */}
-            {row1Items.map((project) => (
-              <WorkCard key={`w1-dup-${project.id}`} project={project} />
+      <div className="work-grid" data-testid="work-grid">
+        {renderedRows.map((row) => (
+          <Fragment key={row.id}>
+            <div className={`work-row work-row--${row.height}`}>
+              {row.projects.map((project) => (
+                <WorkTile key={project.id} project={project} />
+              ))}
+            </div>
+            {(row.id === 6 || row.id === 12) && <div className="work-divider" aria-hidden="true" />}
+          </Fragment>
+        ))}
+        {loading && (
+          <div className="work-row work-row--standard work-row--skeleton" aria-label="Loading more projects">
+            {[0, 1, 2].map((item) => (
+              <div className="work-skeleton" key={item} />
             ))}
           </div>
-        </div>
-
-        {/* Layer 2 - Right to Left */}
-        <div className="work-marquee-row work-marquee-row--right">
-          <div className="work-marquee-track">
-            {row2Items.map((project) => (
-              <WorkCard key={`w2-${project.id}`} project={project} />
-            ))}
-            {/* Duplicate for infinite loop */}
-            {row2Items.map((project) => (
-              <WorkCard key={`w2-dup-${project.id}`} project={project} />
-            ))}
-          </div>
-        </div>
+        )}
       </div>
-
-      <CTABand />
+      {!complete && <div ref={sentinelRef} className="work-sentinel" aria-hidden="true" />}
+      {complete && <CTABand />}
     </section>
   );
 }

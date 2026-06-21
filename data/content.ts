@@ -1,16 +1,54 @@
 import type { Article, PageHeroContent, Project, Role, TeamMember, WorkRow } from "./types";
 
 const projectSeeds: Array<[string, string]> = [
-  ["Vela Running", "AI Motion Campaign — Cinema-Grade Film"],
-  ["Morrow Hotels", "Brand Film & Aesthetic Travel Shorts"],
-  ["Paloma Skin", "High-Fidelity UGC Skin Ritual Campaign"],
-  ["Orchid Mobile", "Visual Identity & Sound — Signal in Full Colour"],
-  ["Alta Cinema", "AI Narrative Feature & Stories for a Crowd"],
-  ["Aster Records", "AI Audio-Visual Campaign — The Sound Has Shape"],
-  ["Kindred Coffee", "A Better Morning Ritual & Packaging Showcase"],
-  ["Northbank Arts", "The City Is the Gallery — Dynamic Motion"],
-  ["Form Chair", "Minimalist Seating System Design Showcase"],
-  ["Lume Light", "Ambient Workspace Illumination Design Study"],
+  ["Aster Records", "The Sound Has Shape"],
+  ["Kindred Coffee", "A Better Morning Ritual"],
+  ["Northbank Arts", "The City Is the Gallery"],
+  ["Paloma Skin", "Nothing to Hide"],
+  ["Good Measure", "Packaging with an Appetite"],
+  ["Morrow Hotels", "Stay Somewhere Unexpected"],
+  ["Orchid Mobile", "Signal in Full Colour"],
+  ["Vela Running", "Chase the Quiet"],
+  ["Index Magazine", "Issue No. 01"],
+  ["Public Assembly", "Culture Takes the Floor"],
+  ["Melt", "Ice Cream After Dark"],
+  ["Arcade House", "Play Is Serious"],
+  ["Field Notes", "Made Outside"],
+  ["Second Sun", "A New Energy Language"],
+  ["Onda", "Water with a Point of View"],
+  ["Common Thread", "Clothes for Real Life"],
+  ["Nineteen", "The New Neighbourhood Club"],
+  ["Alta Cinema", "Stories Need a Crowd"],
+  ["Dusk Radio", "Broadcasting the In-Between"],
+  ["Little Giant", "Small Format, Big Feeling"],
+  ["Parallel Press", "Books You Can Hear"],
+  ["Sonder Foods", "A Feast of Contrasts"],
+  ["Atlas Transit", "Everywhere Starts Here"],
+  ["Mono Objects", "Useful, Not Ordinary"],
+  ["New Ritual", "Care without Clichés"],
+  ["Soft Power", "The Gentle Revolution"],
+  ["Redline", "Movement Made Visible"],
+  ["Theatre 88", "The Night Belongs to You"],
+  ["Inner Circle", "A Journal of Modern Work"],
+  ["After Hours", "The City’s Second Shift"],
+  ["Harvest Moon", "Food with Memory"],
+  ["Visible Air", "Climate You Can Feel"],
+  ["Open Studio", "Making in Public"],
+  ["Raga", "A Modern Indian Frequency"],
+  ["Casa Forma", "Live among Ideas"],
+  ["Sunday Service", "A Weekly Dose of Wonder"],
+  ["New Common", "Belonging, Rebranded"],
+  ["Zero Hour", "Time to Pay Attention"],
+  ["House of Type", "Letters with a Pulse"],
+  ["B-Side", "The Other Hit"],
+  ["Faraway", "Travel without the Script"],
+  ["Good Trouble", "A Campaign for Change"],
+  ["Room Tone", "Silence, Designed"],
+  ["Kite", "Finance in Plain Sight"],
+  ["Neighbour", "Built for the Block"],
+  ["Rare Bird", "Beauty on Its Own Terms"],
+  ["Electric Garden", "Nature after Neon"],
+  ["Future Archive", "Tomorrow, Collected"],
 ];
 
 export const projects: Project[] = projectSeeds.map(([client, title], index) => {
@@ -27,7 +65,7 @@ export const projects: Project[] = projectSeeds.map(([client, title], index) => 
   };
 });
 
-const rowHeights: WorkRow["height"][] = ["standard", "standard", "standard", "standard"];
+const rowHeights: WorkRow["height"][] = ["standard", "compact", "tall", "standard", "tall", "compact"];
 
 export const workRows: WorkRow[] = Array.from({ length: 4 }, (_, rowIndex) => ({
   id: rowIndex + 1,
@@ -94,7 +132,7 @@ export const team: TeamMember[] = [
   ["Ishan Bose", "Creative Technologist"],
   ["Clara Moss", "Producer"],
   ["Sam Rivera", "Studio Manager"],
-].map(([name, role], index) => ({ name, role, image: projects[index % projects.length].image }));
+].map(([name, role], index) => ({ name, role, image: projects[index + 8].image }));
 
 export const articles: Article[] = [
   ["the-useful-uncanny", "Craft", "The useful uncanny", "Why the most memorable brands leave one detail slightly unresolved.", "June 12, 2026"],
@@ -112,7 +150,7 @@ export const articles: Article[] = [
   title,
   summary,
   date,
-  image: projects[index % projects.length].image,
+  image: projects[index + 25].image,
 }));
 
 export const roles: Role[] = [
