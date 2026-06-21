@@ -1,0 +1,23 @@
+{
+  "name": "Opera Creatives",
+  "short_name": "Opera Creatives",
+  "description": "The Production House for the Next Decade of Brands",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f5ece4",
+  "theme_color": "#e1251b",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ]
+}

@@ -61,9 +61,21 @@ const demoVideos = [
 
 export const projects: Project[] = projectSeeds.map(([client, title], index) => {
   const id = index + 1;
-  const hasVideo = index % 3 === 0;
-  const isUGC = hasVideo && index % 2 === 0;
   
+  // Decide layout type organically:
+  // index 0, 4, 8, 12, ... are portrait
+  // index 2, 7, 13, 19, ... are landscape
+  // all others are square product shots
+  let gridType: "portrait" | "landscape" | "square" = "square";
+  if (index % 4 === 0) {
+    gridType = "portrait";
+  } else if (index % 5 === 2) {
+    gridType = "landscape";
+  }
+
+  const hasVideo = index % 2 === 0;
+  const isUGC = gridType === "portrait";
+
   return {
     id,
     image: `/work/work-${String(id).padStart(2, "0")}.webp`,
@@ -75,16 +87,20 @@ export const projects: Project[] = projectSeeds.map(([client, title], index) => 
     fallbackLabel: client.slice(0, 2).toUpperCase(),
     videoUrl: hasVideo ? demoVideos[index % demoVideos.length] : undefined,
     isUGC,
+    gridType,
   };
 });
 
 const rowHeights: WorkRow["height"][] = ["standard", "compact", "tall", "standard", "tall", "compact"];
 
-export const workRows: WorkRow[] = Array.from({ length: 4 }, (_, rowIndex) => ({
-  id: rowIndex + 1,
-  height: rowHeights[rowIndex % rowHeights.length],
-  projects: projects.slice(rowIndex * 3, rowIndex * 3 + 3),
-}));
+export const workRows: WorkRow[] = Array.from(
+  { length: Math.ceil(projects.length / 3) },
+  (_, rowIndex) => ({
+    id: rowIndex + 1,
+    height: rowHeights[rowIndex % rowHeights.length],
+    projects: projects.slice(rowIndex * 3, rowIndex * 3 + 3),
+  })
+);
 
 export const homeManifesto = {
   eyebrow: "Opera Creatives",

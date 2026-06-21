@@ -47,6 +47,12 @@ export function Footer() {
             © 2026 Opera Creatives. All rights reserved.
           </div>
           
+          <div className="official-footer__contact">
+            <a href="mailto:hi@operacreatives.com" className="footer-email-link">
+              hi@operacreatives.com
+            </a>
+          </div>
+
           <div className="official-footer__actions">
             {/* Social Logos */}
             <div className="official-footer__socials">
