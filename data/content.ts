@@ -51,8 +51,19 @@ const projectSeeds: Array<[string, string]> = [
   ["Future Archive", "Tomorrow, Collected"],
 ];
 
+const demoVideos = [
+  "https://assets.mixkit.co/videos/preview/mixkit-hands-adjusting-a-vintage-cinema-camera-lens-41764-large.mp4",
+  "https://assets.mixkit.co/videos/preview/mixkit-people-pouring-a-warm-drink-around-a-campfire-513-large.mp4",
+  "https://assets.mixkit.co/videos/preview/mixkit-set-of-plateaus-seen-from-the-sky-in-a-timeline-32860-large.mp4",
+  "https://assets.mixkit.co/videos/preview/mixkit-curvy-road-on-a-tree-covered-hill-41537-large.mp4",
+  "https://assets.mixkit.co/videos/preview/mixkit-aerial-view-of-city-traffic-at-night-11-large.mp4",
+];
+
 export const projects: Project[] = projectSeeds.map(([client, title], index) => {
   const id = index + 1;
+  const hasVideo = index % 3 === 0;
+  const isUGC = hasVideo && index % 2 === 0;
+  
   return {
     id,
     image: `/work/work-${String(id).padStart(2, "0")}.webp`,
@@ -62,12 +73,14 @@ export const projects: Project[] = projectSeeds.map(([client, title], index) => 
     sourceCredit: "Placeholder photography via Lorem Picsum",
     focalPosition: index % 5 === 0 ? "50% 35%" : index % 7 === 0 ? "50% 70%" : "50% 50%",
     fallbackLabel: client.slice(0, 2).toUpperCase(),
+    videoUrl: hasVideo ? demoVideos[index % demoVideos.length] : undefined,
+    isUGC,
   };
 });
 
 const rowHeights: WorkRow["height"][] = ["standard", "compact", "tall", "standard", "tall", "compact"];
 
-export const workRows: WorkRow[] = Array.from({ length: 16 }, (_, rowIndex) => ({
+export const workRows: WorkRow[] = Array.from({ length: 4 }, (_, rowIndex) => ({
   id: rowIndex + 1,
   height: rowHeights[rowIndex % rowHeights.length],
   projects: projects.slice(rowIndex * 3, rowIndex * 3 + 3),

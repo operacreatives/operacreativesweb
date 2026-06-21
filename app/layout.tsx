@@ -12,13 +12,13 @@ import { Header } from "@/components/Header";
 export const metadata: Metadata = {
   metadataBase: new URL("https://opera-creatives.example"),
   title: {
-    default: "Opera Creatives — Ideas with a pulse",
+    default: "Opera Creatives — The production house for the next decade of brands",
     template: "%s — Opera Creatives",
   },
-  description: "Opera Creatives is an independent creative company for brands that want to mean more.",
+  description: "Opera Creatives is an AI-native creative studio built for the speed that e-commerce demands.",
   openGraph: {
     title: "Opera Creatives",
-    description: "Ideas with a pulse. Images with staying power.",
+    description: "The production house for the next decade of brands.",
     type: "website",
   },
 };
@@ -37,3 +37,4 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     </html>
   );
 }
+
