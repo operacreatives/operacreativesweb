@@ -11,6 +11,7 @@ export interface Project {
   fallbackLabel: string;
   videoUrl?: string;
   isUGC?: boolean;
+  gridType?: "landscape" | "portrait" | "square";
 }
 
 export interface WorkRow {

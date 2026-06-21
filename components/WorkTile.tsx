@@ -1,9 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import type { Project } from "@/data/types";
-import { useParallax } from "@/hooks/useParallax";
 
 interface WorkTileProps {
   project: Project;
@@ -13,20 +11,13 @@ interface WorkTileProps {
   onLeave?: () => void;
 }
 
-const PROJECT_VIDEOS = [
-  "https://assets.mixkit.co/videos/preview/mixkit-cyberpunk-neon-city-street-with-rain-40036-large.mp4",
-  "https://assets.mixkit.co/videos/preview/mixkit-hands-adjusting-a-vintage-cinema-camera-lens-41764-large.mp4",
-  "https://assets.mixkit.co/videos/preview/mixkit-woman-filming-with-a-retro-camera-in-nature-41753-large.mp4",
-  "https://assets.mixkit.co/videos/preview/mixkit-cinematic-shot-of-a-misty-forest-at-sunset-41711-large.mp4",
-  "https://assets.mixkit.co/videos/preview/mixkit-cinematic-flight-over-mountain-peaks-at-sunset-41804-large.mp4",
-];
-
 export function WorkTile({ project, className = "", isActive, onHover, onLeave }: WorkTileProps) {
   const [failed, setFailed] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
-  const parallaxRef = useParallax<HTMLElement>(0.08);
+  const tileRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
 
+  // Play/pause video on hover
   useEffect(() => {
     if (isActive && videoRef.current) {
       videoRef.current.play().catch(() => {});
@@ -35,22 +26,34 @@ export function WorkTile({ project, className = "", isActive, onHover, onLeave }
     }
   }, [isActive]);
 
+  // Reveal tile when it scrolls into view
   useEffect(() => {
-    if (!parallaxRef.current) return;
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) {
-        setIsVisible(true);
-        observer.disconnect();
-      }
-    }, { rootMargin: "0px 0px -100px 0px" });
-    observer.observe(parallaxRef.current);
+    const el = tileRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "120px 0px" }
+    );
+    observer.observe(el);
     return () => observer.disconnect();
-  }, [parallaxRef]);
+  }, []);
+
+  const typeLabel =
+    project.gridType === "portrait"
+      ? "UGC Video"
+      : project.gridType === "landscape"
+      ? "AI Cinematic"
+      : "Product Visual";
 
   return (
     <figure
-      ref={parallaxRef}
-      className={`work-tile ${project.isUGC ? "is-ugc" : ""} ${isActive ? "is-active" : ""} ${isVisible ? "is-visible" : ""} ${className}`}
+      ref={tileRef}
+      className={`work-tile work-tile--${project.gridType || "square"} ${isActive ? "is-active" : ""} ${isVisible ? "is-visible" : ""} ${className}`}
       onMouseEnter={onHover}
       onMouseLeave={onLeave}
     >
@@ -66,20 +69,30 @@ export function WorkTile({ project, className = "", isActive, onHover, onLeave }
       )}
       {!failed ? (
         <div className="work-tile__media">
-          <Image
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
             src={project.image}
             alt={project.alt}
-            fill
-            sizes="(max-width: 1024px) 50vw, 100vw"
+            loading="lazy"
+            decoding="async"
             style={{ objectPosition: project.focalPosition }}
             onError={() => setFailed(true)}
           />
         </div>
       ) : (
-        <div className="work-tile__fallback" role="img" aria-label={`${project.client} project image unavailable`}>
+        <div
+          className="work-tile__fallback"
+          role="img"
+          aria-label={`${project.client} project image unavailable`}
+        >
           <span>{project.fallbackLabel}</span>
         </div>
       )}
+
+      <div className="work-tile__info">
+        <span className="work-tile__client">{project.client}</span>
+        <span className="work-tile__tag">{typeLabel}</span>
+      </div>
     </figure>
   );
 }
