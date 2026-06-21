@@ -9,6 +9,7 @@ import { WorkTile } from "./WorkTile";
 export function WorkGrid() {
   const [visibleCount, setVisibleCount] = useState(INITIAL_PROJECT_COUNT);
   const [loading, setLoading] = useState(false);
+  const [hoveredProjectId, setHoveredProjectId] = useState<number | null>(null);
   const loadingRef = useRef(false);
   const sentinelRef = useRef<HTMLDivElement>(null);
   const renderedRows = useMemo(() => workRows.slice(0, Math.ceil(visibleCount / 3)), [visibleCount]);
@@ -39,18 +40,19 @@ export function WorkGrid() {
   }, [complete]);
 
   return (
-    <section id="work" className="work-section" aria-labelledby="work-title">
-      <div className="work-section__heading">
-        <p className="section-kicker">Selected work</p>
-        <h2 id="work-title">Made to be remembered.</h2>
-        <span>{PROJECT_COUNT} projects</span>
-      </div>
-      <div className="work-grid" data-testid="work-grid">
+    <section id="work" className="work-section">
+      <div className={`work-grid ${hoveredProjectId !== null ? "has-active-video" : ""}`} data-testid="work-grid">
         {renderedRows.map((row) => (
           <Fragment key={row.id}>
             <div className={`work-row work-row--${row.height}`}>
               {row.projects.map((project) => (
-                <WorkTile key={project.id} project={project} />
+                <WorkTile 
+                  key={project.id} 
+                  project={project} 
+                  isActive={hoveredProjectId === project.id}
+                  onHover={() => setHoveredProjectId(project.id)}
+                  onLeave={() => setHoveredProjectId(null)}
+                />
               ))}
             </div>
             {(row.id === 6 || row.id === 12) && <div className="work-divider" aria-hidden="true" />}

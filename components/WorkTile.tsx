@@ -1,10 +1,17 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { Project } from "@/data/types";
-import { useCinema } from "@/context/CinemaContext";
 import { useParallax } from "@/hooks/useParallax";
+
+interface WorkTileProps {
+  project: Project;
+  className?: string;
+  isActive?: boolean;
+  onHover?: () => void;
+  onLeave?: () => void;
+}
 
 const PROJECT_VIDEOS = [
   "https://assets.mixkit.co/videos/preview/mixkit-cyberpunk-neon-city-street-with-rain-40036-large.mp4",
@@ -14,25 +21,49 @@ const PROJECT_VIDEOS = [
   "https://assets.mixkit.co/videos/preview/mixkit-cinematic-flight-over-mountain-peaks-at-sunset-41804-large.mp4",
 ];
 
-export function WorkTile({ project, className = "" }: { project: Project, className?: string }) {
+export function WorkTile({ project, className = "", isActive, onHover, onLeave }: WorkTileProps) {
   const [failed, setFailed] = useState(false);
-  const { openVideo } = useCinema();
+  const [isVisible, setIsVisible] = useState(false);
   const parallaxRef = useParallax<HTMLElement>(0.08);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
-  const videoUrl = PROJECT_VIDEOS[project.id % PROJECT_VIDEOS.length];
+  useEffect(() => {
+    if (isActive && videoRef.current) {
+      videoRef.current.play().catch(() => {});
+    } else if (!isActive && videoRef.current) {
+      videoRef.current.pause();
+    }
+  }, [isActive]);
 
-  const handleOpen = () => {
-    openVideo(videoUrl, project.title, project.client);
-  };
-
-
+  useEffect(() => {
+    if (!parallaxRef.current) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setIsVisible(true);
+        observer.disconnect();
+      }
+    }, { rootMargin: "0px 0px -100px 0px" });
+    observer.observe(parallaxRef.current);
+    return () => observer.disconnect();
+  }, [parallaxRef]);
 
   return (
     <figure
       ref={parallaxRef}
-      className={`work-tile ${className}`}
-      onClick={handleOpen}
+      className={`work-tile ${project.isUGC ? "is-ugc" : ""} ${isActive ? "is-active" : ""} ${isVisible ? "is-visible" : ""} ${className}`}
+      onMouseEnter={onHover}
+      onMouseLeave={onLeave}
     >
+      {project.videoUrl && (
+        <video
+          ref={videoRef}
+          className="work-tile__video"
+          src={project.videoUrl}
+          loop
+          muted
+          playsInline
+        />
+      )}
       {!failed ? (
         <div className="work-tile__media">
           <Image
@@ -49,10 +80,6 @@ export function WorkTile({ project, className = "" }: { project: Project, classN
           <span>{project.fallbackLabel}</span>
         </div>
       )}
-      <figcaption className="work-tile__caption">
-        <strong>{project.client}</strong>
-        <span>{project.title}</span>
-      </figcaption>
     </figure>
   );
 }

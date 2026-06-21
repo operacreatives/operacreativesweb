@@ -9,6 +9,8 @@ export interface Project {
   sourceCredit: string;
   focalPosition: string;
   fallbackLabel: string;
+  videoUrl?: string;
+  isUGC?: boolean;
 }
 
 export interface WorkRow {
