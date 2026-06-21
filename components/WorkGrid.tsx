@@ -43,7 +43,7 @@ export function WorkGrid() {
       <div className="work-section__heading">
         <p className="section-kicker">Selected work</p>
         <h2 id="work-title">Made to be remembered.</h2>
-        <span>{PROJECT_COUNT} projects / Demo archive</span>
+        <span>{PROJECT_COUNT} projects</span>
       </div>
       <div className="work-grid" data-testid="work-grid">
         {renderedRows.map((row) => (

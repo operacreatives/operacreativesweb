@@ -123,10 +123,10 @@ export function WorkMarquee() {
   return (
     <section className="marquee-section" data-hero-region>
       <div className="marquee-section__heading">
-        <p className="section-kicker">Creative Archive</p>
-        <h2>Work in motion.</h2>
+        <p className="section-kicker">AI Film Production Studio</p>
+        <h2>Cinema-grade AI Film & Motion Campaigns.</h2>
         <p className="marquee-section__intro">
-          We craft content that travels. An ongoing reel of UGC stories, social-first visual concepts, YouTube projects, and minimalist physical product launches.
+          We build cinematic AI commercials, film visuals, motion campaigns, and immersive brand experiences. AI-produced. Cinema-grade. Delivered at startup speed.
         </p>
       </div>
 

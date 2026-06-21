@@ -24,8 +24,11 @@ export function Header() {
 
   return (
     <header className={`site-header ${solid ? "site-header--solid" : ""}`} data-testid="site-header">
-      <div className="site-header__inner site-header__inner--centered">
+      <div className="site-header__inner">
         <LogoMark className="site-header__logo" priority />
+        <a href="#collaborate" className="site-header__contact-link">
+          Contact
+        </a>
       </div>
     </header>
   );

@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = "https://opera-creatives.example";
-  return ["", "/privacy"].map((route) => ({
+  return [""].map((route) => ({
     url: `${base}${route}`,
     lastModified: new Date("2026-06-21"),
     changeFrequency: route === "" ? "weekly" : "monthly",
