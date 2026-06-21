@@ -17,15 +17,6 @@ export function Footer() {
           <CookiePreferences />
         </div>
         <div>
-          <Link href="/contact#project-form" className="footer-link">
-            Subscribe
-          </Link>
-          <Link href="/contact" className="footer-link">
-            Connect
-          </Link>
-          <Link href="/contact#location" className="footer-link">
-            Location
-          </Link>
           <Link href="/sitemap.xml" className="footer-link">
             Sitemap
           </Link>
