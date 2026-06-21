@@ -1,114 +1,181 @@
 "use client";
 
-import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 
 interface MarqueeItem {
   id: string;
-  type: "ugc" | "youtube" | "instagram" | "product";
-  image: string;
+  type: "viewfinder" | "ugc" | "square";
+  videoUrl: string;
   title: string;
   subtitle?: string;
-  user?: string;
-  views?: string;
-  likes?: string;
-  price?: string;
+  creator?: string;
 }
 
 const marqueeItems1: MarqueeItem[] = [
-  { id: "1", type: "ugc", image: "/work/work-01.webp", title: "Unboxing the Future", user: "@sanchit_dev", likes: "42.8K" },
-  { id: "2", type: "youtube", image: "/work/work-02.webp", title: "Opera Creatives: Studio Session 01", views: "148K views", subtitle: "12:45" },
-  { id: "3", type: "instagram", image: "/work/work-03.webp", title: "Visual language studies for Casa Forma.", user: "operacreatives", likes: "1.2K" },
-  { id: "4", type: "product", image: "/work/work-04.webp", title: "FORM CHAIR", subtitle: "Minimalist Seating System", price: "$299" },
-  { id: "5", type: "ugc", image: "/work/work-05.webp", title: "Day in the life of a designer", user: "@anya_design", likes: "12.3K" },
-  { id: "6", type: "youtube", image: "/work/work-08.webp", title: "How to Build Memory in Digital Spaces", views: "89K views", subtitle: "08:19" },
+  { id: "1", type: "ugc", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-cyberpunk-neon-city-street-with-cars-42232-large.mp4", title: "UGC Motion", creator: "@sanchit_dev" },
+  { id: "2", type: "viewfinder", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-abstract-laser-lights-background-loop-41851-large.mp4", title: "Laser Study", subtitle: "4K 60FPS" },
+  { id: "3", type: "square", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-mysterious-neon-light-tunnel-background-loop-41846-large.mp4", title: "Neon Light Tunnel", creator: "SCENE 02 / TAKE 01" },
+  { id: "4", type: "viewfinder", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-abstract-digital-technology-circuit-board-loop-41847-large.mp4", title: "Tech Circuit", subtitle: "30FPS" },
 ];
 
 const marqueeItems2: MarqueeItem[] = [
-  { id: "7", type: "instagram", image: "/work/work-06.webp", title: "Behind the lens for our latest campaign.", user: "operacreatives", likes: "890" },
-  { id: "8", type: "product", image: "/work/work-09.webp", title: "LUME LIGHT", subtitle: "Ambient Workspace Illumination", price: "$149" },
-  { id: "9", type: "ugc", image: "/work/work-12.webp", title: "Styling the new season drops", user: "@noah_style", likes: "55.4K" },
-  { id: "10", type: "youtube", image: "/work/work-10.webp", title: "Why Less is More: The Design Manifesto", views: "210K views", subtitle: "15:32" },
-  { id: "11", type: "instagram", image: "/work/work-07.webp", title: "Details of physical models in progress.", user: "operacreatives", likes: "2.3K" },
-  { id: "12", type: "product", image: "/work/work-11.webp", title: "ECHO PODS", subtitle: "Noise Cancelling Audio", price: "$199" },
+  { id: "5", type: "viewfinder", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-rotating-gears-inside-a-mechanism-loop-41849-large.mp4", title: "Mechanical Loop", subtitle: "24FPS" },
+  { id: "6", type: "ugc", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-cyberpunk-neon-city-street-with-cars-42232-large.mp4", title: "Reel Concept", creator: "@anya_design" },
+  { id: "7", type: "square", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-abstract-laser-lights-background-loop-41851-large.mp4", title: "Abstract Wave", creator: "SCENE 04 / TAKE 02" },
+  { id: "8", type: "ugc", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-mysterious-neon-light-tunnel-background-loop-41846-large.mp4", title: "UGC Concept 02", creator: "@noah_style" },
 ];
 
 function WorkCard({ item }: { item: MarqueeItem }) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isPlaying, setIsPlaying] = useState(true);
+  const [timecode, setTimecode] = useState("00:00:00:00");
+
+  useEffect(() => {
+    // Generate a ticking film timecode
+    let frame = 0;
+    const interval = setInterval(() => {
+      frame = (frame + 1) % 24;
+      const sec = Math.floor(Date.now() / 1000) % 60;
+      const min = Math.floor(Date.now() / 60000) % 60;
+      const hr = Math.floor(Date.now() / 3600000) % 24;
+      
+      const format = (val: number) => String(val).padStart(2, "0");
+      setTimecode(`${format(hr)}:${format(min)}:${format(sec)}:${format(frame)}`);
+    }, 41.6); // 24 FPS approximation
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const togglePlayback = () => {
+    const video = videoRef.current;
+    if (!video) return;
+    if (isPlaying) {
+      video.pause();
+      setIsPlaying(false);
+    } else {
+      video.play().catch(() => {});
+      setIsPlaying(true);
+    }
+  };
+
   switch (item.type) {
     case "ugc":
       return (
-        <div className="marquee-card marquee-card--ugc">
+        <div className="marquee-card marquee-card--video-ugc" onClick={togglePlayback}>
           <div className="marquee-card__media">
-            <Image src={item.image} alt={item.title} fill sizes="(max-width: 768px) 180px, 240px" />
+            <video
+              ref={videoRef}
+              src={item.videoUrl}
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="marquee-card__video"
+            />
             <div className="marquee-card__ugc-ui">
-              <span className="marquee-card__badge">UGC</span>
+              <div className="marquee-card__ugc-top">
+                <span className="marquee-card__badge">RAW FEED</span>
+              </div>
               <div className="marquee-card__ugc-bottom">
-                <p className="marquee-card__user">{item.user}</p>
+                <p className="marquee-card__user">{item.creator}</p>
                 <p className="marquee-card__caption">{item.title}</p>
+                <div className="marquee-card__playbar">
+                  <div className="marquee-card__playbar-progress" />
+                </div>
               </div>
               <div className="marquee-card__ugc-actions">
-                <div className="marquee-card__action-btn">❤️ <span>{item.likes}</span></div>
-                <div className="marquee-card__action-btn">💬 <span>142</span></div>
+                <div className="marquee-card__action-btn">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="mini-icon">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                  </svg>
+                  <span>9:16</span>
+                </div>
+                <div className="marquee-card__action-btn">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="mini-icon">
+                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07" />
+                  </svg>
+                  <span>Mute</span>
+                </div>
               </div>
-              <div className="marquee-card__play-btn-overlay">
-                <div className="marquee-card__play-icon" />
+              {!isPlaying && <div className="marquee-card__play-indicator">⏸</div>}
+            </div>
+          </div>
+        </div>
+      );
+
+    case "viewfinder":
+      return (
+        <div className="marquee-card marquee-card--video-viewfinder" onClick={togglePlayback}>
+          <div className="marquee-card__media">
+            <video
+              ref={videoRef}
+              src={item.videoUrl}
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="marquee-card__video"
+            />
+            {/* Viewfinder Cam Overlay */}
+            <div className="viewfinder-overlay">
+              <div className="viewfinder-top">
+                <div className="viewfinder-rec">
+                  <span className="rec-dot" />
+                  <span>REC</span>
+                </div>
+                <div className="viewfinder-mode">{item.subtitle}</div>
               </div>
+              
+              <svg className="viewfinder-focus" viewBox="0 0 100 100">
+                <path d="M 25 40 L 25 25 L 40 25" fill="none" stroke="white" strokeWidth="1.5" opacity="0.75" />
+                <path d="M 75 40 L 75 25 L 60 25" fill="none" stroke="white" strokeWidth="1.5" opacity="0.75" />
+                <path d="M 25 60 L 25 75 L 40 75" fill="none" stroke="white" strokeWidth="1.5" opacity="0.75" />
+                <path d="M 75 60 L 75 75 L 60 75" fill="none" stroke="white" strokeWidth="1.5" opacity="0.75" />
+                <circle cx="50" cy="50" r="4" fill="none" stroke="white" strokeWidth="1" opacity="0.5" />
+              </svg>
+
+              <div className="viewfinder-bottom">
+                <div className="viewfinder-timecode">{timecode}</div>
+                <div className="viewfinder-battery">🔋 100%</div>
+              </div>
+              {!isPlaying && <div className="marquee-card__play-indicator">⏸</div>}
             </div>
           </div>
         </div>
       );
 
-    case "youtube":
+    case "square":
       return (
-        <div className="marquee-card marquee-card--youtube">
+        <div className="marquee-card marquee-card--video-square" onClick={togglePlayback}>
           <div className="marquee-card__media">
-            <Image src={item.image} alt={item.title} fill sizes="(max-width: 768px) 300px, 420px" />
-            <span className="marquee-card__duration">{item.subtitle}</span>
-            <div className="marquee-card__youtube-play">
-              <div className="marquee-card__youtube-play-icon" />
-            </div>
-          </div>
-          <div className="marquee-card__content">
-            <h4 className="marquee-card__title">{item.title}</h4>
-            <p className="marquee-card__meta">{item.views}</p>
-          </div>
-        </div>
-      );
-
-    case "instagram":
-      return (
-        <div className="marquee-card marquee-card--instagram">
-          <div className="marquee-card__insta-header">
-            <div className="marquee-card__avatar" />
-            <span className="marquee-card__username">{item.user}</span>
-          </div>
-          <div className="marquee-card__media">
-            <Image src={item.image} alt={item.title} fill sizes="(max-width: 768px) 200px, 280px" />
-          </div>
-          <div className="marquee-card__content">
-            <div className="marquee-card__insta-actions">
-              <span>❤️</span> <span>💬</span> <span>✈️</span>
-            </div>
-            <p className="marquee-card__likes-count">{item.likes} likes</p>
-            <p className="marquee-card__caption">
-              <strong>{item.user}</strong> {item.title}
-            </p>
-          </div>
-        </div>
-      );
-
-    case "product":
-      return (
-        <div className="marquee-card marquee-card--product">
-          <div className="marquee-card__media">
-            <Image src={item.image} alt={item.title} fill sizes="(max-width: 768px) 220px, 300px" />
-          </div>
-          <div className="marquee-card__content">
-            <span className="marquee-card__product-kicker">New Release</span>
-            <h4 className="marquee-card__title">{item.title}</h4>
-            <p className="marquee-card__desc">{item.subtitle}</p>
-            <div className="marquee-card__product-footer">
-              <span className="marquee-card__price">{item.price}</span>
-              <span className="marquee-card__buy">View Project ↗</span>
+            <video
+              ref={videoRef}
+              src={item.videoUrl}
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="marquee-card__video"
+            />
+            {/* Focus lines and technical overlays */}
+            <div className="square-focus-overlay">
+              <div className="thirds-grid">
+                <div className="grid-line grid-line--h1" />
+                <div className="grid-line grid-line--h2" />
+                <div className="grid-line grid-line--v1" />
+                <div className="grid-line grid-line--v2" />
+              </div>
+              <div className="square-tech-info">
+                <span>ISO 800</span>
+                <span>F/2.8</span>
+                <span>1/125</span>
+              </div>
+              <div className="square-title-info">
+                <span>{item.creator}</span>
+                <span>{item.title}</span>
+              </div>
+              {!isPlaying && <div className="marquee-card__play-indicator">⏸</div>}
             </div>
           </div>
         </div>

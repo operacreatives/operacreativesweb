@@ -1,4 +1,3 @@
-import Link from "next/link";
 
 export function CTABand() {
   return (
@@ -8,9 +7,9 @@ export function CTABand() {
         The world does not need more content. It needs ideas with a pulse, images with staying power, and brands people are
         glad to let into their lives.
       </h2>
-      <Link href="/contact" className="arrow-link">
-        Start a conversation <span aria-hidden="true">↗</span>
-      </Link>
+      <a href="#collaborate" className="arrow-link">
+        Let's Collaborate <span aria-hidden="true">↗</span>
+      </a>
     </section>
   );
 }

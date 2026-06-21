@@ -1,71 +1,87 @@
 "use client";
 
-import { Fragment, useEffect, useMemo, useRef, useState } from "react";
-import { workRows } from "@/data/content";
-import { INITIAL_PROJECT_COUNT, nextVisibleCount, PROJECT_COUNT, shouldShowCta } from "@/lib/work-grid";
+import { useEffect, useRef, useState } from "react";
+import { projects } from "@/data/content";
 import { CTABand } from "./CTABand";
-import { WorkTile } from "./WorkTile";
 
-export function WorkGrid() {
-  const [visibleCount, setVisibleCount] = useState(INITIAL_PROJECT_COUNT);
-  const [loading, setLoading] = useState(false);
-  const loadingRef = useRef(false);
-  const sentinelRef = useRef<HTMLDivElement>(null);
-  const renderedRows = useMemo(() => workRows.slice(0, Math.ceil(visibleCount / 3)), [visibleCount]);
-  const complete = shouldShowCta(visibleCount);
+interface WorkGridItemProps {
+  project: typeof projects[0];
+  index: number;
+}
+
+function WorkGridItem({ project, index }: WorkGridItemProps) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    const sentinel = sentinelRef.current;
-    if (!sentinel || complete) return;
-    let timer: ReturnType<typeof setTimeout>;
+    const el = ref.current;
+    if (!el) return;
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (!entry.isIntersecting || loadingRef.current) return;
-        loadingRef.current = true;
-        setLoading(true);
-        timer = setTimeout(() => {
-          setVisibleCount((current) => nextVisibleCount(current));
-          loadingRef.current = false;
-          setLoading(false);
-        }, 320);
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.unobserve(el); // trigger once
+        }
       },
-      { rootMargin: "500px 0px" },
+      { 
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px"
+      }
     );
-    observer.observe(sentinel);
-    return () => {
-      observer.disconnect();
-      clearTimeout(timer);
-    };
-  }, [complete]);
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
+  const isEven = index % 2 === 0;
+
+  return (
+    <div
+      ref={ref}
+      className={`work-item-row ${isEven ? "work-item-row--even" : "work-item-row--odd"} ${
+        isVisible ? "is-visible" : ""
+      }`}
+    >
+      <div className="work-item-media">
+        <div className="work-item-media-frame">
+          <img
+            src={project.image}
+            alt={project.alt}
+            style={{ objectPosition: project.focalPosition }}
+            className="work-item-img"
+          />
+        </div>
+      </div>
+      
+      <div className="work-item-info">
+        <span className="work-item-number">0{index + 1}</span>
+        <h3 className="work-item-client">{project.client}</h3>
+        <h4 className="work-item-title">{project.title}</h4>
+        
+        <div className="work-item-tags">
+          <span className="work-item-tag">AI PRODUCTION</span>
+          <span className="work-item-tag">CINEMA GRADE</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function WorkGrid() {
   return (
     <section id="work" className="work-section" aria-labelledby="work-title">
       <div className="work-section__heading">
-        <p className="section-kicker">Selected work</p>
+        <p className="section-kicker">SELECTED SHOWCASE</p>
         <h2 id="work-title">Made to be remembered.</h2>
-        <span>{PROJECT_COUNT} projects</span>
+        <span>6 PROJECTS</span>
       </div>
-      <div className="work-grid" data-testid="work-grid">
-        {renderedRows.map((row) => (
-          <Fragment key={row.id}>
-            <div className={`work-row work-row--${row.height}`}>
-              {row.projects.map((project) => (
-                <WorkTile key={project.id} project={project} />
-              ))}
-            </div>
-            {(row.id === 6 || row.id === 12) && <div className="work-divider" aria-hidden="true" />}
-          </Fragment>
+
+      <div className="work-showcase-list">
+        {projects.map((project, index) => (
+          <WorkGridItem key={project.id} project={project} index={index} />
         ))}
-        {loading && (
-          <div className="work-row work-row--standard work-row--skeleton" aria-label="Loading more projects">
-            {[0, 1, 2].map((item) => (
-              <div className="work-skeleton" key={item} />
-            ))}
-          </div>
-        )}
       </div>
-      {!complete && <div ref={sentinelRef} className="work-sentinel" aria-hidden="true" />}
-      {complete && <CTABand />}
+
+      <CTABand />
     </section>
   );
 }
