@@ -1,6 +1,6 @@
 // import { Showreel } from "@/components/Showreel";
 import { WorkMarquee } from "@/components/WorkMarquee";
-import { WorkGrid } from "@/components/WorkGrid";
+import { VimeoGrid } from "@/components/VimeoGrid";
 import { HowItWorks } from "@/components/HowItWorks";
 import { CollaborateForm } from "@/components/CollaborateForm";
 
@@ -9,7 +9,7 @@ export default function HomePage() {
     <>
       {/* <Showreel /> */}
       <WorkMarquee />
-      <WorkGrid />
+      <VimeoGrid />
       <HowItWorks />
       <CollaborateForm />
     </>

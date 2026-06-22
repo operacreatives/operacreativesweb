@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { LogoMark } from "./LogoMark";
 import { Fragment, useState } from "react";
 import { CustomCursor } from "./CustomCursor";
 
@@ -48,18 +49,7 @@ function WorkCard({
       onMouseLeave={onMouseLeave}
     >
       <div className="marquee-card__media">
-        {item.mediaType === "video" && item.videoUrl ? (
-          <video
-            src={item.videoUrl}
-            autoPlay
-            loop
-            muted
-            playsInline
-            style={{ width: "100%", height: "100%", objectFit: "cover", position: "absolute", top: 0, left: 0 }}
-          />
-        ) : (
-          <Image src={item.image} alt={item.client} fill sizes="(max-width: 768px) 240px, 320px" loading="lazy" />
-        )}
+        <Image src={item.image} alt={item.client} fill sizes="(max-width: 768px) 240px, 320px" loading="lazy" />
       </div>
       <div className="marquee-card__overlay">
         <span className="marquee-card__client">{item.client}</span>
@@ -77,6 +67,11 @@ export function WorkMarquee() {
       <CustomCursor isHovering={isHovering} />
 
       <div className="marquee-section__heading">
+        <div className="marquee-section__brand">
+          <LogoMark className="marquee-section__brand-logo" priority />
+          <span className="marquee-section__brand-name">Opera Creatives</span>
+          <span className="marquee-section__brand-line" aria-hidden="true" />
+        </div>
         <h2>The production house for the next decade of brands.</h2>
         <p className="marquee-section__intro">
           An AI-native creative studio built for the speed that e-commerce demands. We blend AI pipelines with sharp creative direction to produce UGC-style videos, product visuals, and scroll-stopping ad content without the agency overhead.
