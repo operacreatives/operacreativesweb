@@ -20,7 +20,7 @@ describe("CollaborateForm interactions", () => {
     const open = vi.spyOn(window, "open").mockImplementation(() => null);
     const { container } = render(<CollaborateForm />);
 
-    fireEvent.click(screen.getByRole("button", { name: /book a scene/i }));
+    fireEvent.click(screen.getByRole("button", { name: /book a call/i }));
 
     expect(container.querySelectorAll(".peekaboo-mascot--dancing")).toHaveLength(2);
 

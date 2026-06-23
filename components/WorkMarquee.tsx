@@ -63,15 +63,10 @@ export function WorkMarquee() {
   const [isHovering, setIsHovering] = useState(false);
 
   return (
-    <section className="marquee-section">
+    <section className="marquee-section" data-hero-region>
       <CustomCursor isHovering={isHovering} />
 
       <div className="marquee-section__heading">
-        <div className="marquee-section__brand">
-          <LogoMark className="marquee-section__brand-logo" priority />
-          <span className="marquee-section__brand-name">Opera Creatives</span>
-          <span className="marquee-section__brand-line" aria-hidden="true" />
-        </div>
         <h2>The production house for the next decade of brands.</h2>
         <p className="marquee-section__intro">
           An AI-native creative studio built for the speed that e-commerce demands. We blend AI pipelines with sharp creative direction to produce UGC-style videos, product visuals, and scroll-stopping ad content without the agency overhead.

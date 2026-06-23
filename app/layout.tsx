@@ -5,9 +5,13 @@ import "@fontsource/inter/600.css";
 import "@fontsource/newsreader/400.css";
 import "@fontsource/newsreader/500.css";
 import "@fontsource/newsreader/600.css";
+import "@fontsource/bebas-neue/400.css";
+import "@fontsource/space-mono/400.css";
+import "@fontsource/space-mono/700.css";
 import "./globals.css";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
+import { IntroAnimation } from "@/components/IntroAnimation";
 
 const SITE_URL = "https://www.operacreatives.com";
 const SITE_NAME = "Opera Creatives";
@@ -108,6 +112,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en">
       <body suppressHydrationWarning>
+        <IntroAnimation />
         <a href="#main-content" className="skip-link">
           Skip to content
         </a>

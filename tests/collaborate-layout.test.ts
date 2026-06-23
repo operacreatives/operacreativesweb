@@ -24,10 +24,10 @@ describe("collaborate mascot layout", () => {
       /\.peekaboo-mascot--right\.peekaboo-mascot--peek\s*{[^}]*translate\(38%,\s*-50%\)/s,
     );
     expect(css).toMatch(
-      /\.peekaboo-mascot--left\.peekaboo-mascot--celebrate\s*{[^}]*translate\(-18%,\s*-50%\)/s,
+      /\.peekaboo-mascot--left\.peekaboo-mascot--celebrate\s*{[^}]*translate\(0%,\s*-50%\)/s,
     );
     expect(css).toMatch(
-      /\.peekaboo-mascot--right\.peekaboo-mascot--celebrate\s*{[^}]*translate\(18%,\s*-50%\)/s,
+      /\.peekaboo-mascot--right\.peekaboo-mascot--celebrate\s*{[^}]*translate\(0%,\s*-50%\)/s,
     );
   });
 

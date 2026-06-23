@@ -1,3 +1,5 @@
+import vimeoThumbnails from "../data/vimeo-thumbnails.json";
+
 export type VimeoMode = "preview" | "player";
 
 export function buildVimeoEmbedUrl(id: string, mode: VimeoMode): string {
@@ -11,6 +13,7 @@ export function buildVimeoEmbedUrl(id: string, mode: VimeoMode): string {
   url.searchParams.set("title", "0");
   url.searchParams.set("playsinline", "1");
   url.searchParams.set("autoplay", "1");
+  url.searchParams.set("api", "1");
 
   if (mode === "preview") {
     url.searchParams.set("background", "0");
@@ -28,5 +31,9 @@ export function buildVimeoEmbedUrl(id: string, mode: VimeoMode): string {
 }
 
 export function buildVimeoThumbnailUrl(id: string): string {
+  const thumbnails = vimeoThumbnails as Record<string, string>;
+  if (thumbnails[id]) {
+    return thumbnails[id];
+  }
   return `https://vumbnail.com/${id}.jpg`;
 }
