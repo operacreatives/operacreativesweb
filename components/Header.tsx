@@ -9,17 +9,30 @@ export function Header() {
   const [solid, setSolid] = useState(false);
 
   useEffect(() => {
+    if (typeof window !== "undefined") {
+      window.history.scrollRestoration = "manual";
+      window.scrollTo(0, 0);
+    }
+  }, []);
+
+  useEffect(() => {
     const hero = document.querySelector<HTMLElement>("[data-hero-region]");
     if (!hero) {
-      queueMicrotask(() => setSolid(true));
+      queueMicrotask(() => {
+        setSolid(true);
+      });
       return;
     }
-    const observer = new IntersectionObserver(([entry]) => setSolid(!entry.isIntersecting), {
+    const observer = new IntersectionObserver(([entry]) => {
+      setSolid(!entry.isIntersecting);
+    }, {
       threshold: 0,
       rootMargin: "-72px 0px 0px 0px",
     });
     observer.observe(hero);
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+    };
   }, [pathname]);
 
   return (
@@ -28,7 +41,7 @@ export function Header() {
         <div className="site-header__left">
         </div>
         <div className="site-header__center">
-          <LogoMark className="site-header__logo" priority />
+          <LogoMark className="site-header__logo" priority showText />
         </div>
         <div className="site-header__right">
           <a href="#collaborate" className="site-header__contact-link">

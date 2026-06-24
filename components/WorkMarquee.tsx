@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { LogoMark } from "./LogoMark";
 import { Fragment, useState } from "react";
 import { CustomCursor } from "./CustomCursor";
 
@@ -48,18 +49,7 @@ function WorkCard({
       onMouseLeave={onMouseLeave}
     >
       <div className="marquee-card__media">
-        {item.mediaType === "video" && item.videoUrl ? (
-          <video
-            src={item.videoUrl}
-            autoPlay
-            loop
-            muted
-            playsInline
-            style={{ width: "100%", height: "100%", objectFit: "cover", position: "absolute", top: 0, left: 0 }}
-          />
-        ) : (
-          <Image src={item.image} alt={item.client} fill sizes="(max-width: 768px) 240px, 320px" loading="lazy" />
-        )}
+        <Image src={item.image} alt={item.client} fill sizes="(max-width: 768px) 240px, 320px" loading="lazy" />
       </div>
       <div className="marquee-card__overlay">
         <span className="marquee-card__client">{item.client}</span>
@@ -73,7 +63,7 @@ export function WorkMarquee() {
   const [isHovering, setIsHovering] = useState(false);
 
   return (
-    <section className="marquee-section">
+    <section className="marquee-section" data-hero-region>
       <CustomCursor isHovering={isHovering} />
 
       <div className="marquee-section__heading">

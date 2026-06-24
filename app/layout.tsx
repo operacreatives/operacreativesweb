@@ -1,13 +1,34 @@
 import type { Metadata } from "next";
-import "@fontsource/inter/400.css";
-import "@fontsource/inter/500.css";
-import "@fontsource/inter/600.css";
-import "@fontsource/newsreader/400.css";
-import "@fontsource/newsreader/500.css";
-import "@fontsource/newsreader/600.css";
+import { Inter, Newsreader, Bebas_Neue, Space_Mono } from "next/font/google";
 import "./globals.css";
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  weight: ["400", "500", "600"],
+});
+
+const newsreader = Newsreader({
+  subsets: ["latin"],
+  variable: "--font-newsreader",
+  weight: ["400", "500", "600"],
+  style: ["normal", "italic"],
+});
+
+const bebasNeue = Bebas_Neue({
+  subsets: ["latin"],
+  variable: "--font-bebas-neue",
+  weight: ["400"],
+});
+
+const spaceMono = Space_Mono({
+  subsets: ["latin"],
+  variable: "--font-space-mono",
+  weight: ["400", "700"],
+});
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
+import { IntroAnimation } from "@/components/IntroAnimation";
 
 const SITE_URL = "https://www.operacreatives.com";
 const SITE_NAME = "Opera Creatives";
@@ -107,7 +128,8 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body suppressHydrationWarning>
+      <body suppressHydrationWarning className={`${inter.variable} ${newsreader.variable} ${bebasNeue.variable} ${spaceMono.variable}`}>
+        <IntroAnimation />
         <a href="#main-content" className="skip-link">
           Skip to content
         </a>

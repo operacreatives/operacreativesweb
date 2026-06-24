@@ -1,7 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
-
 interface Step {
   number: string;
   title: string;
@@ -30,7 +28,6 @@ export function HowItWorks() {
   return (
     <section id="how-it-works" className="how-it-works-section">
       <div className="how-it-works__inner">
-        <span className="how-it-works__eyebrow">THE ENGINE</span>
         <h2 className="how-it-works__heading">
           HOW IT <span className="text-highlight">WORKS</span>
         </h2>
