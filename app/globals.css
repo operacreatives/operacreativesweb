@@ -254,7 +254,7 @@ button {
 .site-header__contact-link {
   font-family: var(--font-mono);
   font-size: 0.95rem;
-  font-weight: 600;
+  font-weight: 400;
   color: var(--black);
   position: relative;
   padding: 0.25rem 0;
@@ -535,7 +535,7 @@ button {
   flex-shrink: 0;
   border-radius: 12px;
   overflow: hidden;
-  background: var(--black);
+  background: transparent;
   transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   cursor: pointer;
 }
@@ -622,10 +622,7 @@ button {
 
 /* Vimeo Grid */
 .vimeo-grid-section {
-  background: var(--black) !important;
   padding: clamp(1rem, 1.75vw, 2rem) 0 clamp(1.5rem, 2.5vw, 3rem);
-  border-radius: 24px;
-  overflow: hidden;
 }
 
 .vimeo-grid {
@@ -642,7 +639,7 @@ button {
   border: 0;
   padding: 0;
   overflow: hidden;
-  background: #111;
+  background: transparent;
   cursor: pointer;
   border-radius: 16px;
   isolation: isolate;
@@ -651,7 +648,7 @@ button {
 }
 
 .vimeo-card--vertical {
-  background: #000000 !important;
+  background: transparent !important;
 }
 
 .vimeo-card--vertical .vimeo-card__thumbnail {

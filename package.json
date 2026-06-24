@@ -15,7 +15,7 @@
   "dependencies": {
     "@fontsource/bebas-neue": "^5.2.7",
     "@fontsource/inter": "^5.2.6",
-    "@fontsource/newsreader": "^5.2.8",
+    "@fontsource/newsreader": "^5.2.10",
     "@fontsource/space-mono": "^5.2.9",
     "framer-motion": "^12.40.0",
     "next": "16.2.9",
