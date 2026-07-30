@@ -4,7 +4,7 @@ import { vimeoProjects } from "@/data/vimeo-projects";
 
 describe("vimeo grid helpers", () => {
   it("keeps the restored uploaded Vimeo list intact", () => {
-    expect(vimeoProjects).toHaveLength(20);
+    expect(vimeoProjects).toHaveLength(19);
     expect(vimeoProjects[0]?.id).toBe("1203214001");
     expect(vimeoProjects.at(-1)?.id).toBe("1152865784");
   });

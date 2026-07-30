@@ -1,110 +1,30 @@
-"use client";
-
-import Image from "next/image";
-import { useEffect, useState } from "react";
 import { vimeoProjects } from "@/data/vimeo-projects";
-import { buildVimeoEmbedUrl, buildVimeoThumbnailUrl } from "@/lib/vimeo";
+import { fetchVimeoAspect } from "@/lib/vimeo";
+import { VimeoMosaic, type MosaicItem } from "./VimeoMosaic";
 
-export function VimeoGrid() {
-  const [hoveredId, setHoveredId] = useState<string | null>(null);
-  const [selectedId, setSelectedId] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (!selectedId) {
-      return undefined;
-    }
-
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        setSelectedId(null);
-      }
-    };
-
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    window.addEventListener("keydown", onKeyDown);
-
-    return () => {
-      document.body.style.overflow = previousOverflow;
-      window.removeEventListener("keydown", onKeyDown);
-    };
-  }, [selectedId]);
-
-  return (
-    <section id="work" className="vimeo-grid-section">
-      <div className="vimeo-grid" data-testid="vimeo-grid">
-        {vimeoProjects.map((project) => {
-          const isPreviewing = hoveredId === project.id && selectedId === null;
-
-          return (
-            <button
-              key={project.id}
-              type="button"
-              className="vimeo-card"
-              onMouseEnter={() => setHoveredId(project.id)}
-              onMouseLeave={() => setHoveredId((current) => (current === project.id ? null : current))}
-              onFocus={() => setHoveredId(project.id)}
-              onBlur={() => setHoveredId((current) => (current === project.id ? null : current))}
-              onClick={() => setSelectedId(project.id)}
-              aria-label={`Open Vimeo video ${project.id}`}
-            >
-              <Image
-                src={buildVimeoThumbnailUrl(project.id)}
-                alt=""
-                fill
-                unoptimized
-                sizes="(max-width: 768px) 100vw, 33vw"
-                className={`vimeo-card__thumbnail ${isPreviewing ? "is-dimmed" : ""}`}
-              />
-
-              {isPreviewing ? (
-                <iframe
-                  className="vimeo-card__preview"
-                  src={buildVimeoEmbedUrl(project.id, "preview")}
-                  allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
-                  allowFullScreen
-                  loading="eager"
-                  referrerPolicy="strict-origin-when-cross-origin"
-                  title={`Preview ${project.id}`}
-                  tabIndex={-1}
-                  aria-hidden="true"
-                  style={{ pointerEvents: "none" }}
-                />
-              ) : null}
-            </button>
-          );
-        })}
-      </div>
-
-      {selectedId ? (
-        <div
-          className="vimeo-lightbox"
-          role="dialog"
-          aria-modal="true"
-          aria-label="Vimeo video player"
-          onClick={() => setSelectedId(null)}
-        >
-          <button
-            type="button"
-            className="vimeo-lightbox__close"
-            onClick={() => setSelectedId(null)}
-            aria-label="Close video player"
-          >
-            Close
-          </button>
-          <div className="vimeo-lightbox__frame" onClick={(event) => event.stopPropagation()}>
-            <iframe
-              className="vimeo-lightbox__player"
-              src={buildVimeoEmbedUrl(selectedId, "player")}
-              allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
-              allowFullScreen
-              loading="eager"
-              referrerPolicy="strict-origin-when-cross-origin"
-              title={`Player ${selectedId}`}
-            />
-          </div>
-        </div>
-      ) : null}
-    </section>
+// Server component: resolves each video's native aspect ratio from Vimeo, then
+// hands the interactive mosaic a variant per tile so portrait videos render
+// portrait, wide videos render wide — no forced squares.
+export async function VimeoGrid() {
+  const aspects = await Promise.all(
+    vimeoProjects.map((project) => fetchVimeoAspect(project.id)),
   );
+
+  // Promote two well-spaced landscapes into large 2x2 "feature" tiles so the
+  // grid has rhythm without becoming a wall of identical cells. Kept sparse on
+  // purpose — most tiles stay standard 16:9.
+  const featureAt = new Set([2, 10]);
+  let landscapeCount = 0;
+  const items: MosaicItem[] = aspects.map((aspect) => {
+    let variant = aspect.variant;
+    if (variant === "landscape") {
+      if (featureAt.has(landscapeCount)) {
+        variant = "feature";
+      }
+      landscapeCount += 1;
+    }
+    return { id: aspect.id, variant, thumbnailUrl: aspect.thumbnailUrl };
+  });
+
+  return <VimeoMosaic items={items} />;
 }
