@@ -41,7 +41,7 @@ export function CollaborateForm() {
     : "resting";
 
   const mascotImgSrc =
-    mascotState === "happy" || mascotState === "action"
+    mascotState === "hover" || mascotState === "action"
       ? "/mascots/peekaboo_mascot_happy.webp"
       : "/mascots/peekaboo_mascot.webp";
 
