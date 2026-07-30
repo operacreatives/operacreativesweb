@@ -57,7 +57,7 @@ export function Footer() {
             {/* Social Logos */}
             <div className="official-footer__socials">
               <a
-                href="https://instagram.com/operacreatives_"
+                href="https://www.instagram.com/operacreatives_"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"

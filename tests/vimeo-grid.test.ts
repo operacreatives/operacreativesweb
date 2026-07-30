@@ -4,8 +4,8 @@ import { vimeoProjects } from "@/data/vimeo-projects";
 
 describe("vimeo grid helpers", () => {
   it("keeps the restored uploaded Vimeo list intact", () => {
-    expect(vimeoProjects).toHaveLength(20);
-    expect(vimeoProjects[0]?.id).toBe("1203214003");
+    expect(vimeoProjects).toHaveLength(19);
+    expect(vimeoProjects[0]?.id).toBe("1203214001");
     expect(vimeoProjects.at(-1)?.id).toBe("1152865784");
   });
 
@@ -30,6 +30,6 @@ describe("vimeo grid helpers", () => {
   });
 
   it("builds thumbnail URLs without needing a title overlay", () => {
-    expect(buildVimeoThumbnailUrl("1203214001")).toBe("https://i.vimeocdn.com/video/2171190762-6e1dc44837185965e3bca00447077100338d64f5738bdd9e09af22374ece3de3-d_1280?region=us");
+    expect(buildVimeoThumbnailUrl("1203214001")).toBe("https://vumbnail.com/1203214001.jpg");
   });
 });

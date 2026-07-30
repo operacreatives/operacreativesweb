@@ -1,0 +1,95 @@
+.oc-preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 99999;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.oc-preloader__curtain {
+  position: absolute;
+  top: -5vh;
+  left: 0;
+  width: 150vw;
+  height: 110vh;
+  background-color: #ffffff;
+  border-top-left-radius: 40px;
+  border-bottom-left-radius: 40px;
+  box-shadow: -30px 0 60px rgba(0,0,0,0.15);
+  transform: translateX(0);
+  transition: transform 2.8s cubic-bezier(0.3, 0, 0.2, 1);
+  will-change: transform;
+}
+
+.oc-preloader.is-sliding .oc-preloader__curtain {
+  transform: translateX(120vw);
+}
+
+/* Doubled Mascot Size (from 300px to ~600px) */
+.oc-preloader__mascot-wrapper {
+  position: absolute;
+  left: calc(-1 * clamp(280px, 22vw, 350px)); /* Half of width to center on border */
+  top: 50%;
+  transform: translateY(-50%);
+  width: clamp(560px, 44vw, 700px);
+  height: clamp(560px, 44vw, 700px);
+  z-index: 2;
+}
+
+.oc-preloader__mascot-img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+}
+
+/* Subtle Micro-Vibration Effect during Slide */
+.oc-preloader.is-sliding .oc-preloader__mascot-img {
+  animation: mascotVibrate 0.22s ease-in-out infinite alternate;
+}
+
+@keyframes mascotVibrate {
+  0% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  33% { transform: translate3d(-1.5px, 1px, 0) rotate(-0.4deg); }
+  66% { transform: translate3d(1.5px, -1px, 0) rotate(0.4deg); }
+  100% { transform: translate3d(-1px, -1.5px, 0) rotate(-0.2deg); }
+}
+
+/* Action Speed Lines Trailing behind the Mascot */
+.oc-preloader__speed-lines {
+  position: absolute;
+  left: -200px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 250px;
+  height: 400px;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.oc-preloader.is-sliding .oc-preloader__speed-lines {
+  opacity: 1;
+}
+
+.speed-line {
+  position: absolute;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, #000000, transparent);
+  border-radius: 2px;
+  animation: speedLinePulse 0.15s ease-in-out infinite alternate;
+}
+
+.speed-line--1 { top: 15%; left: 0; width: 180px; }
+.speed-line--2 { top: 35%; left: -40px; width: 220px; animation-delay: 0.03s; }
+.speed-line--3 { top: 55%; left: 20px; width: 160px; animation-delay: 0.07s; }
+.speed-line--4 { top: 75%; left: -20px; width: 240px; animation-delay: 0.04s; }
+.speed-line--5 { top: 90%; left: 40px; width: 140px; animation-delay: 0.08s; }
+
+@keyframes speedLinePulse {
+  0% { transform: scaleX(0.7) translateX(0); opacity: 0.4; }
+  100% { transform: scaleX(1.3) translateX(-30px); opacity: 1; }
+}

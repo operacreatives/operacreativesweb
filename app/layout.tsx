@@ -26,9 +26,10 @@ const spaceMono = Space_Mono({
   variable: "--font-space-mono",
   weight: ["400", "700"],
 });
+
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
-import { IntroAnimation } from "@/components/IntroAnimation";
+import { Preloader } from "@/components/Preloader";
 
 const SITE_URL = "https://www.operacreatives.com";
 const SITE_NAME = "Opera Creatives";
@@ -128,11 +129,14 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="preconnect" href="https://player.vimeo.com" />
+      </head>
       <body suppressHydrationWarning className={`${inter.variable} ${newsreader.variable} ${bebasNeue.variable} ${spaceMono.variable}`}>
-        <IntroAnimation />
         <a href="#main-content" className="skip-link">
           Skip to content
         </a>
+        <Preloader />
         <Header />
         <main id="main-content">{children}</main>
         <Footer />

@@ -10,50 +10,58 @@ export function CustomCursor({ isHovering }: { isHovering: boolean }) {
   // Framer Motion values for smooth physical tracking
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
-  
-  const springConfig = { damping: 25, stiffness: 200, mass: 0.5 };
+
+  const springConfig = { damping: 25, stiffness: 220, mass: 0.4 };
   const cursorXSpring = useSpring(cursorX, springConfig);
   const cursorYSpring = useSpring(cursorY, springConfig);
 
   useEffect(() => {
     const moveCursor = (e: MouseEvent) => {
-      cursorX.set(e.clientX + 15); // Offset to bottom-right of the actual cursor
-      cursorY.set(e.clientY + 15);
+      setIsVisible(true);
+      cursorX.set(e.clientX + 14);
+      cursorY.set(e.clientY + 14);
     };
-    
-    // Only show the cursor wrapper when mouse is in the window
-    const handleMouseEnter = () => setIsVisible(true);
+
     const handleMouseLeave = () => setIsVisible(false);
 
-    window.addEventListener("mousemove", moveCursor);
-    document.documentElement.addEventListener("mouseenter", handleMouseEnter);
+    window.addEventListener("mousemove", moveCursor, { passive: true });
     document.documentElement.addEventListener("mouseleave", handleMouseLeave);
 
     return () => {
       window.removeEventListener("mousemove", moveCursor);
-      document.documentElement.removeEventListener("mouseenter", handleMouseEnter);
       document.documentElement.removeEventListener("mouseleave", handleMouseLeave);
     };
   }, [cursorX, cursorY]);
-
-  if (!isVisible) return null;
 
   return (
     <motion.div
       className="mascot-cursor-wrapper"
       style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        width: 40,
+        height: 29,
+        pointerEvents: "none",
+        zIndex: 9999,
         x: cursorXSpring,
         y: cursorYSpring,
-        scale: isHovering ? 1 : 0,
-        opacity: isHovering ? 1 : 0,
+        scale: isHovering && isVisible ? 1 : 0,
+        opacity: isHovering && isVisible ? 1 : 0,
       }}
+      animate={{
+        scale: isHovering && isVisible ? 1 : 0,
+        opacity: isHovering && isVisible ? 1 : 0,
+      }}
+      transition={{ duration: 0.18, ease: "easeOut" }}
     >
-      <Image 
-        src="/logo-oc.png" 
-        alt="Custom Cursor" 
-        width={40} 
-        height={29} 
+      <Image
+        src="/logo-oc-small.webp"
+        alt="Custom Cursor"
+        width={40}
+        height={29}
         style={{ objectFit: "contain", width: "100%", height: "100%" }}
+        priority
       />
     </motion.div>
   );
