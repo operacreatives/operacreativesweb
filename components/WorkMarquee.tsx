@@ -76,7 +76,7 @@ export function WorkMarquee() {
   const [isHovering, setIsHovering] = useState(false);
 
   return (
-    <section className="marquee-section">
+    <section className="marquee-section" data-hero-region>
       <CustomCursor isHovering={isHovering} />
 
       <div className="marquee-section__heading">

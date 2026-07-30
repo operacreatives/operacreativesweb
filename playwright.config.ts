@@ -6,13 +6,13 @@ export default defineConfig({
   workers: 2,
   timeout: 60_000,
   use: {
-    baseURL: "http://127.0.0.1:3000",
+    baseURL: "http://localhost:3000",
     trace: "retain-on-failure",
   },
   webServer: {
     command: "npm run build && npm run start",
-    url: "http://127.0.0.1:3000",
-    reuseExistingServer: false,
+    url: "http://localhost:3000",
+    reuseExistingServer: true,
     timeout: 180_000,
   },
   projects: [
