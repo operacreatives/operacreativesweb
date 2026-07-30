@@ -86,7 +86,7 @@ export function WorkMarquee() {
         </div>
         <h2>The production house for the next decade of brands.</h2>
         <p className="marquee-section__intro">
-          An AI-native creative studio built for the speed that e-commerce demands. We blend AI pipelines with sharp creative direction to produce UGC-style videos, animated visuals, product visuals, and scroll-stopping ad content without the agency overhead.
+          An AI-native creative studio built for the speed that e-commerce demands. We blend AI pipelines with sharp creative direction to produce UGC-style videos, animated visuals, product visuals, and scroll-stopping ad content.
         </p>
       </div>
 

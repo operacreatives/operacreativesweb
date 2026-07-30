@@ -5,7 +5,7 @@ import { useState, type ReactNode } from "react";
 type TabKey = "work" | "fifa";
 
 const TABS: Array<{ key: TabKey; index: string; label: string }> = [
-  { key: "work", index: "01", label: "Selected Work" },
+  { key: "work", index: "01", label: "Our Work" },
   { key: "fifa", index: "02", label: "FIFA World Cup Animations" },
 ];
 
