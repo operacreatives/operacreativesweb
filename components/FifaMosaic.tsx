@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { buildVimeoEmbedUrl, type WorkVariant } from "@/lib/vimeo";
 import { useGridRowUnit } from "@/hooks/useGridRowUnit";
-import { FifaStarIcon } from "./FifaStarIcon";
 
 export type FifaSlot = { id: string; variant: WorkVariant; thumbnailUrl: string } | null;
 
@@ -121,10 +120,7 @@ export function FifaMosaic({ slots }: { slots: FifaSlot[] }) {
                 </svg>
               </span>
 
-              <span className="fifa-card-star" aria-hidden="true">
-                <FifaStarIcon width={12} height={12} />
-                FIFA
-              </span>
+              <span className="fifa-card-star" aria-hidden="true">FIFA</span>
             </button>
           );
         })}

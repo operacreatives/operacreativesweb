@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, type ReactNode } from "react";
-import { FifaStarIcon } from "./FifaStarIcon";
 
 type TabKey = "work" | "fifa";
 
@@ -35,14 +34,7 @@ export function WorkShowcase({
               onClick={() => setActive(tab.key)}
             >
               <span className="work-showcase__tab-index">{tab.index}</span>
-              <span className="work-showcase__tab-name">
-                {tab.label}
-                {tab.key === "fifa" && (
-                  <span className="fifa-star-badge" aria-hidden="true">
-                    <FifaStarIcon className="fifa-star-svg" width={26} height={26} />
-                  </span>
-                )}
-              </span>
+              <span className="work-showcase__tab-name">{tab.label}</span>
               <svg
                 className="work-showcase__tab-arrow"
                 viewBox="0 0 24 24"
