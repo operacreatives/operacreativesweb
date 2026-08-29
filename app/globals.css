@@ -553,33 +553,6 @@ button {
   padding: 0 var(--page-gutter) clamp(4rem, 7vw, 8rem);
 }
 
-.marquee-section__brand {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 2.25rem;
-}
-
-.marquee-section__brand-logo {
-  width: 62px;
-  height: 46px;
-}
-
-.marquee-section__brand-name {
-  font-family: "Space Mono", monospace;
-  font-size: 0.95rem;
-  font-weight: 700;
-  letter-spacing: 0.28em;
-  color: var(--red);
-  text-transform: uppercase;
-}
-
-.marquee-section__brand-line {
-  width: clamp(3rem, 10vw, 8rem);
-  height: 1px;
-  background: color-mix(in srgb, var(--red) 55%, transparent);
-}
-
 .marquee-section__heading h2 {
   margin: 0 0 1.5rem;
   font-family: var(--font-serif);
