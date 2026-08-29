@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { LogoMark } from "./LogoMark";
 import { Fragment, useState } from "react";
 import { CustomCursor } from "./CustomCursor";
 
@@ -80,10 +79,6 @@ export function WorkMarquee() {
       <CustomCursor isHovering={isHovering} />
 
       <div className="marquee-section__heading">
-        <div className="marquee-section__brand">
-          <LogoMark className="marquee-section__brand-logo" priority />
-          <span className="marquee-section__brand-name">Opera Creatives</span>
-        </div>
         <h2>The production house for the next decade of brands.</h2>
         <p className="marquee-section__intro">
           An AI-native creative studio built for the speed that e-commerce demands. We blend AI pipelines with sharp creative direction to produce UGC-style videos, animated visuals, product visuals, and scroll-stopping ad content.
