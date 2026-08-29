@@ -29,13 +29,13 @@ export function LogoMark({ className = "", priority = false, showText = false }:
       className={`logo-mark ${className}`} 
       aria-label="Opera Creatives home"
     >
-      <Image 
-        src="/logo-oc.png" 
-        alt="" 
-        width={889} 
-        height={645} 
-        priority={priority} 
-        sizes="96px" 
+      <Image
+        src="/logo-oc.png"
+        alt=""
+        width={280}
+        height={645}
+        priority={priority}
+        sizes="96px"
         style={{ width: "62px", height: "auto" }}
         className="logo-mark__image"
       />
