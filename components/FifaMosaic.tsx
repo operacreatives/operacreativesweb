@@ -3,10 +3,11 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import { buildVimeoEmbedUrl } from "@/lib/vimeo";
+import { buildVimeoEmbedUrl, type WorkVariant } from "@/lib/vimeo";
 import { useGridRowUnit } from "@/hooks/useGridRowUnit";
+import { FifaStarIcon } from "./FifaStarIcon";
 
-export type FifaSlot = { id: string; thumbnailUrl: string } | null;
+export type FifaSlot = { id: string; variant: WorkVariant; thumbnailUrl: string } | null;
 
 export function FifaMosaic({ slots }: { slots: FifaSlot[] }) {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
@@ -58,7 +59,7 @@ export function FifaMosaic({ slots }: { slots: FifaSlot[] }) {
             );
           }
 
-          const { id, thumbnailUrl } = slot;
+          const { id, variant, thumbnailUrl } = slot;
           const isPreviewing = hoveredId === id && selectedId === null;
           const isVideoReady = isPreviewing && Boolean(loadedPreviewIds[id]);
 
@@ -66,7 +67,7 @@ export function FifaMosaic({ slots }: { slots: FifaSlot[] }) {
             <button
               key={id}
               type="button"
-              className="work-mosaic__tile"
+              className={`work-mosaic__tile work-mosaic__tile--${variant}`}
               onMouseEnter={() => setHoveredId(id)}
               onMouseLeave={() => {
                 setHoveredId((current) => (current === id ? null : current));
@@ -118,6 +119,11 @@ export function FifaMosaic({ slots }: { slots: FifaSlot[] }) {
                 <svg viewBox="0 0 24 24" width="18" height="18" fill="none">
                   <path d="M8 5.5v13l11-6.5-11-6.5Z" fill="currentColor" />
                 </svg>
+              </span>
+
+              <span className="fifa-card-star" aria-hidden="true">
+                <FifaStarIcon width={12} height={12} />
+                FIFA
               </span>
             </button>
           );
