@@ -51,6 +51,14 @@ export function Footer() {
             <a href="mailto:hi@operacreatives.com" className="footer-email-link">
               hi@operacreatives.com
             </a>
+            <a
+              href="https://cal.com/operacreatives/hello"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="footer-email-link"
+            >
+              Book a Call
+            </a>
           </div>
 
           <div className="official-footer__actions">

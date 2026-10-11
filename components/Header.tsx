@@ -37,8 +37,13 @@ export function Header() {
           </button>
         </div>
         <div className="site-header__right">
-          <a href="#collaborate" className="site-header__contact-link">
-            Contact
+          <a
+            href="https://cal.com/operacreatives/hello"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="site-header__contact-link"
+          >
+            Book a Call
           </a>
         </div>
       </div>
