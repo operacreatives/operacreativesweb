@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useState, useRef, useEffect } from "react";
 
-const CAL_BOOKING_URL = "https://cal.com/operacreatives";
+const CAL_BOOKING_URL = "https://cal.com/operacreatives/hello";
 // Flattened film tape and implemented transparent reel cutouts
 const LONG_PRESS_MS = 1800; // 1.8 seconds long-press to trigger action scene
 
@@ -24,14 +24,14 @@ export function CollaborateForm() {
       setIsFlapping(false);
     }, 400);
 
-    // After 2 seconds of dancing, redirect
+    // Redirect right after the clapper closes
     setTimeout(() => {
       window.open(CAL_BOOKING_URL, "_blank");
       // Reset state shortly after opening new tab
       setTimeout(() => {
         setIsActionTriggered(false);
       }, 1200);
-    }, 2000);
+    }, 400);
   };
 
   const mascotState = isActionTriggered
