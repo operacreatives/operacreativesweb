@@ -2,7 +2,7 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 
 // Serves the standalone pitch deck HTML at /deck, with PostHog tracking injected.
-// Set NEXT_PUBLIC_POSTHOG_KEY (and optionally NEXT_PUBLIC_POSTHOG_HOST) to enable tracking.
+// NEXT_PUBLIC_POSTHOG_KEY / NEXT_PUBLIC_POSTHOG_HOST override the defaults below (public project key, safe to ship).
 
 export const dynamic = "force-static";
 
@@ -62,7 +62,7 @@ function trackingScript(key: string, host: string): string {
 
 export async function GET(): Promise<Response> {
   const html = await readFile(DECK_FILE, "utf8");
-  const key = process.env.NEXT_PUBLIC_POSTHOG_KEY;
+  const key = process.env.NEXT_PUBLIC_POSTHOG_KEY || "phc_BP7bkAroU9JunCphcQijDrHMQKUfnwnbMZLjJ2N4SVA4";
   const host = process.env.NEXT_PUBLIC_POSTHOG_HOST || "https://us.i.posthog.com";
   const body = html.replace("<!--POSTHOG-->", key ? trackingScript(key, host) : "");
 
