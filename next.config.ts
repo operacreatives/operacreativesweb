@@ -11,6 +11,12 @@ const nextConfig: NextConfig = {
         destination: "/deck?ref=card",
         permanent: false,
       },
+      {
+        // Written onto NFC cards/tags. Same idea as /qr, tracked separately in PostHog (ref=nfc).
+        source: "/nfc",
+        destination: "/deck?ref=nfc",
+        permanent: false,
+      },
     ];
   },
   images: {
