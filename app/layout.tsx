@@ -27,6 +27,7 @@ const spaceMono = Space_Mono({
   weight: ["400", "700"],
 });
 
+import { Analytics } from "@vercel/analytics/next";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { Preloader } from "@/components/Preloader";
@@ -140,6 +141,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <Header />
         <main id="main-content">{children}</main>
         <Footer />
+        <Analytics />
       </body>
     </html>
   );
