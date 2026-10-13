@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Opera Creatives — Design Draft v3</title>
+<title>Opera Creatives — Design Draft v4</title>
 <meta name="description" content="Design draft v3 for the Opera Creatives website.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -48,7 +48,8 @@ button{font:inherit;color:inherit;cursor:pointer;background:none;border:0}
 
 /* floating pill header */
 .hdr{position:fixed;top:.9rem;left:50%;transform:translateX(-50%);z-index:60;width:min(74rem,calc(100% - 2*var(--gut)));display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.5rem .55rem .5rem 1.3rem;background:rgba(253,246,238,.82);backdrop-filter:blur(14px) saturate(1.2);border:1px solid var(--line);border-radius:999px;box-shadow:0 8px 30px rgba(11,11,11,.08)}
-.logo{text-decoration:none;font-family:var(--display);font-size:1.9rem;letter-spacing:.05em;line-height:1}
+.logo{display:flex;align-items:center;gap:.6rem;text-decoration:none;font-weight:800;font-size:1.05rem;letter-spacing:-.03em;line-height:1}
+.logo img{height:34px;width:auto;border-radius:7px}
 .nav{display:flex;gap:.3rem;font-weight:500;font-size:.94rem}
 .nav a{text-decoration:none;padding:.45rem .85rem;border-radius:999px;transition:background .25s,color .25s}
 .nav a:hover{background:var(--ink);color:var(--cream)}
@@ -71,19 +72,17 @@ button{font:inherit;color:inherit;cursor:pointer;background:none;border:0}
 
 /* hero */
 .hero{min-height:100svh;padding:7rem 0 0;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden}
-.hero h1{text-align:center;font-size:clamp(3.6rem,13.4vw,16rem);padding:0 var(--gut);margin:2.5rem 0 0}
+.hero h1{font-family:var(--sans);font-weight:800;text-transform:none;letter-spacing:-.062em;line-height:.9;font-size:clamp(3.4rem,11.2vw,13rem);padding:0 var(--gut);margin:2rem 0 0;max-width:20ch}
 .hero h1 span{color:var(--red)}
 .hero__foot{display:flex;align-items:end;justify-content:space-between;gap:2rem;flex-wrap:wrap;padding:2rem var(--gut)}
 .hero__foot p{max-width:30rem;font-size:clamp(1.05rem,1.4vw,1.3rem);font-weight:500;letter-spacing:-.02em;line-height:1.3}
 .hero__cta{display:flex;gap:.7rem;flex-wrap:wrap}
 
-/* value (red) */
-.man{background:var(--red);color:var(--cream)}
-.man h2{font-size:clamp(3.6rem,9vw,9.5rem);line-height:.88;margin:1.2rem 0 clamp(2.5rem,5vw,5rem);max-width:15ch}
-.man h2 span{color:var(--ink)}
-.vals{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(1.2rem,3vw,3rem);border-top:1.5px solid rgba(248,231,216,.55);padding-top:1.6rem}
-.val b{display:block;font-family:var(--display);font-weight:400;font-size:2.6rem;line-height:1;text-transform:uppercase;margin-bottom:.6rem}
-.val p{max-width:20rem;font-size:1.08rem;font-weight:500;line-height:1.35}
+/* statement */
+.about{background:var(--ink);color:var(--cream)}
+.about p.st{font-weight:700;letter-spacing:-.045em;line-height:1.04;font-size:clamp(2.1rem,4.9vw,5.2rem);margin-top:1.6rem;max-width:22ch}
+.about p.st em{font-style:normal;color:var(--red)}
+.about .sub{margin-top:2rem;max-width:34rem;color:rgba(248,231,216,.75);font-size:1.15rem}
 
 /* work */
 .work__head{display:flex;justify-content:space-between;align-items:end;gap:2rem;flex-wrap:wrap;margin-bottom:2.5rem}
@@ -103,21 +102,16 @@ button{font:inherit;color:inherit;cursor:pointer;background:none;border:0}
 .wgrid .extra{display:none}
 .wgrid.all .extra{display:block}
 
-/* services */
-.svc3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin-top:3rem}
-.sv{display:flex;flex-direction:column;border-radius:12px;overflow:hidden;transition:transform .45s var(--ease)}
-.sv:hover{transform:translateY(-6px)}
-.sv__pic{position:relative;aspect-ratio:16/11;background:#26221e;overflow:hidden}
-.sv__pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
-.sv:hover .sv__pic img{transform:scale(1.06)}
-.sv__body{padding:1.5rem 1.5rem 1.8rem;display:flex;flex-direction:column;gap:.9rem;flex:1}
-.sv h3{font-family:var(--display);font-weight:400;font-size:clamp(2.6rem,4vw,4rem);line-height:.92;text-transform:uppercase}
-.sv p{font-size:1.05rem;max-width:26rem}
-.sv ul{list-style:none;display:flex;gap:.4rem;flex-wrap:wrap;margin-top:auto;padding-top:.6rem}
-.sv li{font-family:var(--mono);font-size:.64rem;letter-spacing:.07em;text-transform:uppercase;padding:.3rem .6rem;border:1px solid currentColor;border-radius:999px;opacity:.85}
-.sv--red{background:var(--red);color:var(--cream)}
-.sv--ink{background:var(--ink);color:var(--cream)}
-.sv--paper{background:var(--paper);box-shadow:inset 0 0 0 1.5px var(--ink)}
+/* services list */
+.slist{margin-top:3rem;border-top:1.5px solid var(--ink)}
+.srow{display:grid;grid-template-columns:3.2rem minmax(0,1.1fr) minmax(0,1fr) 9.5rem;gap:1.2rem;align-items:center;padding:1.2rem 0;border-bottom:1px solid var(--line);transition:padding .4s var(--ease),background .3s}
+.srow:hover{padding-left:1rem;padding-right:1rem;background:var(--paper)}
+.srow .n{color:var(--red)}
+.srow h3{font-family:var(--display);font-weight:400;font-size:clamp(2rem,3.6vw,3.6rem);line-height:.95;text-transform:uppercase}
+.srow p{color:#4a453f;font-size:1.02rem;max-width:26rem}
+.srow .pic{aspect-ratio:16/10;background:#26221e;border-radius:4px;overflow:hidden;position:relative}
+.srow .pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease)}
+.srow:hover .pic img{transform:scale(1.1)}
 
 /* process film strip */
 .proc{background:var(--ink-2);color:var(--cream)}
@@ -207,7 +201,8 @@ fieldset{border:0}
   .hdr.menu .nav{display:flex;flex-direction:column;width:100%;order:3;font-family:var(--display);font-size:2.4rem;padding:1rem 0}
   .hdr.menu .btn{display:inline-flex;order:4;margin:.4rem 0}
   .cta{grid-template-columns:1fr}
-  .vals,.svc3{grid-template-columns:1fr}
+  .srow{grid-template-columns:2.4rem 1fr 6.5rem}
+  .srow p{grid-column:2/-1;grid-row:2}
   .faq{grid-template-columns:1fr}
   .two{grid-template-columns:1fr}
 }
@@ -217,7 +212,7 @@ fieldset{border:0}
 <body>
 
 <header class="hdr" id="hdr">
-  <a class="logo" href="#top" aria-label="Opera Creatives home">Opera</a>
+  <a class="logo" href="#top" aria-label="Opera Creatives home"><img src="data:image/webp;base64,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" alt=""><span>Opera Creatives</span></a>
   <nav class="nav" id="nav" aria-label="Primary">
     <a href="#work">Work</a><a href="#services">Services</a><a href="#process">Process</a><a href="#faq">FAQ</a>
   </nav>
@@ -230,10 +225,10 @@ fieldset{border:0}
 <main id="top">
 <!-- HERO -->
 <section class="hero">
-  <h1 class="display rv">Anime. VFX. Dubbing.<br><span>Made in days.</span></h1>
+  <h1 class="rv">Films, anime and animation <span>that move people.</span></h1>
   <div>
     <div class="hero__foot">
-      <p>Opera Creatives is a creative studio for anime-style animation, hybrid VFX, dubbing and brand films, crafted by artists and delivered fast.</p>
+      <p>Opera Creatives is an AI-native production studio for brands that need great video, fast.</p>
       <div class="hero__cta">
         <button class="btn" data-book="hero">Book a discovery call <i aria-hidden="true">↗</i></button>
         <button class="btn btn--ghost" data-play="1233639706">▶ Watch showreel</button>
@@ -243,15 +238,11 @@ fieldset{border:0}
   </div>
 </section>
 
-<!-- VALUE -->
-<section class="man pad on-red">
-  <span class="slate">Why Opera</span>
-  <h2 class="display rv">One studio. <span>Three specialities.</span> Days, not weeks.</h2>
-  <div class="vals rv">
-    <div class="val"><b>Fast</b><p>From brief to first cut in days, so you launch while the moment is still hot.</p></div>
-    <div class="val"><b>One team</b><p>Anime, hybrid VFX and dubbing under one roof. No handoffs, no chasing vendors.</p></div>
-    <div class="val"><b>Built to travel</b><p>Dub every film, so a single idea works in every market.</p></div>
-  </div>
+<!-- STATEMENT -->
+<section class="about pad on-dark">
+  <span class="slate">About us</span>
+  <p class="st rv">Opera Creatives is the <em>AI-native production studio</em> for animation, hybrid VFX, dubbing, brand films, commercials, UGC videos, product visuals and more.</p>
+  <p class="sub rv">One team, start to finish. Fast turnarounds, no handoffs, and work made to be seen.</p>
 </section>
 
 <!-- WORK -->
@@ -267,9 +258,9 @@ fieldset{border:0}
 
 <!-- SERVICES -->
 <section class="pad on-light" id="services" style="padding-top:0">
-  <span class="slate">What we do</span>
-  <h2 class="display h2 rv">Three things,<br>done properly</h2>
-  <div class="svc3" id="svc3"></div>
+  <span class="slate">Services</span>
+  <h2 class="display h2 rv">What we make</h2>
+  <div class="slist" id="slist"></div>
 </section>
 
 <!-- PROCESS -->
@@ -373,11 +364,16 @@ $("#more").onclick = e => { const all = $("#wgrid").classList.toggle("all"); e.t
 
 /* services */
 const SVC = [
-  ["sv--red", "Anime-style animation", "Stylised anime for launches, series and campaigns. Character design, motion and finishing, all handled in-house.", ["Character design", "Series", "Loops"], REEL[3]],
-  ["sv--ink", "Hybrid VFX", "Send us your ready footage. We add flames, smoke, sparks and more, so it looks like it was filmed that way.", ["Flames", "Smoke", "Sparks", "Compositing"], REEL[1]],
-  ["sv--paper", "Dubbing", "Natural multi-language voices with lip-sync, so one film speaks to every market.", ["Voice", "Lip-sync", "Localisation"], REEL[6]],
+  ["Anime-style animation", "Stylised anime for launches, series and campaigns, from character design to final frame.", REEL[3]],
+  ["Animation & FIFA World Cup films", "Animated series and event films built for big moments, like our FIFA World Cup animations.", REEL[0]],
+  ["Hybrid VFX", "Send us ready footage. We add flames, smoke, sparks and more so it looks filmed that way.", REEL[1]],
+  ["Dubbing", "Natural multi-language voices with lip-sync, so one film speaks to every market.", REEL[6]],
+  ["Brand films", "Story-led films that make people remember the name.", REEL[2]],
+  ["Commercials", "Sharp, scroll-stopping ads for TV, social and everything between.", REEL[5]],
+  ["UGC videos", "Native, creator-style content built to perform in feed.", REEL[4]],
+  ["Product visuals", "Hero shots and motion that make products look premium.", REEL[7]],
 ];
-$("#svc3").innerHTML = SVC.map(s => `<article class="sv ${s[0]} rv"><div class="sv__pic">${img(s[4])}</div><div class="sv__body"><h3>${s[1]}</h3><p>${s[2]}</p><ul>${s[3].map(t => `<li>${t}</li>`).join("")}</ul></div></article>`).join("");
+$("#slist").innerHTML = SVC.map((s, i) => `<div class="srow rv"><span class="n mono">${pad2(i + 1)}</span><h3>${s[0]}</h3><p>${s[1]}</p><div class="pic">${img(s[2])}</div></div>`).join("");
 
 /* process film strip */
 const STEPS = [
@@ -410,7 +406,7 @@ document.querySelectorAll("#faqList details").forEach(d => d.addEventListener("t
 
 /* booking */
 const bookOv = $("#bookOv"), needs = new Set();
-["Anime-style animation", "Hybrid VFX", "Dubbing", "Brand film", "Not sure yet"].forEach(n => {
+["Anime-style animation", "Hybrid VFX", "Dubbing", "Brand film or commercial", "UGC videos", "Product visuals", "Not sure yet"].forEach(n => {
   const b = el(`<button type="button" class="pick" aria-pressed="false">${n}</button>`);
   b.onclick = () => { needs.has(n) ? needs.delete(n) : needs.add(n); b.setAttribute("aria-pressed", needs.has(n)); };
   $("#needs").append(b);
