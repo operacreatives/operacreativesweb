@@ -230,7 +230,7 @@ fieldset{border:0}
         <button class="btn btn--ghost" data-play="1233639706">▶ Watch showreel</button>
       </div>
     </div>
-    <div class="reel" aria-label="Reel preview"><div class="reel__track" id="strip"></div></div>
+    <div class="reel" aria-label="Work preview"><div class="reel__track" id="strip"></div></div>
   </div>
 </section>
 
@@ -342,8 +342,8 @@ $("#strip").addEventListener("click", e => { const f = e.target.closest(".frame"
 
 /* work: categories, hover preview, click to watch */
 const CATS = {
-  reel: { label: "The reel", ids: REEL, note: "A look at what we make, from anime-style animation to brand films. Hover to preview, click to watch." },
-  fifa: { label: "FIFA World Cup animations", ids: FIFA, note: "Anime series released during the FIFA World Cup, generating over 150 million impressions across social media." },
+  reel: { label: "Work", ids: REEL, note: "A look at what we make, from anime-style animation to brand films. Hover to preview, click to watch." },
+  fifa: { label: "FIFA World Cup Anime Series", ids: FIFA, note: "Anime series released during the FIFA World Cup, generating over 150 million impressions across social media." },
 };
 const metaCache = {};
 function meta(id) {
@@ -387,7 +387,7 @@ renderWork();
 /* services */
 const SVC = [
   ["Anime-style animation", "Stylised anime for launches, series and campaigns, from character design to final frame.", REEL[3]],
-  ["Animation & FIFA World Cup films", "Animated series and event films built for big moments, like our FIFA World Cup animations.", REEL[0]],
+  ["Anime series & event films", "Anime-themed series built for big moments, like our FIFA World Cup Anime Series.", REEL[0]],
   ["Hybrid VFX", "Send us ready footage. We add flames, smoke, sparks and more so it looks filmed that way.", REEL[1]],
   ["Dubbing", "Natural multi-language voices with lip-sync, so one film speaks to every market.", REEL[6]],
   ["Brand films", "Story-led films that make people remember the name.", REEL[2]],
