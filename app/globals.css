@@ -2599,3 +2599,76 @@ button {
 
 
 /* Cinematic Reels */
+
+/* Watch Showreel CTA */
+.showreel-cta {
+  position: fixed;
+  left: clamp(0.9rem, 2vw, 1.5rem);
+  bottom: clamp(0.9rem, 2vw, 1.5rem);
+  z-index: 90;
+}
+
+.showreel-cta__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  padding: 0.4rem;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.82);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  color: var(--black);
+  font-family: "Space Mono", monospace;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+  transition: background 0.3s ease, color 0.3s ease, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease;
+}
+
+.showreel-cta__icon {
+  display: grid;
+  place-items: center;
+  width: 1.7rem;
+  height: 1.7rem;
+  border-radius: 50%;
+  background: var(--red);
+  color: var(--white);
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.showreel-cta__label {
+  max-width: 0;
+  opacity: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  transition: max-width 0.45s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease, margin 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.showreel-cta__btn:hover .showreel-cta__label,
+.showreel-cta__btn:focus-visible .showreel-cta__label {
+  max-width: 10rem;
+  opacity: 1;
+  margin: 0 0.55rem 0 0.55rem;
+}
+
+.showreel-cta__icon svg {
+  width: 10px;
+  height: 10px;
+  margin-left: 1px;
+}
+
+.showreel-cta__btn:hover,
+.showreel-cta__btn:focus-visible {
+  background: var(--black);
+  color: var(--cream);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.22);
+}
+
+.showreel-cta__btn:active {
+  transform: translateY(0) scale(0.97);
+}
