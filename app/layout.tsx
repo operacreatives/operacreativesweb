@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Inter, Newsreader, Bebas_Neue, Space_Mono } from "next/font/google";
-import "./globals.css";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -28,9 +27,6 @@ const spaceMono = Space_Mono({
 });
 
 import { Analytics } from "@vercel/analytics/next";
-import { Footer } from "@/components/Footer";
-import { Header } from "@/components/Header";
-import { Preloader } from "@/components/Preloader";
 
 const SITE_URL = "https://www.operacreatives.com";
 const SITE_NAME = "Opera Creatives";
@@ -134,13 +130,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <link rel="preconnect" href="https://player.vimeo.com" />
       </head>
       <body suppressHydrationWarning className={`${inter.variable} ${newsreader.variable} ${bebasNeue.variable} ${spaceMono.variable}`}>
-        <a href="#main-content" className="skip-link">
-          Skip to content
-        </a>
-        <Preloader />
-        <Header />
-        <main id="main-content">{children}</main>
-        <Footer />
+        {children}
         <Analytics />
       </body>
     </html>

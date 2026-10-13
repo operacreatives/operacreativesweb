@@ -1,0 +1,28 @@
+// Static creatives (ad posters and product visuals) shown on the homepage.
+// Files live in /public/assets/images; add new ones here to show them.
+export const posters: string[] = [
+  "ashkswjhb6bdrh0oosjy_1_11zon.webp",
+  "ausufpwcwwwdlxekgqf9_2_11zon.webp",
+  "cwgbzxnxcjpp4gzampnj_1_11zon.webp",
+  "cxocu2gdhvtfzackkeev_3_11zon.webp",
+  "cxyvno1sevgbn66timc3_4_11zon.webp",
+  "fbzme9nljpwj9smdxc3j_5_11zon.webp",
+  "g5fhbzdujtu2p7gse15b_2_11zon.webp",
+  "jggjprw8eis8xxp6t4nm_3_11zon.webp",
+  "kxtuxs3rw0owipywhd8x_4_11zon.webp",
+  "lqsqd68x3jqryoj11xha_6_11zon.webp",
+  "lylshvpv1lmeoeglyloz_5_11zon.webp",
+  "mma28e8rytowtgvc5wh0_6_11zon.webp",
+  "mpeaw82hci1p77l5n6no_7_11zon.webp",
+  "oa0njakxpd8nneyinpvq_8_11zon.webp",
+  "oiwoucseok4wmhj45bpv_9_11zon.webp",
+  "qulvn2ldqkfceqklunu3_10_11zon.webp",
+  "rhmiibdhu9bnwtn0d6au_11_11zon.webp",
+  "riusghm36dr5lb0ivnaw_12_11zon.webp",
+  "w6zjb8o4xhj1dbvzrsm8_7_11zon.webp",
+  "wfmpe9gonaklcy6en40q_8_11zon.webp",
+  "wjvbdb6ih6iotjzlqln9_9_11zon.webp",
+  "y1rld47q3s5ipe9qjpav_10_11zon.webp",
+  "yu6jm2do2bveqskobr5e_13_11zon.webp",
+  "ywlw2f2hz0xmlrjzweiz_11_11zon.webp",
+];

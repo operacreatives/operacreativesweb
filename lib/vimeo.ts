@@ -66,7 +66,7 @@ export function variantForRatio(ratio: number): WorkVariant {
 // Vimeo's public oEmbed endpoint so each tile can be laid out in its native
 // orientation with a crisp still. Falls back to 16:9 + a low-res proxy image if
 // the video is unavailable or the request fails, so the grid never breaks.
-export async function fetchVimeoAspect(id: string): Promise<VimeoAspect> {
+export async function fetchVimeoAspect(id: string, revalidateSeconds?: number): Promise<VimeoAspect> {
   const fallback = (): VimeoAspect => ({
     id,
     width: 16,
@@ -79,7 +79,7 @@ export async function fetchVimeoAspect(id: string): Promise<VimeoAspect> {
   try {
     const res = await fetch(
       `https://vimeo.com/api/oembed.json?url=${encodeURIComponent(`https://vimeo.com/${id}`)}&width=1280`,
-      { cache: "no-store" },
+      revalidateSeconds === undefined ? { cache: "no-store" } : { next: { revalidate: revalidateSeconds } },
     );
     if (!res.ok) return fallback();
     const data = (await res.json()) as {
