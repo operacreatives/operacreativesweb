@@ -17,7 +17,7 @@ The project content is demonstration-only. Images are locally stored placeholder
 
 ## Site structure
 
--  is the live site (), with its own layout and .
--  is the redesign preview (, , ). It has its own layout and a fully scoped stylesheet (, every rule under ), is marked , and does not affect .
-- Homepage copy for v2 lives in ; its work gallery data comes from ,  and .
--  is a snapshot of the live site before the redesign work started.
+- `/` is the live site (`app/(main)`), with its own layout and `app/globals.css`.
+- `/v2` is the redesign preview (`app/v2`, `components/v2`, `lib/v2`). It has its own layout and a fully scoped stylesheet (`app/v2/v2.css`, every rule under `.v2`), is marked `noindex`, and does not affect `/`.
+- Homepage copy for v2 lives in `lib/v2/site.ts`; its work gallery data comes from `data/vimeo-projects.ts`, `data/fifa-projects.ts` and `data/posters.ts`.
+- `backup/live-site-before-redesign` is a snapshot of the live site before the redesign work started.
