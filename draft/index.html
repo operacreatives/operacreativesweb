@@ -201,10 +201,11 @@ fieldset{border:0}
 .rv.in{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
 
+@media (max-width:620px){.wgrid.statics{grid-template-columns:1fr 1fr;gap:.6rem}}
 @media (max-width:900px){
   .nav,.hdr .btn{display:none}
   .burger{display:block;font-family:var(--mono);font-size:.74rem;letter-spacing:.1em;padding:.55rem 1rem;border:1.5px solid var(--ink);border-radius:999px}
-  .hdr.menu{border-radius:22px;flex-wrap:wrap}
+  .hdr.menu{border-radius:22px;flex-wrap:wrap;background:var(--paper);backdrop-filter:none}
   .hdr.menu .nav{display:flex;flex-direction:column;width:100%;order:3;font-family:var(--display);font-size:2.4rem;padding:1rem 0}
   .hdr.menu .btn{display:inline-flex;order:4;margin:.4rem 0}
   .cta{grid-template-columns:1fr}
@@ -233,7 +234,7 @@ fieldset{border:0}
 <section class="hero">
   <div class="hero__bg" aria-hidden="true"><div class="glow g1"></div><div class="glow g2"></div><div class="wall" id="wall"></div></div>
   <div class="hero__main">
-    <h1>From product shot to <span>full-blown film.</span></h1>
+    <h1>From product shot to <span>full&#8209;blown film.</span></h1>
     <p>Opera Creatives is the AI-native production studio for ad creatives, anime series, brand films and more.</p>
     <div class="hero__cta">
       <button class="btn" data-book="hero">Book a discovery call <i aria-hidden="true">↗</i></button>
