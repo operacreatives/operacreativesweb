@@ -5,6 +5,7 @@ import { FifaWorldCup } from "@/components/FifaWorldCup";
 import { WorkShowcase } from "@/components/WorkShowcase";
 import { HowItWorks } from "@/components/HowItWorks";
 import { CollaborateForm } from "@/components/CollaborateForm";
+import { ShowreelButton } from "@/components/ShowreelButton";
 
 
 
@@ -16,6 +17,7 @@ export default function HomePage() {
       <WorkShowcase selectedWork={<VimeoGrid />} fifaWork={<FifaWorldCup />} />
       <HowItWorks />
       <CollaborateForm />
+      <ShowreelButton />
     </>
   );
 }
