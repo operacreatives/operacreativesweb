@@ -2603,76 +2603,57 @@ button {
 /* Watch Showreel CTA */
 .showreel-cta {
   position: fixed;
-  left: clamp(1rem, 2.5vw, 2rem);
-  bottom: clamp(1rem, 2.5vw, 2rem);
+  left: clamp(0.9rem, 2vw, 1.5rem);
+  bottom: clamp(0.9rem, 2vw, 1.5rem);
   z-index: 90;
 }
 
 .showreel-cta__btn {
-  position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 0.9rem;
-  padding: 0.7rem 1.9rem 0.7rem 0.7rem;
-  border: 0;
+  gap: 0.55rem;
+  padding: 0.4rem 0.95rem 0.4rem 0.4rem;
+  border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 999px;
-  background: var(--black);
-  color: var(--cream);
+  background: rgba(255, 255, 255, 0.82);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  color: var(--black);
   font-family: "Space Mono", monospace;
-  font-size: 0.85rem;
+  font-size: 0.68rem;
   font-weight: 700;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   cursor: pointer;
-  overflow: hidden;
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
-  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease;
-}
-
-.showreel-cta__btn::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: var(--red);
-  transform: translateY(101%);
-  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.showreel-cta__icon,
-.showreel-cta__label {
-  position: relative;
-  z-index: 1;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+  transition: background 0.3s ease, color 0.3s ease, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease;
 }
 
 .showreel-cta__icon {
   display: grid;
   place-items: center;
-  width: 2.6rem;
-  height: 2.6rem;
+  width: 1.7rem;
+  height: 1.7rem;
   border-radius: 50%;
   background: var(--red);
   color: var(--white);
-  transition: background 0.35s ease, color 0.35s ease, transform 0.35s ease;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.showreel-cta__icon svg {
+  width: 10px;
+  height: 10px;
+  margin-left: 1px;
 }
 
 .showreel-cta__btn:hover,
 .showreel-cta__btn:focus-visible {
-  transform: translateY(-3px);
-  box-shadow: 0 16px 36px rgba(234, 9, 22, 0.28);
-}
-
-.showreel-cta__btn:hover::before,
-.showreel-cta__btn:focus-visible::before {
-  transform: translateY(0);
-}
-
-.showreel-cta__btn:hover .showreel-cta__icon,
-.showreel-cta__btn:focus-visible .showreel-cta__icon {
-  background: var(--cream);
-  color: var(--red);
-  transform: scale(1.08);
+  background: var(--black);
+  color: var(--cream);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.22);
 }
 
 .showreel-cta__btn:active {
-  transform: translateY(-1px) scale(0.98);
+  transform: translateY(0) scale(0.97);
 }
