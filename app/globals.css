@@ -2611,8 +2611,8 @@ button {
 .showreel-cta__btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.55rem;
-  padding: 0.4rem 0.95rem 0.4rem 0.4rem;
+  gap: 0;
+  padding: 0.4rem;
   border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.82);
@@ -2638,6 +2638,21 @@ button {
   background: var(--red);
   color: var(--white);
   transition: background 0.3s ease, color 0.3s ease;
+}
+
+.showreel-cta__label {
+  max-width: 0;
+  opacity: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  transition: max-width 0.45s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease, margin 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.showreel-cta__btn:hover .showreel-cta__label,
+.showreel-cta__btn:focus-visible .showreel-cta__label {
+  max-width: 10rem;
+  opacity: 1;
+  margin: 0 0.55rem 0 0.55rem;
 }
 
 .showreel-cta__icon svg {
