@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Opera Creatives — Design Draft v2</title>
-<meta name="description" content="Design draft v2 for the Opera Creatives website.">
+<title>Opera Creatives — Design Draft v3</title>
+<meta name="description" content="Design draft v3 for the Opera Creatives website.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --red:#ea0916; --red-deep:#b80611; --cream:#f8e7d8; --paper:#fdf6ee; --ink:#0b0b0b; --ink-2:#171512;
+  --red:#ea0916; --cream:#f8e7d8; --paper:#fdf6ee; --ink:#0b0b0b; --ink-2:#171512;
   --mute:#6f6a64; --line:rgba(11,11,11,.14); --line-d:rgba(248,231,216,.16);
   --gut:clamp(1rem,2.6vw,2.75rem);
   --display:"Bebas Neue",Impact,sans-serif; --sans:"Inter",system-ui,sans-serif; --mono:"Space Mono",ui-monospace,monospace;
@@ -27,16 +27,14 @@ button{font:inherit;color:inherit;cursor:pointer;background:none;border:0}
 .mono{font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase}
 .display{font-family:var(--display);font-weight:400;line-height:.9;letter-spacing:.005em;text-transform:uppercase}
 :focus-visible{outline:2px solid var(--red);outline-offset:3px}
-.pad{padding:clamp(4rem,8vw,8rem) var(--gut)}
+.pad{padding:clamp(4.5rem,9vw,9rem) var(--gut)}
+.h2{font-size:clamp(3.4rem,8vw,8.5rem);margin-top:1rem}
 
-/* scene slate label */
-.slate{display:inline-flex;align-items:stretch;border:1.5px solid currentColor;border-radius:3px;font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;overflow:hidden}
-.slate b{background:currentColor;padding:.4rem .7rem;font-weight:700}
-.slate em{font-style:normal;padding:.4rem .8rem}
-.on-light .slate b span{color:var(--cream)}
-.on-dark .slate b span,.on-red .slate b span{color:var(--ink)}
+.slate{display:inline-flex;align-items:center;gap:.5rem;border:1.5px solid currentColor;border-radius:999px;padding:.4rem .9rem;font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase}
+.slate::before{content:"";width:.5rem;height:.5rem;border-radius:50%;background:var(--red)}
+.on-red .slate::before{background:var(--cream)}
 
-/* button (kept) */
+/* button */
 .btn{display:inline-flex;align-items:center;gap:.9rem;padding:.55rem .55rem .55rem 1.1rem;border-radius:4px;font-weight:600;font-size:.98rem;letter-spacing:-.01em;background:var(--ink);color:var(--cream);transition:transform .3s var(--ease)}
 .btn:hover{transform:translateY(-2px)}
 .btn i{display:grid;place-items:center;width:2rem;height:2rem;border-radius:3px;background:var(--red);font-style:normal;font-size:1rem;transition:transform .3s var(--ease);color:#fff}
@@ -49,10 +47,8 @@ button{font:inherit;color:inherit;cursor:pointer;background:none;border:0}
 .on-red .btn i{background:var(--ink)}
 
 /* floating pill header */
-.hdr{position:fixed;top:.9rem;left:50%;transform:translateX(-50%);z-index:60;width:min(74rem,calc(100% - 2*var(--gut)));display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.5rem .55rem .5rem 1rem;background:rgba(253,246,238,.82);backdrop-filter:blur(14px) saturate(1.2);border:1px solid var(--line);border-radius:999px;box-shadow:0 8px 30px rgba(11,11,11,.08)}
-.logo{display:flex;align-items:center;gap:.55rem;text-decoration:none}
-.logo img{height:30px;width:auto;border-radius:5px}
-.logo b{font-family:var(--display);font-weight:400;font-size:1.5rem;letter-spacing:.04em;line-height:1}
+.hdr{position:fixed;top:.9rem;left:50%;transform:translateX(-50%);z-index:60;width:min(74rem,calc(100% - 2*var(--gut)));display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.5rem .55rem .5rem 1.3rem;background:rgba(253,246,238,.82);backdrop-filter:blur(14px) saturate(1.2);border:1px solid var(--line);border-radius:999px;box-shadow:0 8px 30px rgba(11,11,11,.08)}
+.logo{text-decoration:none;font-family:var(--display);font-size:1.9rem;letter-spacing:.05em;line-height:1}
 .nav{display:flex;gap:.3rem;font-weight:500;font-size:.94rem}
 .nav a{text-decoration:none;padding:.45rem .85rem;border-radius:999px;transition:background .25s,color .25s}
 .nav a:hover{background:var(--ink);color:var(--cream)}
@@ -74,87 +70,58 @@ button{font:inherit;color:inherit;cursor:pointer;background:none;border:0}
 .frame::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 60%,rgba(0,0,0,.55))}
 
 /* hero */
-.hero{min-height:100svh;padding:6.5rem 0 0;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden}
-.hero__bar{display:flex;justify-content:space-between;padding:1.6rem var(--gut) 0;color:var(--mute)}
-.hero__bar span:first-child::before{content:"";display:inline-block;width:.5rem;height:.5rem;border-radius:50%;background:var(--red);margin-right:.5rem;animation:blink 1.4s steps(2) infinite}
-@keyframes blink{50%{opacity:.15}}
-.hero h1{text-align:center;font-size:clamp(4.2rem,15.2vw,17.5rem);padding:0 var(--gut);margin:1rem 0 0}
-.hero h1 s{text-decoration:none;position:relative;color:var(--red)}
-.hero h1 s::after{content:"";position:absolute;left:-2%;right:-2%;top:52%;height:.09em;background:var(--ink);transform:rotate(-2deg)}
+.hero{min-height:100svh;padding:7rem 0 0;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden}
+.hero h1{text-align:center;font-size:clamp(3.6rem,13.4vw,16rem);padding:0 var(--gut);margin:2.5rem 0 0}
+.hero h1 span{color:var(--red)}
 .hero__foot{display:flex;align-items:end;justify-content:space-between;gap:2rem;flex-wrap:wrap;padding:2rem var(--gut)}
 .hero__foot p{max-width:30rem;font-size:clamp(1.05rem,1.4vw,1.3rem);font-weight:500;letter-spacing:-.02em;line-height:1.3}
 .hero__cta{display:flex;gap:.7rem;flex-wrap:wrap}
 
-/* manifesto (red) */
+/* value (red) */
 .man{background:var(--red);color:var(--cream)}
-.man__grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:clamp(2rem,5vw,6rem);align-items:center;margin-top:2rem}
-.man h2{font-size:clamp(4rem,10vw,10.5rem);line-height:.86}
-.man h2 span{display:block}
-.man h2 span:nth-child(2){-webkit-text-stroke:2px var(--cream);color:transparent}
-.vs{background:var(--ink);color:var(--cream);border-radius:6px;overflow:hidden}
-.vs__row{display:grid;grid-template-columns:1fr 2.2rem 1fr;align-items:center;gap:.5rem;padding:1.05rem 1.3rem;border-top:1px solid var(--line-d)}
-.vs__row:first-child{border-top:0;background:rgba(248,231,216,.06)}
-.vs__row span:first-child{text-decoration:line-through;text-decoration-color:var(--red);color:rgba(248,231,216,.5)}
-.vs__row span:last-child{font-weight:700}
-.vs__row i{font-style:normal;color:var(--red);text-align:center}
-.vs__row.head{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(248,231,216,.6)}
-.vs__row.head span:first-child{text-decoration:none;color:rgba(248,231,216,.6)}
-.stubs{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:3rem}
-.stub{display:flex;align-items:baseline;gap:.7rem;padding:.8rem 1.2rem;border:1.5px dashed var(--cream);border-radius:6px}
-.stub b{font-family:var(--display);font-weight:400;font-size:2.4rem;line-height:1}
-.stub span{font-size:.9rem;opacity:.85}
+.man h2{font-size:clamp(3.6rem,9vw,9.5rem);line-height:.88;margin:1.2rem 0 clamp(2.5rem,5vw,5rem);max-width:15ch}
+.man h2 span{color:var(--ink)}
+.vals{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(1.2rem,3vw,3rem);border-top:1.5px solid rgba(248,231,216,.55);padding-top:1.6rem}
+.val b{display:block;font-family:var(--display);font-weight:400;font-size:2.6rem;line-height:1;text-transform:uppercase;margin-bottom:.6rem}
+.val p{max-width:20rem;font-size:1.08rem;font-weight:500;line-height:1.35}
 
-/* work: screening room */
-.work__head{display:flex;justify-content:space-between;align-items:end;gap:2rem;flex-wrap:wrap;margin-bottom:2rem}
-.work__head h2{font-size:clamp(3.4rem,8vw,8.5rem);margin-top:1rem}
-.room{display:grid;grid-template-columns:minmax(0,2.3fr) minmax(0,1fr);gap:1.2rem;align-items:start}
-.stage{position:relative;aspect-ratio:16/9;background:linear-gradient(135deg,#2a2622,#0e0d0c);border-radius:6px;overflow:hidden;box-shadow:0 30px 60px -30px rgba(11,11,11,.5)}
-.stage img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.stage iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-.stage__play{position:absolute;inset:0;width:100%;display:grid;place-items:center;background:linear-gradient(transparent 50%,rgba(0,0,0,.5))}
-.stage__play span{display:grid;place-items:center;width:5.2rem;height:5.2rem;border-radius:50%;background:var(--cream);color:var(--ink);font-size:1.4rem;padding-left:.2rem;transition:.35s var(--ease)}
-.stage:hover .stage__play span{background:var(--red);color:#fff;transform:scale(1.1)}
-.stage__tc{position:absolute;left:1rem;top:1rem;font:700 .7rem var(--mono);letter-spacing:.1em;color:var(--cream);background:rgba(11,11,11,.6);padding:.35rem .6rem;border-radius:3px}
-.stage__meta{display:flex;justify-content:space-between;align-items:center;gap:1rem;margin-top:1rem}
-.stage__meta h3{font-family:var(--display);font-weight:400;font-size:2.4rem;line-height:1}
-.stage__meta .ctl button{width:2.6rem;height:2.6rem;border:1.5px solid var(--ink);border-radius:50%;font-size:1.1rem;transition:.25s}
-.stage__meta .ctl button:hover{background:var(--ink);color:var(--cream)}
-.list{background:var(--paper);border:1px solid var(--line);border-radius:6px;display:flex;flex-direction:column;max-height:34rem;min-height:22rem;overflow:hidden}
-.tabs{display:flex;border-bottom:1px solid var(--line)}
-.tab{flex:1;font-family:var(--mono);font-size:.7rem;letter-spacing:.09em;text-transform:uppercase;padding:.9rem .5rem;transition:.25s;border-bottom:3px solid transparent}
-.tab[aria-selected=true]{border-bottom-color:var(--red);background:rgba(234,9,22,.06)}
-.items{overflow:auto;flex:1;scrollbar-width:thin}
-.item{display:grid;grid-template-columns:5.2rem 1fr;gap:.8rem;align-items:center;width:100%;text-align:left;padding:.6rem .8rem;border-bottom:1px solid var(--line);transition:background .2s}
-.item:hover{background:rgba(11,11,11,.04)}
-.item.on{background:var(--ink);color:var(--cream)}
-.item .th{position:relative;aspect-ratio:16/9;background:#26221e;border-radius:2px;overflow:hidden}
-.item .th img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.item b{display:block;font-size:.92rem;letter-spacing:-.01em;line-height:1.2}
-.item small{font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;opacity:.6;text-transform:uppercase}
+/* work */
+.work__head{display:flex;justify-content:space-between;align-items:end;gap:2rem;flex-wrap:wrap;margin-bottom:2.5rem}
+.work__lede{max-width:22rem;color:var(--mute);font-size:1.05rem}
+.wgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2rem 1.2rem}
+.wcard{text-align:left;display:block}
+.wcard .th{position:relative;display:block;aspect-ratio:16/9;background:linear-gradient(135deg,#2a2622,#0e0d0c);border-radius:8px;overflow:hidden;box-shadow:0 30px 50px -35px rgba(11,11,11,.6);transition:transform .5s var(--ease)}
+.wcard:hover .th{transform:translateY(-5px)}
+.wcard .th img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.wcard .th iframe{position:absolute;inset:0;width:100%;height:100%;border:0;pointer-events:none;transform:scale(1.02)}
+.wcard .th::after{content:"▶";position:absolute;right:1rem;bottom:1rem;display:grid;place-items:center;width:3rem;height:3rem;border-radius:50%;background:var(--cream);color:var(--ink);font-size:.8rem;padding-left:.12rem;transition:.3s var(--ease);z-index:2}
+.wcard:hover .th::after{background:var(--red);color:#fff;transform:scale(1.1)}
+.wcard .cap{display:flex;justify-content:space-between;align-items:baseline;padding-top:.8rem}
+.wcard .cap b{font-family:var(--display);font-weight:400;font-size:1.8rem;line-height:1}
+.wcard .cap small{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;color:var(--mute);text-transform:uppercase}
+.wmore{display:flex;justify-content:center;margin-top:3rem}
+.wgrid .extra{display:none}
+.wgrid.all .extra{display:block}
 
-/* services bento */
-.bento{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:.9rem;margin-top:2.5rem}
-.card{position:relative;border-radius:10px;padding:1.5rem;display:flex;flex-direction:column;justify-content:space-between;min-height:17rem;overflow:hidden;transition:transform .45s var(--ease)}
-.card:hover{transform:translateY(-6px) rotate(-.4deg)}
-.card .mono{opacity:.75}
-.card h3{font-family:var(--display);font-weight:400;font-size:clamp(2.4rem,4vw,4.4rem);line-height:.92;text-transform:uppercase;margin:.8rem 0 .6rem;position:relative;z-index:1}
-.card p{max-width:22rem;font-size:1rem;position:relative;z-index:1}
-.card ul{list-style:none;display:flex;gap:.4rem;flex-wrap:wrap;margin-top:1rem;position:relative;z-index:1}
-.card li{font-family:var(--mono);font-size:.64rem;letter-spacing:.07em;text-transform:uppercase;padding:.3rem .55rem;border:1px solid currentColor;border-radius:999px;opacity:.85}
-.card .pic{position:absolute;right:-1rem;bottom:-1rem;width:48%;aspect-ratio:4/3;border-radius:8px;overflow:hidden;transform:rotate(4deg);box-shadow:0 14px 30px -10px rgba(0,0,0,.5);background:#26221e;transition:transform .5s var(--ease)}
-.card:hover .pic{transform:rotate(1deg) scale(1.04)}
-.card .pic img{width:100%;height:100%;object-fit:cover}
-.c1{grid-column:span 3;grid-row:span 2;background:var(--red);color:var(--cream);min-height:34rem}
-.c2{grid-column:span 3;background:var(--ink);color:var(--cream)}
-.c3{grid-column:span 3;background:var(--paper);box-shadow:inset 0 0 0 1.5px var(--ink)}
-.c4,.c5,.c6{grid-column:span 2;background:var(--cream);box-shadow:inset 0 0 0 1.5px var(--line)}
-.c1 .pic{width:62%}
-.c2 .pic{width:36%}
+/* services */
+.svc3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin-top:3rem}
+.sv{display:flex;flex-direction:column;border-radius:12px;overflow:hidden;transition:transform .45s var(--ease)}
+.sv:hover{transform:translateY(-6px)}
+.sv__pic{position:relative;aspect-ratio:16/11;background:#26221e;overflow:hidden}
+.sv__pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
+.sv:hover .sv__pic img{transform:scale(1.06)}
+.sv__body{padding:1.5rem 1.5rem 1.8rem;display:flex;flex-direction:column;gap:.9rem;flex:1}
+.sv h3{font-family:var(--display);font-weight:400;font-size:clamp(2.6rem,4vw,4rem);line-height:.92;text-transform:uppercase}
+.sv p{font-size:1.05rem;max-width:26rem}
+.sv ul{list-style:none;display:flex;gap:.4rem;flex-wrap:wrap;margin-top:auto;padding-top:.6rem}
+.sv li{font-family:var(--mono);font-size:.64rem;letter-spacing:.07em;text-transform:uppercase;padding:.3rem .6rem;border:1px solid currentColor;border-radius:999px;opacity:.85}
+.sv--red{background:var(--red);color:var(--cream)}
+.sv--ink{background:var(--ink);color:var(--cream)}
+.sv--paper{background:var(--paper);box-shadow:inset 0 0 0 1.5px var(--ink)}
 
 /* process film strip */
 .proc{background:var(--ink-2);color:var(--cream)}
 .proc__head{display:flex;justify-content:space-between;align-items:end;gap:2rem;flex-wrap:wrap;margin-bottom:2.5rem}
-.proc h2{font-size:clamp(3.4rem,8vw,8.5rem);margin-top:1rem}
 .proc__ctl{display:flex;gap:.5rem}
 .proc__ctl button{width:3rem;height:3rem;border:1.5px solid var(--cream);border-radius:50%;font-size:1.2rem;transition:.25s}
 .proc__ctl button:hover{background:var(--red);border-color:var(--red)}
@@ -172,9 +139,8 @@ button{font:inherit;color:inherit;cursor:pointer;background:none;border:0}
 .shot p{color:rgba(248,231,216,.65);font-size:.98rem}
 .shot .tag{align-self:flex-start;color:var(--red)}
 
-/* faq cards */
+/* faq */
 .faq__head{text-align:center;margin-bottom:3rem}
-.faq__head h2{font-size:clamp(3.4rem,8vw,8.5rem);margin-top:1rem}
 .faq{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;align-items:start;max-width:72rem;margin:0 auto}
 .faq details{background:var(--paper);border:1.5px solid var(--ink);border-radius:10px;overflow:hidden;transition:box-shadow .3s,transform .3s var(--ease)}
 .faq details:hover{transform:translateY(-3px)}
@@ -184,9 +150,8 @@ button{font:inherit;color:inherit;cursor:pointer;background:none;border:0}
 .faq summary::after{content:"+";display:grid;place-items:center;width:1.9rem;height:1.9rem;flex:none;border-radius:50%;background:var(--ink);color:var(--cream);font-weight:500;transition:transform .35s var(--ease)}
 .faq details[open] summary::after{transform:rotate(45deg);background:var(--red)}
 .faq p{padding:0 1.3rem 1.3rem;color:#4a453f}
-.faq .fit{background:var(--red);color:var(--cream);padding:1.4rem;display:flex;flex-direction:column;gap:1rem;justify-content:space-between;min-height:9rem;border-radius:10px}
-.faq .fit h4{font-family:var(--display);font-weight:400;font-size:2.2rem;line-height:1;text-transform:uppercase}
-.faq .fit .btn i{background:var(--ink)}
+.faq__note{grid-column:1/-1;text-align:center;margin-top:1.2rem;color:var(--mute)}
+.faq__note a{color:var(--ink);font-weight:600}
 
 /* cta panel */
 .ctaw{background:var(--ink);padding:var(--gut)}
@@ -202,7 +167,7 @@ button{font:inherit;color:inherit;cursor:pointer;background:none;border:0}
 
 /* footer */
 footer{background:var(--ink);color:var(--cream);padding:3rem var(--gut) 2rem}
-.credits{display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:end;padding-bottom:2.5rem;border-bottom:1px solid var(--line-d)}
+.credits{padding-bottom:2.5rem;border-bottom:1px solid var(--line-d)}
 .credits .big{font-family:var(--display);font-size:clamp(2.6rem,6vw,6rem);line-height:.92;text-transform:uppercase}
 .credits .big em{font-style:normal;color:var(--red)}
 .fl{display:flex;gap:1.6rem;flex-wrap:wrap;padding-top:1.5rem;align-items:center;justify-content:space-between}
@@ -211,13 +176,16 @@ footer{background:var(--ink);color:var(--cream);padding:3rem var(--gut) 2rem}
 .fl a:hover{color:var(--red)}
 .fl .mono{opacity:.55}
 
-/* modal */
-.ov{position:fixed;inset:0;z-index:100;display:none;place-items:center;background:rgba(11,11,11,.78);backdrop-filter:blur(6px);padding:1rem}
+/* modal + lightbox */
+.ov{position:fixed;inset:0;z-index:100;display:none;place-items:center;background:rgba(11,11,11,.82);backdrop-filter:blur(6px);padding:1rem}
 .ov.open{display:grid}
 .panel{position:relative;width:min(40rem,100%);max-height:94svh;overflow:auto;background:var(--cream);padding:2.2rem;border-radius:8px}
 .panel h2{font-family:var(--display);font-weight:400;font-size:3.2rem;line-height:.95;margin:.4rem 0 .6rem;text-transform:uppercase}
 .panel .lede{color:var(--mute);margin-bottom:1.4rem}
 .x{position:absolute;right:1rem;top:.8rem;font-size:2rem;line-height:1}
+.lb{width:min(80rem,100%);aspect-ratio:16/9;background:#000;border-radius:6px;overflow:hidden}
+.lb iframe{width:100%;height:100%;border:0}
+.lbx{position:absolute;right:1.2rem;top:.8rem;color:#fff;font-size:2.6rem;line-height:1}
 form{display:grid;gap:1rem}
 label span,legend{display:block;font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);margin-bottom:.35rem}
 input,select,textarea{width:100%;font:inherit;padding:.75rem .8rem;border:1px solid var(--line);background:var(--paper);border-radius:3px;color:var(--ink)}
@@ -228,7 +196,6 @@ fieldset{border:0}
 .pick{font-size:.9rem;padding:.5rem .9rem;border:1px solid var(--ink);border-radius:999px;transition:.2s}
 .pick[aria-pressed=true]{background:var(--ink);color:var(--cream)}
 
-/* reveal */
 .rv{opacity:0;transform:translateY(24px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
 .rv.in{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
@@ -239,27 +206,18 @@ fieldset{border:0}
   .hdr.menu{border-radius:22px;flex-wrap:wrap}
   .hdr.menu .nav{display:flex;flex-direction:column;width:100%;order:3;font-family:var(--display);font-size:2.4rem;padding:1rem 0}
   .hdr.menu .btn{display:inline-flex;order:4;margin:.4rem 0}
-  .man__grid,.room,.cta,.credits{grid-template-columns:1fr}
-  .list{max-height:26rem}
-  .bento{grid-template-columns:1fr 1fr}
-  .c1,.c2,.c3{grid-column:span 2;min-height:22rem}
-  .c4,.c5,.c6{grid-column:span 1}
-  .c1 .pic{width:55%}
+  .cta{grid-template-columns:1fr}
+  .vals,.svc3{grid-template-columns:1fr}
   .faq{grid-template-columns:1fr}
-  .hero__bar span:last-child{display:none}
-  .vs__row{padding:.9rem 1rem}
+  .two{grid-template-columns:1fr}
 }
-@media (max-width:520px){
-  .bento{grid-template-columns:1fr}
-  .c4,.c5,.c6,.c1,.c2,.c3{grid-column:span 1}
-  .stage__meta h3{font-size:1.8rem}
-}
+@media (max-width:620px){.wgrid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 
 <header class="hdr" id="hdr">
-  <a class="logo" href="#top" aria-label="Opera Creatives home"><img src="data:image/webp;base64,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" alt=""><b>OPERA</b></a>
+  <a class="logo" href="#top" aria-label="Opera Creatives home">Opera</a>
   <nav class="nav" id="nav" aria-label="Primary">
     <a href="#work">Work</a><a href="#services">Services</a><a href="#process">Process</a><a href="#faq">FAQ</a>
   </nav>
@@ -271,86 +229,63 @@ fieldset{border:0}
 
 <main id="top">
 <!-- HERO -->
-<section class="hero on-light">
-  <div>
-    <div class="hero__bar mono"><span>Now rendering: AI-native production house</span><span>(No cameras. No sets.)</span></div>
-    <h1 class="display rv">Films made without<br>a <s>camera</s></h1>
-  </div>
+<section class="hero">
+  <h1 class="display rv">Anime. VFX. Dubbing.<br><span>Made in days.</span></h1>
   <div>
     <div class="hero__foot">
-      <p>Opera Creatives makes anime-style animation, hybrid VFX, dubbing and brand films, planned and finished by people, shipped in days.</p>
+      <p>Opera Creatives is a creative studio for anime-style animation, hybrid VFX, dubbing and brand films, crafted by artists and delivered fast.</p>
       <div class="hero__cta">
         <button class="btn" data-book="hero">Book a discovery call <i aria-hidden="true">↗</i></button>
-        <button class="btn btn--ghost" data-jump="1233639706">▶ Watch showreel</button>
+        <button class="btn btn--ghost" data-play="1233639706">▶ Watch showreel</button>
       </div>
     </div>
     <div class="reel" aria-label="Reel preview"><div class="reel__track" id="strip"></div></div>
   </div>
 </section>
 
-<!-- MANIFESTO -->
+<!-- VALUE -->
 <section class="man pad on-red">
-  <span class="slate"><b><span>Scene 01</span></b><em>The idea</em></span>
-  <div class="man__grid">
-    <h2 class="display rv"><span>No camera.</span><span>No crew.</span><span>No wait.</span></h2>
-    <div class="vs rv" role="table" aria-label="Traditional shoot versus Opera">
-      <div class="vs__row head"><span>Traditional shoot</span><i></i><span>Opera Creatives</span></div>
-      <div class="vs__row"><span>Locations &amp; permits</span><i>→</i><span>Worlds built from a storyboard</span></div>
-      <div class="vs__row"><span>Casting &amp; crew calls</span><i>→</i><span>Characters designed in-house</span></div>
-      <div class="vs__row"><span>Weeks of shooting</span><i>→</i><span>Days to first cut</span></div>
-      <div class="vs__row"><span>Costly reshoots</span><i>→</i><span>Fast, flexible revisions</span></div>
-      <div class="vs__row"><span>One language</span><i>→</i><span>Dubbed for every market</span></div>
-    </div>
-  </div>
-  <div class="stubs rv">
-    <div class="stub"><b>24+</b><span>films in our reel</span></div>
-    <div class="stub"><b>12</b><span>FIFA World Cup animations</span></div>
-    <div class="stub"><b>DAYS</b><span>not weeks, to first cut</span></div>
+  <span class="slate">Why Opera</span>
+  <h2 class="display rv">One studio. <span>Three specialities.</span> Days, not weeks.</h2>
+  <div class="vals rv">
+    <div class="val"><b>Fast</b><p>From brief to first cut in days, so you launch while the moment is still hot.</p></div>
+    <div class="val"><b>One team</b><p>Anime, hybrid VFX and dubbing under one roof. No handoffs, no chasing vendors.</p></div>
+    <div class="val"><b>Built to travel</b><p>Dub every film, so a single idea works in every market.</p></div>
   </div>
 </section>
 
-<!-- WORK: SCREENING ROOM -->
+<!-- WORK -->
 <section class="pad on-light" id="work">
   <div class="work__head">
-    <div><span class="slate"><b><span>Scene 02</span></b><em>The screening room</em></span>
-    <h2 class="display rv">Press play</h2></div>
+    <div><span class="slate">Our work</span>
+    <h2 class="display h2 rv">Selected work</h2></div>
+    <p class="work__lede">Hover to preview. Click to watch full size.</p>
   </div>
-  <div class="room">
-    <div>
-      <div class="stage" id="stage"></div>
-      <div class="stage__meta"><h3 id="stTitle"></h3><div class="ctl"><button id="wPrev" aria-label="Previous film">←</button> <button id="wNext" aria-label="Next film">→</button></div></div>
-    </div>
-    <div class="list">
-      <div class="tabs" role="tablist" aria-label="Collections">
-        <button class="tab" role="tab" aria-selected="true" data-tab="reel">The reel</button>
-        <button class="tab" role="tab" aria-selected="false" data-tab="fifa">FIFA World Cup</button>
-      </div>
-      <div class="items" id="items"></div>
-    </div>
-  </div>
+  <div class="wgrid" id="wgrid"></div>
+  <div class="wmore"><button class="btn btn--ghost" id="more">Show all films</button></div>
 </section>
 
-<!-- SERVICES: BENTO -->
+<!-- SERVICES -->
 <section class="pad on-light" id="services" style="padding-top:0">
-  <span class="slate"><b><span>Scene 03</span></b><em>What we make</em></span>
-  <h2 class="display rv" style="font-size:clamp(3.4rem,8vw,8.5rem);margin-top:1rem">Six ways to<br>put it on screen</h2>
-  <div class="bento" id="bento"></div>
+  <span class="slate">What we do</span>
+  <h2 class="display h2 rv">Three things,<br>done properly</h2>
+  <div class="svc3" id="svc3"></div>
 </section>
 
-<!-- PROCESS: FILM STRIP -->
+<!-- PROCESS -->
 <section class="proc pad on-dark" id="process">
   <div class="proc__head">
-    <div><span class="slate"><b><span>Scene 04</span></b><em>Behind the frames</em></span>
-    <h2 class="display rv">From brief to<br>final cut</h2></div>
+    <div><span class="slate">How we work</span>
+    <h2 class="display h2 rv">From brief to<br>final cut</h2></div>
     <div class="proc__ctl"><button id="fPrev" aria-label="Previous step">←</button><button id="fNext" aria-label="Next step">→</button></div>
   </div>
   <div class="film" id="film"></div>
 </section>
 
-<!-- FAQ: CARDS -->
+<!-- FAQ -->
 <section class="pad on-light" id="faq">
-  <div class="faq__head"><span class="slate"><b><span>Scene 05</span></b><em>Good questions</em></span>
-  <h2 class="display rv">Before we hit render</h2></div>
+  <div class="faq__head"><span class="slate">FAQ</span>
+  <h2 class="display h2 rv">Before we hit render</h2></div>
   <div class="faq" id="faqList"></div>
 </section>
 
@@ -369,10 +304,7 @@ fieldset{border:0}
 </main>
 
 <footer>
-  <div class="credits">
-    <div class="big">Directed by you.<br>Made by <em>Opera Creatives.</em></div>
-    <button class="btn btn--light" data-book="footer">Book a discovery call <i aria-hidden="true">↗</i></button>
-  </div>
+  <div class="credits"><div class="big">Directed by you.<br>Made by <em>Opera Creatives.</em></div></div>
   <div class="fl">
     <nav><a href="mailto:hi@operacreatives.com">hi@operacreatives.com</a><a href="https://www.instagram.com/operacreatives_" target="_blank" rel="noopener">Instagram</a><a href="https://linkedin.com/company/operacreatives" target="_blank" rel="noopener">LinkedIn</a><a href="https://x.com/operacreatives_" target="_blank" rel="noopener">X</a></nav>
     <span class="mono">© 2026 Opera Creatives. All rights reserved.</span>
@@ -397,79 +329,63 @@ fieldset{border:0}
     <div id="bookDone" hidden><span class="mono" style="color:var(--red)">(Request received)</span><h2>Pick your time</h2><p class="lede">We opened our calendar in a new tab with your details filled in. If it didn&rsquo;t open, use the button.</p><a class="btn" id="calLink" target="_blank" rel="noopener" href="#">Open calendar <i aria-hidden="true">↗</i></a></div>
   </div>
 </div>
+<!-- Video lightbox -->
+<div class="ov" id="lbOv" role="presentation"><button class="lbx" data-close aria-label="Close video">×</button><div class="lb" id="lb"></div></div>
 
 <script>
 const THUMBS = {"1152865784": "https://i.vimeocdn.com/video/2150730599-bd30ca7d416752f4e7de5b56dd8a7e113ad749dbc0c05842a2f55531b50bc249-d_1280?region=us", "1152866745": "https://i.vimeocdn.com/video/2150728888-fb7736a69e817aefb9e23abbde61259b3b79b197a9a77b5f5d1b01f4443b07d7-d_1280?region=us", "1152867925": "https://i.vimeocdn.com/video/2150732224-2979a07f0d8fa6a80612b622996342447b5142f3ecf0078b6e66430a91b372d2-d_1280?region=us", "1152930117": "https://i.vimeocdn.com/video/2104701105-0acad6eebdad6e02a6beb639fcfb92bad24ab3de53c39e18309f2134b7324225-d_1280?region=us", "1153960232": "https://i.vimeocdn.com/video/2150724686-66082721b259df44876e9bd2f0bf2ee655c51e5ecfb7d4efad7623b38f80f32c-d_1280?region=us", "1154852720": "https://i.vimeocdn.com/video/2107326057-b366e295838ccbb5ff060b87b05218c4c9de0846f8b9e214e627eeb2de707be2-d_1280?region=us", "1186915669": "https://i.vimeocdn.com/video/2150821803-2d7dfe6aaf83928187c120b1ba7be04a2f996fa8dbdc3d487ffa9f38876a0631-d_1280?region=us", "1188442191": "https://i.vimeocdn.com/video/2152716278-fe39fa5f6eb3c538c791272ebdaf3ea6f2cb990e075018c5708747221d283c5e-d_1280?region=us", "1197465090": "https://i.vimeocdn.com/video/2163799814-79050bc35f83126a423a249a9992fa5baef916f778fee53642a3144649c9c42a-d_1280?region=us", "1197465094": "https://i.vimeocdn.com/video/2163799980-a2a2cf03d2276410d7919627f746c1cf180f52e2d453c7b956fcaf20a657e4b5-d_1280?region=us", "1197465150": "https://i.vimeocdn.com/video/2163799970-abf6881d675c1b868a9410cb053965a56540452093dd9a68a21d31f2f1ff90b2-d_1280?region=us", "1197791356": "https://i.vimeocdn.com/video/2164202626-bd0e7e9e0c4b8109fe057b00580e97494b7cb0dc238bbb9dafc99d83230f3d52-d_1280?region=us", "1197791358": "https://i.vimeocdn.com/video/2164202590-ee80310c9ccf23635c69781e9561899085a2a74de51319925e1a51fd9a7cb923-d_1280?region=us", "1197791359": "https://i.vimeocdn.com/video/2164202608-9e763655c05e0f109e9bb9d2de00c1fcf35e964ec219e9d145101f44f8eb6d0d-d_1280?region=us", "1197791360": "https://i.vimeocdn.com/video/2164202623-f4813248af027a7bda20c076cd134bd4f61247ed1273870aa436c226d0592870-d_1280?region=us", "1203213922": "https://i.vimeocdn.com/video/2171190626-fe9293a35d198623701db1109f3a9b8ac5c741fad4ce98a988ac1f88b8d97346-d_1280?region=us", "1203213923": "https://i.vimeocdn.com/video/2171190633-b4e99f50a752c55eca5b2054d2df509025c4b002e6883a42075d8e3966914a72-d_1280?region=us", "1203214001": "https://i.vimeocdn.com/video/2171190762-6e1dc44837185965e3bca00447077100338d64f5738bdd9e09af22374ece3de3-d_1280?region=us", "1203214002": "https://i.vimeocdn.com/video/2171190747-6587177ac6a0960d7f1b434032eda2256fc7120970b06ab882743582711eb20e-d_1280?region=us", "1203214003": "https://i.vimeocdn.com/video/2171190755-055a25e7620fe6cb74f6b972b460b73b38ff55fa66782ed4de85a585a6ff60b5-d_1280?region=us"};
 const REEL = ["1233803601", "1234104627", "1233647571", "1233645586", "1233648415", "1203214003", "1203214001", "1203214002", "1203213923", "1203213922", "1197791359", "1197791360", "1197791358", "1197791356", "1197465150", "1197465090", "1188442191", "1186915669", "1154852720", "1153960232", "1152930117", "1152867925", "1152866745", "1152865784"];
-const FIFA = ["1212302168?h=680b6f2367", "1212301782?h=64d56e4171", "1212301923?h=91bd7c0645", "1212301784?h=12e67bddf7", "1212301785?h=6ffd5a9b1c", "1212302078?h=47da1e3563", "1212301783?h=f5197a78ca", "1212301919?h=16a7a7a42f", "1212301997?h=4cc9db6eee", "1212301915?h=310a8d769d", "1212301913?h=39e466213b", "1212301850?h=40376c5e3f"];
 const CAL = "https://cal.com/operacreatives/hello";
 const base = id => id.split("?")[0];
 const thumb = id => THUMBS[base(id)] || ("https://vumbnail.com/" + base(id) + ".jpg");
 const $ = (s, r = document) => r.querySelector(s);
 const el = h => { const t = document.createElement("template"); t.innerHTML = h.trim(); return t.content.firstChild; };
-const embed = id => `https://player.vimeo.com/video/${id}${id.includes("?") ? "&" : "?"}autopause=0&badge=0&byline=0&title=0&portrait=0&dnt=1&playsinline=1&autoplay=1&controls=1`;
 const pad2 = n => String(n).padStart(2, "0");
+const q = id => `https://player.vimeo.com/video/${id}${id.includes("?") ? "&" : "?"}autopause=0&badge=0&byline=0&title=0&portrait=0&dnt=1&playsinline=1&autoplay=1`;
 const img = id => `<img src="${thumb(id)}" alt="" loading="lazy" onerror="this.style.visibility='hidden'">`;
+
+/* lightbox */
+function openVideo(id) { $("#lb").innerHTML = `<iframe src="${q(id)}&controls=1" title="Opera Creatives film" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`; $("#lbOv").classList.add("open"); document.body.style.overflow = "hidden"; }
+document.querySelectorAll("[data-play]").forEach(b => b.onclick = () => openVideo(b.dataset.play));
 
 /* hero reel strip */
 const stripIds = REEL.slice(0, 10);
-$("#strip").innerHTML = stripIds.concat(stripIds).map((id, i) => `<button class="frame" data-jump="${id}" aria-label="Play film">${img(id)}<i>00:0${i % 10}:${pad2((i * 7) % 60)}</i></button>`).join("");
+$("#strip").innerHTML = stripIds.concat(stripIds).map((id, i) => `<button class="frame" data-id="${id}" aria-label="Play film">${img(id)}<i>00:0${i % 10}:${pad2((i * 7) % 60)}</i></button>`).join("");
+$("#strip").addEventListener("click", e => { const f = e.target.closest(".frame"); if (f) openVideo(f.dataset.id); });
 
-/* screening room */
-const SETS = { reel: REEL, fifa: FIFA };
-let set = "reel", idx = 0;
-const labelOf = (s, i) => s === "fifa" ? `FIFA World Cup · Film ${pad2(i + 1)}` : `Reel · Film ${pad2(i + 1)}`;
-function renderItems() {
-  $("#items").innerHTML = "";
-  SETS[set].forEach((id, i) => {
-    const b = el(`<button class="item ${i === idx ? "on" : ""}"><span class="th">${img(id)}</span><span><b>${set === "fifa" ? "World Cup animation" : "Film"} ${pad2(i + 1)}</b><small>${set === "fifa" ? "Animation" : "Opera reel"}</small></span></button>`);
-    b.onclick = () => { idx = i; load(true); };
-    $("#items").append(b);
+/* work: big cards, hover preview, click to watch */
+const SHOWN = 6;
+$("#wgrid").innerHTML = REEL.map((id, i) => `<button class="wcard ${i >= SHOWN ? "extra" : ""}" data-id="${id}" aria-label="Play film ${pad2(i + 1)}"><span class="th">${img(id)}</span><span class="cap"><b>Film ${pad2(i + 1)}</b><small>Watch</small></span></button>`).join("");
+const canHover = matchMedia("(hover:hover)").matches;
+let hv;
+$("#wgrid").addEventListener("click", e => { const c = e.target.closest(".wcard"); if (c) openVideo(c.dataset.id); });
+if (canHover) {
+  $("#wgrid").addEventListener("mouseover", e => {
+    const c = e.target.closest(".wcard"); if (!c || c.querySelector("iframe")) return;
+    clearTimeout(hv); hv = setTimeout(() => { const f = document.createElement("iframe"); f.src = q(c.dataset.id) + "&background=1&muted=1&loop=1&quality=360p"; f.title = ""; f.allow = "autoplay"; c.querySelector(".th").append(f); }, 350);
+  });
+  $("#wgrid").addEventListener("mouseout", e => {
+    const c = e.target.closest(".wcard"); if (!c || c.contains(e.relatedTarget)) return;
+    clearTimeout(hv); c.querySelector("iframe")?.remove();
   });
 }
-function load(play) {
-  const ids = SETS[set], id = ids[idx], st = $("#stage");
-  st.innerHTML = play
-    ? `<iframe src="${embed(id)}" title="Opera Creatives film" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`
-    : `${img(id)}<button class="stage__play" aria-label="Play film"><span>▶</span></button><span class="stage__tc">${pad2(idx + 1)} / ${pad2(ids.length)}</span>`;
-  if (!play) $(".stage__play").onclick = () => load(true);
-  $("#stTitle").textContent = labelOf(set, idx);
-  [...$("#items").children].forEach((c, i) => c.classList.toggle("on", i === idx));
-}
-document.querySelectorAll(".tab").forEach(t => t.onclick = () => {
-  document.querySelectorAll(".tab").forEach(x => x.setAttribute("aria-selected", x === t));
-  set = t.dataset.tab; idx = 0; renderItems(); load(false);
-});
-$("#wPrev").onclick = () => { idx = (idx - 1 + SETS[set].length) % SETS[set].length; load(true); };
-$("#wNext").onclick = () => { idx = (idx + 1) % SETS[set].length; load(true); };
-renderItems(); load(false);
-document.querySelectorAll("[data-jump]").forEach(b => b.addEventListener("click", () => {
-  const id = b.dataset.jump, f = REEL.indexOf(id);
-  set = "reel"; document.querySelectorAll(".tab").forEach(x => x.setAttribute("aria-selected", x.dataset.tab === "reel"));
-  if (f >= 0) idx = f; renderItems();
-  $("#stage").innerHTML = `<iframe src="${embed(id)}" title="Opera Creatives film" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`;
-  $("#stTitle").textContent = f >= 0 ? labelOf("reel", f) : "Opera showreel";
-  document.getElementById("work").scrollIntoView({ behavior: "smooth" });
-}));
+$("#more").onclick = e => { const all = $("#wgrid").classList.toggle("all"); e.target.textContent = all ? "Show fewer" : "Show all films"; };
 
-/* services bento */
+/* services */
 const SVC = [
-  ["c1", "Anime-style animation", "Stylised anime looks for launches, series and campaigns, built frame by frame.", ["Character design", "Series", "Loops"], REEL[3]],
-  ["c2", "Hybrid VFX", "Generated worlds blended with VFX compositing for shots no camera could capture.", ["Compositing", "Cleanup", "Grade"], REEL[1]],
-  ["c3", "Dubbing", "Natural multi-language dubbing and lip-sync so one film speaks to every market.", ["Voice", "Lip-sync", "Localisation"], null],
-  ["c4", "Brand films", "Story-led films people remember.", ["Concept", "Script"], null],
-  ["c5", "Product visuals", "Hero shots and motion that make products look premium.", ["Hero", "Motion"], null],
-  ["c6", "Social content", "Always-on short-form, sized for every platform.", ["9:16", "1:1", "16:9"], null],
+  ["sv--red", "Anime-style animation", "Stylised anime for launches, series and campaigns. Character design, motion and finishing, all handled in-house.", ["Character design", "Series", "Loops"], REEL[3]],
+  ["sv--ink", "Hybrid VFX", "Send us your ready footage. We add flames, smoke, sparks and more, so it looks like it was filmed that way.", ["Flames", "Smoke", "Sparks", "Compositing"], REEL[1]],
+  ["sv--paper", "Dubbing", "Natural multi-language voices with lip-sync, so one film speaks to every market.", ["Voice", "Lip-sync", "Localisation"], REEL[6]],
 ];
-$("#bento").innerHTML = SVC.map((s, i) => `<article class="card ${s[0]} rv"><div><span class="mono">${pad2(i + 1)} / ${pad2(SVC.length)}</span><h3>${s[1]}</h3><p>${s[2]}</p><ul>${s[3].map(t => `<li>${t}</li>`).join("")}</ul></div>${s[4] ? `<div class="pic">${img(s[4])}</div>` : ""}</article>`).join("");
+$("#svc3").innerHTML = SVC.map(s => `<article class="sv ${s[0]} rv"><div class="sv__pic">${img(s[4])}</div><div class="sv__body"><h3>${s[1]}</h3><p>${s[2]}</p><ul>${s[3].map(t => `<li>${t}</li>`).join("")}</ul></div></article>`).join("");
 
 /* process film strip */
 const STEPS = [
   ["Brief", "Tell us the goal. We turn it into angles, hooks and a direction built for your audience.", REEL[1], "Day 0"],
-  ["Storyboard", "Every shot planned and styled before a single frame is generated.", REEL[4], "Day 1"],
-  ["Production", "AI-native pipelines build the world, characters and motion: anime, hybrid or photoreal.", REEL[7], "Days 2–4"],
+  ["Storyboard", "Every shot planned and styled before a single frame is made.", REEL[4], "Day 1"],
+  ["Production", "We build the world, characters and motion, or take your ready footage into VFX.", REEL[7], "Days 2–4"],
   ["Sound design", "Original sound, music and mix built alongside the picture.", REEL[8], "Days 3–5"],
-  ["VFX", "Hybrid compositing and finishing that locks the look and hides the seams.", REEL[9], "Days 4–6"],
+  ["VFX", "Flames, smoke, sparks and compositing, locked to the look of the film.", REEL[9], "Days 4–6"],
   ["Dub & deliver", "Multi-language dubbing, masters and cutdowns for every platform.", REEL[10], "Final cut"],
 ];
 $("#film").innerHTML = STEPS.map((s, i) => `<article class="shot"><div class="shot__top mono"><span>Shot ${pad2(i + 1)}</span><span>00:0${i}:00</span></div><div class="shot__img">${img(s[2])}</div><h3>${s[0]}</h3><p>${s[1]}</p><span class="tag mono">${s[3]}</span></article>`).join("");
@@ -477,21 +393,24 @@ const film = $("#film");
 $("#fPrev").onclick = () => film.scrollBy({ left: -film.clientWidth * .6, behavior: "smooth" });
 $("#fNext").onclick = () => film.scrollBy({ left: film.clientWidth * .6, behavior: "smooth" });
 
-/* faq */
+/* faq: opening one closes the others */
 const FAQS = [
-  ["Do you use real cameras?", "No. Everything is built with AI-native pipelines: storyboarded, generated, scored and finished by our team. Hybrid VFX blends the two worlds when a brief needs it."],
+  ["Do you shoot with real cameras?", "No, we don't shoot. For hybrid VFX you send us footage that's already shot, and we add the effects on top. Everything else we build from the storyboard up."],
+  ["What is hybrid VFX?", "You bring ready footage. We layer in effects like flames, smoke, sparks and explosions so they look like they were filmed on the day. Most of our VFX projects work this way."],
   ["How fast can you deliver a film?", "Most projects reach a first cut in days, not weeks. Exact timing depends on length and complexity, and we'll scope it on the call."],
-  ["What is hybrid VFX?", "Generated footage combined with traditional compositing, so shots look cohesive and finished rather than raw AI output."],
   ["Do you do dubbing?", "Yes. We dub films into multiple languages with natural voices and lip-sync, so one film can launch in every market."],
-  ["Can you make anime-style videos?", "Yes. Anime-style animation is one of our specialities, from short loops to series like our FIFA World Cup work."],
+  ["Can you make anime-style videos?", "Yes. Anime-style animation is one of our specialities, from short loops to full series."],
   ["What does a project cost?", "It depends on scope, length and volume. Book a discovery call, share the brief, and we'll follow with a clear quote."],
 ];
 $("#faqList").innerHTML = FAQS.map(f => `<details><summary>${f[0]}</summary><p>${f[1]}</p></details>`).join("") +
-  `<div class="fit"><h4>Not sure we&rsquo;re the right fit?</h4><div><button class="btn btn--light" data-book="faq">Book a discovery call <i aria-hidden="true">↗</i></button></div></div>`;
+  `<p class="faq__note">Still have a question? Email <a href="mailto:hi@operacreatives.com">hi@operacreatives.com</a></p>`;
+document.querySelectorAll("#faqList details").forEach(d => d.addEventListener("toggle", () => {
+  if (d.open) document.querySelectorAll("#faqList details").forEach(o => { if (o !== d) o.open = false; });
+}));
 
 /* booking */
 const bookOv = $("#bookOv"), needs = new Set();
-["Anime-style animation", "Hybrid VFX", "Dubbing", "Brand film", "Product visuals", "Not sure yet"].forEach(n => {
+["Anime-style animation", "Hybrid VFX", "Dubbing", "Brand film", "Not sure yet"].forEach(n => {
   const b = el(`<button type="button" class="pick" aria-pressed="false">${n}</button>`);
   b.onclick = () => { needs.has(n) ? needs.delete(n) : needs.add(n); b.setAttribute("aria-pressed", needs.has(n)); };
   $("#needs").append(b);
@@ -507,9 +426,9 @@ $("#bookForm").onsubmit = e => {
   u.searchParams.set("notes", [d.get("brand") && "Brand: " + d.get("brand"), needs.size && "Needs: " + [...needs].join(", "), d.get("budget") && "Budget: " + d.get("budget"), d.get("note") && "Brief: " + d.get("note")].filter(Boolean).join("\n"));
   window.open(u, "_blank", "noopener"); $("#calLink").href = u; e.target.hidden = true; $("#bookDone").hidden = false;
 };
-function closeAll() { document.querySelectorAll(".ov").forEach(o => o.classList.remove("open")); document.body.style.overflow = ""; }
+function closeAll() { document.querySelectorAll(".ov").forEach(o => o.classList.remove("open")); $("#lb").innerHTML = ""; document.body.style.overflow = ""; }
 document.querySelectorAll("[data-close]").forEach(b => b.onclick = closeAll);
-bookOv.addEventListener("mousedown", e => e.target === bookOv && closeAll());
+document.querySelectorAll(".ov").forEach(o => o.addEventListener("mousedown", e => e.target === o && closeAll()));
 addEventListener("keydown", e => e.key === "Escape" && closeAll());
 
 /* menu */
