@@ -1,4 +1,5 @@
-import { NextResponse } from "next/server";
+import { NextResponse, after } from "next/server";
+import { captureServer, scanProperties } from "@/lib/analytics";
 import { PROTECTED_LINKS, SLUG_RE, fetchPublicLink, isProtectedSlug, resolveTarget } from "@/lib/links";
 
 // Short links: /qr, /nfc and anything created on the dashboard's Links page.
@@ -25,6 +26,13 @@ export async function GET(req: Request, { params }: { params: Promise<{ slug: st
     target = resolveTarget(PROTECTED_LINKS[slug], null, slug, origin);
   }
   if (!target) return notFound();
+
+  // Count the scan after the redirect has been sent, so analytics can never slow it down.
+  try {
+    after(() => captureServer("short_link_scan", scanProperties(req, slug, target)));
+  } catch {
+    // not inside a request (tests): skip
+  }
 
   const res = NextResponse.redirect(target, 307);
   res.headers.set("Cache-Control", "no-store");

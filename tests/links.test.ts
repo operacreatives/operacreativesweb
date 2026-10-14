@@ -62,6 +62,14 @@ describe("printed card links never break", () => {
     expect((await call("qr")).headers.get("location")).toBe(qr);
   });
 
+  it("keeps the founders' card QR codes working on the links page when the database is down", async () => {
+    mockDb(() => Promise.reject(new Error("network down")));
+    for (const slug of ["kshitij", "sanchit", "jinesh"]) {
+      expect((await call(slug)).headers.get("location")).toBe(`https://www.operacreatives.com/links?ref=${slug}-qr`);
+    }
+    expect((await call("sanchit-nfc")).headers.get("location")).toBe("https://www.operacreatives.com/links?ref=sanchit-nfc");
+  });
+
   it("follows the database when it is healthy, so the destination stays editable", async () => {
     mockDb(() => row("https://example.com/new"));
     expect((await call("qr")).headers.get("location")).toBe("https://example.com/new");
@@ -95,5 +103,35 @@ describe("redirect target", () => {
     expect(resolveTarget("/deck?ref=card", null, "qr", "https://www.operacreatives.com").toString()).toBe(
       "https://www.operacreatives.com/deck?ref=card",
     );
+  });
+});
+
+describe("scan analytics", () => {
+  it("records the slug, ref, destination and rough origin of a scan", async () => {
+    const { scanProperties } = await import("@/lib/analytics");
+    const req = new Request("https://www.operacreatives.com/kshitij", {
+      headers: {
+        "x-vercel-ip-country": "IN",
+        "x-vercel-ip-city": "Pune",
+        "x-forwarded-for": "203.0.113.9, 10.0.0.1",
+        "user-agent": "TestPhone",
+      },
+    });
+    const props = scanProperties(req, "kshitij", new URL("https://www.operacreatives.com/links?ref=kshitij-qr"));
+    expect(props).toMatchObject({ slug: "kshitij", ref: "kshitij-qr", destination: "/links", country: "IN", city: "Pune", $ip: "203.0.113.9", user_agent: "TestPhone" });
+  });
+
+  it("sends the event to PostHog without a person profile, and never throws", async () => {
+    const { captureServer } = await import("@/lib/analytics");
+    const f = vi.fn(() => Promise.resolve(new Response("{}", { status: 200 })));
+    vi.stubGlobal("fetch", f);
+    await captureServer("short_link_scan", { slug: "qr" });
+    const [url, init] = f.mock.calls[0] as unknown as [string, RequestInit];
+    expect(url).toMatch(/\/capture\/$/);
+    const body = JSON.parse(init.body as string);
+    expect(body.event).toBe("short_link_scan");
+    expect(body.properties).toMatchObject({ slug: "qr", $process_person_profile: false });
+    vi.stubGlobal("fetch", vi.fn(() => Promise.reject(new Error("down"))));
+    await expect(captureServer("x", {})).resolves.toBeUndefined();
   });
 });

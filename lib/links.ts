@@ -13,6 +13,11 @@ const PUBLISHABLE_KEY =
 export const PROTECTED_LINKS: Record<string, string> = {
   qr: "/deck?ref=card",
   nfc: "/deck?ref=nfc",
+  // The founders' own card QR codes and NFC chips point at the links page.
+  kshitij: "/links?ref=kshitij-qr",
+  sanchit: "/links?ref=sanchit-qr",
+  jinesh: "/links?ref=jinesh-qr",
+  "sanchit-nfc": "/links?ref=sanchit-nfc",
 };
 
 export const SLUG_RE = /^[a-z0-9][a-z0-9-]{0,39}$/;

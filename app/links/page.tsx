@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { BookButton } from "@/components/BookButton";
 import { LinkList } from "@/components/LinkList";
+import { LinksViewTracker } from "@/components/LinksViewTracker";
 import { buildVimeoEmbedUrl } from "@/lib/vimeo";
 import { HERO, SHOWREEL_ID, SITE_NAME, SITE_URL } from "@/lib/site";
 
@@ -18,6 +19,7 @@ export const metadata: Metadata = {
 export default function LinksPage() {
   return (
     <div className="lk">
+      <LinksViewTracker />
       <header className="lk-head">
         <Image src="/logo-oc-mark.webp" alt="" width={360} height={261} priority />
         <h1>{SITE_NAME}</h1>
