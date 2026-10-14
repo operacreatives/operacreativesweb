@@ -30,6 +30,15 @@ npm run test:e2e
 - Every work image has descriptive alt text; poster alt text lives in `data/posters.ts`. Add an entry there whenever a poster is added.
 - Unknown pages show a branded, noindex 404 (`app/not-found.tsx`).
 
+## Business card
+
+Print-ready business card (90 x 50 mm, 3 mm bleed, same fonts, colours, logo and posters as the site) lives in `print/business-card`.
+
+- `npm run card` builds `print/business-card/out/`: `studio-print.pdf` (send this to the printer; it has trim and bleed boxes set), 600 dpi PNGs of both sides, and a preview image. The out folder is not committed; rebuild any time. Needs internet access (Google Fonts) and a Chromium install.
+- QR code: save it as `print/business-card/qr.svg` (or `qr.png`) and rebuild. Until then the card shows a "QR code goes here" placeholder.
+- Cards for individual people: add entries (name, title, phone) to `print/business-card/people.json`; each entry builds its own PDF.
+- Change the card size by editing `TRIM_W` and `TRIM_H` at the top of `build.mjs`.
+
 ## Previous site
 
 The previous homepage is preserved on the `backup/live-site-v1` branch. To roll back, deploy that branch or reset `main` to it.
