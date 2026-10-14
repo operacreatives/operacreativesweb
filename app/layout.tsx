@@ -2,6 +2,7 @@ import "./site.css";
 import type { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import { Bebas_Neue, Inter, Space_Mono } from "next/font/google";
+import { ChromeGate } from "@/components/ChromeGate";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { RevealObserver } from "@/components/RevealObserver";
@@ -136,9 +137,13 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           <a href="#main-content" className="skip-link">
             Skip to content
           </a>
-          <Header />
+          <ChromeGate>
+            <Header />
+          </ChromeGate>
           <main id="main-content">{children}</main>
-          <Footer />
+          <ChromeGate>
+            <Footer />
+          </ChromeGate>
           <RevealObserver />
         </div>
         <Analytics />

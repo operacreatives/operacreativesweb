@@ -4,7 +4,7 @@ import { posters } from "@/data/posters";
 import { vimeoProjects } from "@/data/vimeo-projects";
 import { posterAlts } from "@/data/posters";
 import { buildJsonLd, jsonLdString } from "@/lib/seo";
-import { BOOK_LABEL, CAL_URL, FAQS, PROCESS, SERVICES, SITE_DESCRIPTION, SITE_TITLE } from "@/lib/site";
+import { BOOK_LABEL, CAL_URL, FAQS, LINKS, PROCESS, SERVICES, SITE_DESCRIPTION, SITE_TITLE } from "@/lib/site";
 import { resolvePic, type WorkData } from "@/lib/work";
 
 const work: WorkData = {
@@ -64,5 +64,15 @@ describe("search and AI visibility", () => {
   it("has descriptive alt text for every poster", () => {
     expect(Object.keys(posterAlts).sort()).toEqual([...posters].sort());
     for (const alt of Object.values(posterAlts)) expect(alt.length).toBeGreaterThan(15);
+  });
+});
+
+describe("links page", () => {
+  it("lists the deck, website, socials and email, each exactly once", () => {
+    const labels = LINKS.map((l) => l.label);
+    expect(labels).toEqual(["Pitch deck", "Website", "Instagram", "LinkedIn", "X", "Email"]);
+    expect(new Set(LINKS.map((l) => l.href)).size).toBe(LINKS.length);
+    expect(LINKS.find((l) => l.label === "Pitch deck")?.href).toBe("/deck?ref=links");
+    for (const l of LINKS.filter((x) => x.external)) expect(l.href.startsWith("https://")).toBe(true);
   });
 });

@@ -97,3 +97,13 @@ export const WORK_NOTES = {
   statics: "Posters, ad creatives and product visuals made for brands. Click any to view it full size.",
   fifa: "Anime series released during the FIFA World Cup, generating over 150 million impressions across social media.",
 };
+
+// The /links page (Linktree style). The first button is always "Book a discovery call".
+export const LINKS = [
+  { label: "Pitch deck", note: "See what we make", href: "/deck?ref=links", external: false },
+  { label: "Website", note: "operacreatives.com", href: "/?ref=links", external: false },
+  { label: "Instagram", note: "@operacreatives_", href: SOCIALS[0].href, external: true },
+  { label: "LinkedIn", note: "Opera Creatives", href: SOCIALS[1].href, external: true },
+  { label: "X", note: "@operacreatives_", href: SOCIALS[2].href, external: true },
+  { label: "Email", note: CONTACT_EMAIL, href: `mailto:${CONTACT_EMAIL}`, external: false },
+];

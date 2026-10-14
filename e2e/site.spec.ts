@@ -76,7 +76,7 @@ test.describe("search and AI visibility", () => {
   test("has exactly one h1 and a canonical link", async ({ page }) => {
     await page.goto("/", { waitUntil: "domcontentloaded" });
     await expect(page.locator("h1")).toHaveCount(1);
-    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", "https://www.operacreatives.com/");
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", /^https:\/\/www\.operacreatives\.com\/?$/);
   });
 
   test("/llms.txt, /robots.txt and /sitemap.xml are served", async ({ request }) => {
@@ -91,5 +91,24 @@ test.describe("search and AI visibility", () => {
     const res = await page.goto("/no/such/page", { waitUntil: "domcontentloaded" });
     expect(res?.status()).toBe(404);
     await expect(page.getByRole("heading", { name: "Page not found" })).toBeVisible();
+  });
+});
+
+test.describe("links page", () => {
+  test("is a standalone card with booking, showreel and the main links", async ({ page }) => {
+    const res = await page.goto("/links");
+    expect(res?.status()).toBe(200);
+    await expect(page.getByTestId("site-header")).toHaveCount(0);
+    await expect(page.getByRole("heading", { level: 1, name: "Opera Creatives" })).toBeVisible();
+    await expect(page.getByRole("link", { name: /Book a discovery call/ })).toHaveAttribute("href", /cal\.com\/operacreatives/);
+    await expect(page.locator("iframe[src*='player.vimeo.com/video/1233639706']")).toHaveCount(1);
+    await expect(page.getByRole("link", { name: /Pitch deck/ })).toHaveAttribute("href", "/deck?ref=links");
+    await expect(page.getByRole("link", { name: /Instagram/ })).toBeVisible();
+    await expect(page.getByRole("link", { name: /LinkedIn/ })).toBeVisible();
+  });
+
+  test("the home page still has its header", async ({ page }) => {
+    await page.goto("/");
+    await expect(page.getByTestId("site-header")).toBeVisible();
   });
 });

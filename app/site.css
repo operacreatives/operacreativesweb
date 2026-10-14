@@ -253,3 +253,26 @@ html:has(.site){scroll-behavior:smooth}
 .site .proc,.site .ctaw{position:relative}
 
 .site .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+/* ---------- /links (Linktree style) ---------- */
+.site .lk{min-height:100svh;display:flex;flex-direction:column;align-items:center;padding:3rem var(--gut) 0;background:radial-gradient(circle at 0% 100%,rgba(234,9,22,.16),rgba(234,9,22,0) 55%),radial-gradient(circle at 60% -10%,rgba(255,160,90,.3),rgba(255,160,90,0) 45%),var(--cream);overflow:hidden}
+.site .lk>*{width:100%;max-width:27rem}
+.site .lk-head{text-align:center}
+.site .lk-head img{width:clamp(6.5rem,28vw,8rem);height:auto;margin:0 auto}
+.site .lk-head h1{margin-top:1rem;font-weight:800;font-size:clamp(1.9rem,7vw,2.4rem);letter-spacing:-.045em;line-height:1}
+.site .lk-head .mono{margin-top:.55rem;font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+.site .lk-reel{position:relative;margin-top:1.8rem;aspect-ratio:16/9;border-radius:4px;overflow:hidden;background:var(--ink);box-shadow:0 14px 34px -16px rgba(11,11,11,.45)}
+.site .lk-reel iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.site .lk-book{margin-top:.9rem}
+.site .lk-book .btn{width:100%;justify-content:space-between;font-size:1.1rem;padding:.7rem .7rem .7rem 1.4rem}
+.site .lk-book .btn i{width:2.8rem;height:2.8rem}
+.site .lk-list{list-style:none;margin-top:.9rem;display:flex;flex-direction:column;gap:.7rem}
+.site .lk-list a{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.95rem 1.1rem .95rem 1.4rem;border:1.5px solid var(--ink);border-radius:4px;background:rgba(253,246,238,.7);text-decoration:none;transition:transform .3s var(--ease),background .25s,color .25s}
+.site .lk-list a:hover{background:var(--ink);color:var(--cream);transform:translateY(-2px)}
+.site .lk-list b{display:block;font-weight:700;font-size:1.05rem;letter-spacing:-.02em;line-height:1.1}
+.site .lk-list small{display:block;margin-top:.25rem;font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;opacity:.65}
+.site .lk-list i{font-style:normal;font-size:1.1rem;transition:transform .3s var(--ease)}
+.site .lk-list a:hover i{transform:rotate(45deg);color:var(--red)}
+.site .lk-tag{margin-top:2.2rem;text-align:center;font-weight:800;font-size:1.05rem;letter-spacing:-.03em;color:var(--ink)}
+.site .lk-peek{position:relative;height:110px;margin-top:auto;padding-top:1.5rem;overflow:hidden;box-sizing:content-box}
+.site .lk-peek img{position:absolute;left:50%;top:calc(1.5rem - 80px);width:288px;height:auto;transform:translateX(-50%)}
