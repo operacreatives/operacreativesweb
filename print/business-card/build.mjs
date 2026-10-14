@@ -3,7 +3,8 @@
 //   npm run card
 //
 // Output (print/business-card/out/):
-//   <id>-print.pdf      2 pages (front, back): CR80 card (85.6 x 54 mm) + 3.175 mm (0.125 in) bleed on every side. Send this to the printer.
+//   <id>-print.pdf      handout card (no NFC). 2 pages (front, back): CR80 card (85.6 x 54 mm) + 3.175 mm (0.125 in) bleed on every side. Send this to the printer.
+//   <id>-founder-print.pdf  founder edition for the NFC PVC card the founders keep (name on the front, tap to connect). Same files as above, named <id>-founder-*
 //   <id>-front.png      600 dpi, with bleed
 //   <id>-back.png       600 dpi, with bleed
 //   <id>-preview.png    both sides, trimmed, on a neutral background (for sharing, not for printing)
@@ -14,6 +15,7 @@
 import { chromium } from "@playwright/test";
 import { PDFDocument } from "pdf-lib";
 import QRCode from "qrcode";
+import { founderDoc } from "./founder.mjs";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
@@ -69,7 +71,8 @@ html,body{-webkit-print-color-adjust:exact;print-color-adjust:exact;background:#
 .front .brand{position:absolute;left:${BLEED + 5.5 + 17.5}mm;top:${BLEED + 5.5 + 2.4}mm}
 .front .brand b{display:block;font-weight:800;font-size:4.3mm;letter-spacing:-.045em;line-height:1}
 .front .brand span{display:block;margin-top:1.5mm;font-family:var(--mono);font-size:4.4pt;letter-spacing:.14em;text-transform:uppercase;color:rgba(11,11,11,.62)}
-.front .peek{position:absolute;right:${BLEED + 4}mm;bottom:${BLEED + 1.6}mm;width:40mm;height:auto}
+.front .peek{position:absolute;right:${BLEED + 3.5}mm;bottom:${BLEED + 1.6}mm;width:36mm;height:auto}
+.front .svc{position:absolute;left:${BLEED + 5.5}mm;bottom:${BLEED + 7}mm;white-space:nowrap;font-weight:600;font-size:6.2pt;line-height:1.5;letter-spacing:-.005em;color:rgba(11,11,11,.82)}
 .front .base{position:absolute;left:0;right:0;bottom:${BLEED + 3.6 - 0.15}mm;height:.3mm;background:var(--ink)}
 
 /* ---------- back: ink, name, contact, QR ---------- */
@@ -84,7 +87,6 @@ html,body{-webkit-print-color-adjust:exact;print-color-adjust:exact;background:#
 .contact{list-style:none;display:flex;flex-direction:column;gap:1.2mm;font-weight:600;font-size:7pt;letter-spacing:-.01em}
 .contact li{display:flex;gap:2mm;align-items:baseline}
 .contact li span{width:7.5mm;flex:none;font-family:var(--mono);font-weight:400;font-size:5pt;letter-spacing:.12em;text-transform:uppercase;color:#ff4a54}
-.svc{white-space:nowrap;font-weight:500;font-size:5.2pt;line-height:1.4;color:rgba(248,231,216,.72)}
 .qr{position:absolute;right:${BLEED + 5.5}mm;bottom:${BLEED + 5.5}mm;width:21mm;text-align:center}
 .qrbox{width:21mm;height:21mm;border-radius:2mm;background:var(--cream);display:grid;place-items:center;padding:2.2mm}
 .qrbox img{width:100%;height:100%;display:block}
@@ -94,13 +96,13 @@ html,body{-webkit-print-color-adjust:exact;print-color-adjust:exact;background:#
 <section class="page front" id="front">
   <img class="mark" src="${logo}" alt="Opera Creatives logo">
   <div class="brand"><b>Opera Creatives</b><span>AI native production studio</span></div>
+  <p class="svc">${SERVICES.map(esc).join("<br>")}</p>
   <div class="base"></div><img class="peek" src="${mascot}" alt="">
 </section>
 <section class="page back" id="back">
   <div class="left">
     <div class="who"><img src="${logo}" alt=""><b>Opera Creatives</b></div>
     <div><div class="person"><b>${esc(person.name)}</b><span>${esc(person.title)}</span></div><ul class="contact">${rows}</ul></div>
-    <p class="svc">${SERVICES.map(esc).join("<br>")}</p>
   </div>
   <div class="qr"><div class="qrbox"><img src="${qr}" alt="QR code for ${esc(person.name)}"></div><div class="cap">Scan to connect</div></div>
 </section>
@@ -127,10 +129,10 @@ async function main() {
 
   const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH || undefined, args: ["--no-sandbox"] });
   try {
-    for (const person of people) {
-      const htmlPath = path.join(outDir, `${person.id}.html`);
+    for (const person of people.flatMap((q) => [{ ...q, file: q.id, founder: false }, { ...q, file: `${q.id}-founder`, founder: true }])) {
+      const htmlPath = path.join(outDir, `${person.file}.html`);
       const qrUrl = `${SITE.base}/${person.id}`;
-      await fs.writeFile(htmlPath, cardHtml({ person, qr: await qrFor(qrUrl) }));
+      await fs.writeFile(htmlPath, person.founder ? await founderDoc({ person, mode: "pvc", W: TRIM_W, H: TRIM_H, bleed: BLEED, site: SITE.web, baseUrl: SITE.base }) : cardHtml({ person, qr: await qrFor(qrUrl) }));
 
       // 600 dpi = 6.25x CSS pixels
       const ctx = await browser.newContext({ viewport: { width: 520, height: 900 }, deviceScaleFactor: 6.25 });
@@ -140,11 +142,11 @@ async function main() {
       const fontsOk = await page.evaluate(() => ["800 16px Inter", "400 16px 'Space Mono'"].every((f) => document.fonts.check(f)));
       if (!fontsOk) throw new Error("Fonts did not load (needs internet access to Google Fonts). Run the build again online.");
 
-      const pdfPath = path.join(outDir, `${person.id}-print.pdf`);
+      const pdfPath = path.join(outDir, `${person.file}-print.pdf`);
       await page.pdf({ path: pdfPath, width: `${PAGE_W}mm`, height: `${PAGE_H}mm`, printBackground: true, preferCSSPageSize: true });
       await markTrimAndBleed(pdfPath);
-      await page.locator("#front").screenshot({ path: path.join(outDir, `${person.id}-front.png`) });
-      await page.locator("#back").screenshot({ path: path.join(outDir, `${person.id}-back.png`) });
+      await page.locator("#front").screenshot({ path: path.join(outDir, `${person.file}-front.png`) });
+      await page.locator("#back").screenshot({ path: path.join(outDir, `${person.file}-back.png`) });
       await ctx.close();
 
       // Preview: both sides trimmed to the real card edge, on a neutral background
@@ -152,16 +154,16 @@ async function main() {
         `<div class="c"><img src="${pathToFileURL(path.join(outDir, img)).href}" style="width:${(PAGE_W / TRIM_W) * 100}%;left:${-(BLEED / TRIM_W) * 100}%;top:${-(BLEED / TRIM_H) * 100}%"></div>`;
       const pv = await browser.newContext({ viewport: { width: 1500, height: 560 }, deviceScaleFactor: 1.5 });
       const pvPage = await pv.newPage();
-      const pvPath = path.join(outDir, `${person.id}-preview.html`);
+      const pvPath = path.join(outDir, `${person.file}-preview.html`);
       await fs.writeFile(pvPath, `<!doctype html><style>body{margin:0;height:560px;display:flex;gap:56px;align-items:center;justify-content:center;background:linear-gradient(135deg,#e9e6e1,#cfcac3)}
         .c{position:relative;width:630px;height:${(630 * TRIM_H) / TRIM_W}px;border-radius:12px;overflow:hidden;box-shadow:0 30px 50px -20px rgba(0,0,0,.45),0 6px 14px rgba(0,0,0,.18)}
-        .c img{position:absolute;display:block}</style>${crop(`${person.id}-front.png`)}${crop(`${person.id}-back.png`)}`);
+        .c img{position:absolute;display:block}</style>${crop(`${person.file}-front.png`)}${crop(`${person.file}-back.png`)}`);
       await pvPage.goto(pathToFileURL(pvPath).href, { waitUntil: "networkidle" });
       await pvPage.waitForTimeout(400);
-      await pvPage.screenshot({ path: path.join(outDir, `${person.id}-preview.png`) });
+      await pvPage.screenshot({ path: path.join(outDir, `${person.file}-preview.png`) });
       await pv.close();
       await fs.rm(pvPath);
-      console.log(`built ${person.id}: ${PAGE_W} x ${PAGE_H} mm with bleed (QR: ${qrUrl})`);
+      console.log(`built ${person.file}${person.founder ? " (founder edition, NFC)" : ""}: ${PAGE_W} x ${PAGE_H} mm with bleed (QR: ${qrUrl})`);
     }
   } finally {
     await browser.close();

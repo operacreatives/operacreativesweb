@@ -3,14 +3,15 @@
 import numpy as np, potrace, sys
 from PIL import Image
 here = sys.path[0]
-def trace(src, out, scale=3):
+def trace(src, out, mm_width, scale=3):
     im = Image.open(src).convert("RGBA")
     im = im.resize((im.width * scale, im.height * scale), Image.LANCZOS)
     a = np.asarray(im).astype(float)
     luma = 0.299 * a[..., 0] + 0.587 * a[..., 1] + 0.114 * a[..., 2]
     mask = (a[..., 3] > 128) & (luma < 170)
     bm = potrace.Bitmap(~mask)
-    plist = bm.trace(turdsize=20, alphamax=1.0, opticurve=True, opttolerance=0.3)
+    min_px = (0.3 * im.width / mm_width) ** 2  # smallest feature: 0.3 mm square
+    plist = bm.trace(turdsize=int(min_px), alphamax=1.0, opticurve=True, opttolerance=0.3)
     d = []
     for c in plist:
         s = c.start_point
@@ -24,5 +25,5 @@ def trace(src, out, scale=3):
     w, h = im.size
     open(out, "w").write(f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} {h}"><path fill="#000" fill-rule="evenodd" d="{"".join(d)}"/></svg>')
     print(out, w, h, len(plist))
-trace(f"{here}/assets/logo-mark.png", f"{here}/assets/logo-mark.svg")
-trace(f"{here}/assets/mascot.png", f"{here}/assets/mascot.svg", scale=2)
+trace(f"{here}/assets/logo-mark.png", f"{here}/assets/logo-mark.svg", mm_width=15)
+trace(f"{here}/assets/mascot.png", f"{here}/assets/mascot.svg", mm_width=36, scale=2)
