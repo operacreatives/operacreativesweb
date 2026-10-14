@@ -1,5 +1,5 @@
 // Metal NFC card (laser engraving, one colour): the same design as the paper handout and the NFC PVC card,
-// plus the tap symbol on the back. Colour only differs: here everything is a single etched colour.
+// plus the tap symbol on the back, without the mascot on the front. Colour only differs: here everything is a single etched colour.
 //
 // mode "engrave"  black art on white (what the engraver gets; black = etched)
 // mode "mock"     what the engraving looks like on black metal (preview only)
@@ -24,7 +24,6 @@ export async function founderDoc({ person, mode, W, H, site, baseUrl, content })
   const m = 5.5;
   const qrSvg = await QRCode.toString(`${baseUrl}/${person.id}`, { type: "svg", margin: 0, errorCorrectionLevel: "M", color: { dark: base, light: "#0000" } });
   const logo = await inline("logo-mark.svg");
-  const mascot = await inline("mascot.svg");
   const rows = [["Email", person.email], ["Call", person.phone], ["Web", site]].map(([k, v]) => `<li><span>${esc(k)}</span>${esc(v)}</li>`).join("");
 
   return `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Opera Creatives metal card: ${esc(person.name)}</title>
@@ -40,15 +39,12 @@ ${mode === "mock" ? ".page{border-radius:3mm;background:linear-gradient(115deg,#
 svg{display:block}
 .mono{font-family:var(--mono);font-weight:700;text-transform:uppercase}
 
-/* front: centred logo, studio line, mascot on the line */
-.front .mark{position:absolute;left:50%;transform:translateX(-50%);top:5.5mm;width:25mm}
+/* front: centred logo and studio line */
+.front .mark{position:absolute;left:50%;transform:translateX(-50%);top:11.4mm;width:28mm}
 .front .mark svg,.back .who .m svg{width:100%;height:auto}
-.front .brand{position:absolute;left:0;right:0;top:25.8mm;text-align:center}
+.front .brand{position:absolute;left:0;right:0;top:34mm;text-align:center}
 .front .brand b{display:block;font-weight:800;font-size:4.9mm;letter-spacing:-.045em;line-height:1}
 .front .brand span{display:block;margin-top:1.7mm;font-family:var(--mono);font-weight:700;font-size:6.2pt;letter-spacing:.13em;text-transform:uppercase}
-.front .base{position:absolute;left:0;right:0;bottom:3.45mm;height:.3mm;background:var(--ink)}
-.front .peek{position:absolute;left:50%;transform:translateX(-50%);bottom:2.41mm;width:24mm}
-.front .peek svg{width:100%;height:auto}
 
 /* back: logo and name, details, tap symbol, QR */
 .left{position:absolute;left:${m}mm;top:${m}mm;bottom:${m}mm;width:52mm;display:flex;flex-direction:column;justify-content:space-between}
@@ -71,7 +67,6 @@ svg{display:block}
 <section class="page front" id="front">
   <div class="mark">${logo}</div>
   <div class="brand"><b>Opera Creatives</b><span>${esc(content.studioLine)}</span></div>
-  <div class="base"></div><div class="peek">${mascot}</div>
 </section>
 <section class="page back" id="back">
   <div class="left">
