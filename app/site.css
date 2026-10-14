@@ -165,6 +165,14 @@ html:has(.site){scroll-behavior:smooth}
 @media (prefers-reduced-motion:reduce){.site,.site *{animation:none!important;transition:none!important}
 .js .site .rv{opacity:1;transform:none}}
 @media (max-width:620px){.site .wgrid.statics{grid-template-columns:1fr 1fr;gap:.6rem}}
+/* "View all": on phones only the first few tiles show until it is tapped; desktop shows everything */
+.site .work__more{display:none}
+@media (max-width:620px){
+  .site .wgrid:not(.open)>*:nth-child(n+7){display:none}
+  .site .work__more{display:flex;align-items:center;justify-content:space-between;gap:1rem;width:100%;margin-top:1rem;padding:.55rem .55rem .55rem 1.2rem;border-radius:4px;box-shadow:inset 0 0 0 1.5px var(--ink);font-weight:600;font-size:1rem;letter-spacing:-.01em;transition:background .3s,color .3s}
+  .site .work__more i{display:grid;place-items:center;width:2.2rem;height:2.2rem;border-radius:3px;background:var(--red);color:#fff;font-style:normal;font-size:1.3rem;line-height:1}
+  .site .work__more:active{background:var(--ink);color:var(--cream)}
+}
 @media (max-width:900px){.site .nav,.site .hdr .btn{display:none}
 .site .burger{display:block;font-family:var(--mono);font-size:.74rem;letter-spacing:.1em;padding:.55rem 1rem;border:1.5px solid var(--ink);border-radius:999px}
 .site .hdr.menu{border-radius:22px;flex-wrap:wrap;background:var(--paper);backdrop-filter:none}

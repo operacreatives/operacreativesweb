@@ -127,3 +127,34 @@ test.describe("showreel", () => {
     await expect(page.locator(".nav a").first()).toHaveAttribute("href", "#showreel");
   });
 });
+
+test.describe("work section on phones", () => {
+  test.use({ viewport: { width: 390, height: 844 } });
+
+  test("shows a short preview, and View all / View less expands and collapses it", async ({ page }) => {
+    await page.goto("/");
+    const tiles = page.locator("#work-panel .tile:visible");
+    await expect(tiles).toHaveCount(6);
+    await page.getByRole("button", { name: /View all/ }).click();
+    expect(await tiles.count()).toBeGreaterThan(6);
+    await page.getByRole("button", { name: "View less" }).click();
+    await expect(tiles).toHaveCount(6);
+  });
+
+  test("switching tabs starts collapsed again", async ({ page }) => {
+    await page.goto("/");
+    await page.getByRole("button", { name: /View all/ }).click();
+    await page.getByRole("tab", { name: /Static Creatives/ }).click();
+    await expect(page.locator("#work-panel .tile:visible")).toHaveCount(6);
+  });
+});
+
+test.describe("work section on desktop", () => {
+  test.use({ viewport: { width: 1280, height: 800 } });
+
+  test("shows everything and no View all button", async ({ page }) => {
+    await page.goto("/");
+    await expect(page.getByRole("button", { name: /View all/ })).toBeHidden();
+    expect(await page.locator("#work-panel .tile:visible").count()).toBeGreaterThan(6);
+  });
+});
