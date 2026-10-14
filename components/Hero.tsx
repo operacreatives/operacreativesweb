@@ -15,7 +15,7 @@ function Column({ index }: { index: number }) {
           alt=""
           width={600}
           height={800}
-          sizes="(max-width: 900px) 33vw, 17vw"
+          sizes="(max-width: 900px) 80vw, 26vw"
           aria-hidden="true"
           priority={i < 2}
         />
