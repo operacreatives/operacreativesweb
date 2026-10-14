@@ -64,3 +64,32 @@ test.describe("links that must never break", () => {
     expect(res.status()).toBe(404);
   });
 });
+
+test.describe("search and AI visibility", () => {
+  test("home page ships valid structured data", async ({ page }) => {
+    await page.goto("/", { waitUntil: "domcontentloaded" });
+    const raw = await page.locator('script[type="application/ld+json"]').first().textContent();
+    const types = JSON.parse(raw ?? "{}")["@graph"].map((n: { "@type": string }) => n["@type"]);
+    expect(types).toEqual(expect.arrayContaining(["Organization", "WebSite", "WebPage", "FAQPage"]));
+  });
+
+  test("has exactly one h1 and a canonical link", async ({ page }) => {
+    await page.goto("/", { waitUntil: "domcontentloaded" });
+    await expect(page.locator("h1")).toHaveCount(1);
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", "https://www.operacreatives.com/");
+  });
+
+  test("/llms.txt, /robots.txt and /sitemap.xml are served", async ({ request }) => {
+    const llms = await request.get("/llms.txt");
+    expect(llms.status()).toBe(200);
+    expect(await llms.text()).toContain("# Opera Creatives");
+    expect((await request.get("/robots.txt")).status()).toBe(200);
+    expect((await request.get("/sitemap.xml")).status()).toBe(200);
+  });
+
+  test("unknown pages show the branded 404 with noindex", async ({ page }) => {
+    const res = await page.goto("/no/such/page", { waitUntil: "domcontentloaded" });
+    expect(res?.status()).toBe(404);
+    await expect(page.getByRole("heading", { name: "Page not found" })).toBeVisible();
+  });
+});

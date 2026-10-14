@@ -1,10 +1,11 @@
 import "./site.css";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import { Bebas_Neue, Inter, Space_Mono } from "next/font/google";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { RevealObserver } from "@/components/RevealObserver";
+import { SITE_DESCRIPTION, SITE_NAME, SITE_TITLE, SITE_URL } from "@/lib/site";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -24,13 +25,15 @@ const spaceMono = Space_Mono({
   weight: ["400", "700"],
 });
 
-const SITE_URL = "https://www.operacreatives.com";
-const SITE_NAME = "Opera Creatives";
-const SITE_TITLE = "Opera Creatives — AI native production studio for anime, VFX, dubbing and brand films";
-const SITE_DESCRIPTION =
-  "Opera Creatives is the AI native production studio for animation, hybrid VFX, dubbing, brand films, commercials, UGC videos and product visuals. From product shot to full blown film.";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#f8e7d8",
+};
 
 export const metadata: Metadata = {
+  applicationName: SITE_NAME,
   metadataBase: new URL(SITE_URL),
 
   title: {
@@ -43,7 +46,8 @@ export const metadata: Metadata = {
   keywords: [
     "Opera Creatives",
     "AI native production studio",
-    "anime animation",
+    "anime style animation",
+    "AI video production",
     "hybrid VFX",
     "dubbing",
     "brand films",
@@ -124,6 +128,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en">
       <head>
         <link rel="preconnect" href="https://player.vimeo.com" />
+        <link rel="preconnect" href="https://i.vimeocdn.com" crossOrigin="" />
         <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
       </head>
       <body suppressHydrationWarning>

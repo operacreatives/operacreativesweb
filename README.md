@@ -22,6 +22,14 @@ npm run test:e2e
 - Short links (`/qr`, `/nfc`, and anything created in the dashboard) are handled by `app/[slug]/route.ts`; `/deck` serves `content/deck.html`. `e2e/site.spec.ts` checks that these keep working.
 - `/v2` redirects to `/` (the redesign was previewed there first).
 
+## Search and AI visibility
+
+- Page title, description, Open Graph and Twitter tags are set in `app/layout.tsx` from `lib/site.ts` (title kept under 60 characters, description under 160; a unit test checks this).
+- `lib/seo.ts` builds the schema.org JSON-LD (Organization with its service catalogue, WebSite, WebPage and a FAQPage built from the FAQ list) and the home page embeds it.
+- `/llms.txt` (`app/llms.txt/route.ts`) is a plain-text summary of the studio for AI assistants, generated from the same copy as the page.
+- Every work image has descriptive alt text; poster alt text lives in `data/posters.ts`. Add an entry there whenever a poster is added.
+- Unknown pages show a branded, noindex 404 (`app/not-found.tsx`).
+
 ## Previous site
 
 The previous homepage is preserved on the `backup/live-site-v1` branch. To roll back, deploy that branch or reset `main` to it.

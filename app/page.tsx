@@ -5,6 +5,7 @@ import { Hero } from "@/components/Hero";
 import { Process } from "@/components/Process";
 import { Services } from "@/components/Services";
 import { Work } from "@/components/Work";
+import { jsonLdString } from "@/lib/seo";
 import { PROCESS } from "@/lib/site";
 import { getWork, resolvePic } from "@/lib/work";
 
@@ -14,6 +15,7 @@ export default async function HomePage() {
 
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString() }} />
       <Hero />
       <About />
       <Work />

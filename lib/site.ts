@@ -2,6 +2,9 @@
 
 export const SITE_URL = "https://www.operacreatives.com";
 export const SITE_NAME = "Opera Creatives";
+export const SITE_TITLE = "Opera Creatives | AI native studio for anime, VFX & dubbing";
+export const SITE_DESCRIPTION =
+  "Opera Creatives is the AI native production studio for animation, hybrid VFX, dubbing, brand films, commercials, UGC videos and product visuals. Book a call.";
 
 // The "Book a discovery call" buttons go straight to this Cal.com page.
 export const CAL_URL = "https://cal.com/operacreatives/talk";

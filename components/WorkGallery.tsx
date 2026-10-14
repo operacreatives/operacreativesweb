@@ -2,12 +2,13 @@
 
 import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
+import { posterAlts } from "@/data/posters";
 import { WORK_NOTES } from "@/lib/site";
 import { buildVimeoEmbedUrl } from "@/lib/vimeo";
 import type { VideoItem } from "@/lib/work";
 
 type TabKey = "films" | "statics" | "fifa";
-type Viewing = { kind: "video"; id: string } | { kind: "image"; src: string } | null;
+type Viewing = { kind: "video"; id: string } | { kind: "image"; src: string; alt: string } | null;
 
 const pad = (n: number) => String(n + 1).padStart(2, "0");
 
@@ -50,7 +51,7 @@ export function WorkGallery({ films, fifa, posters }: { films: VideoItem[]; fifa
   };
   const stopHover = () => setPendingId(null);
 
-  const videoTiles = (items: VideoItem[]) =>
+  const videoTiles = (items: VideoItem[], label: string) =>
     items.map((v, i) => (
       <button
         key={v.id}
@@ -64,7 +65,7 @@ export function WorkGallery({ films, fifa, posters }: { films: VideoItem[]; fifa
         onBlur={stopHover}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={v.thumb} alt="" loading="lazy" decoding="async" />
+        <img src={v.thumb} alt={`${label} ${pad(i)}`} width={1280} height={720} loading="lazy" decoding="async" />
         {hoverId === v.id && pendingId === v.id && <iframe src={buildVimeoEmbedUrl(v.id, "preview")} title="" allow="autoplay" tabIndex={-1} />}
         <span className="no">{pad(i)}</span>
         <span className="play" aria-hidden="true">
@@ -100,8 +101,8 @@ export function WorkGallery({ films, fifa, posters }: { films: VideoItem[]; fifa
       <p className="work__note">{WORK_NOTES[tab]}</p>
 
       <div role="tabpanel" id="work-panel" aria-labelledby={`work-tab-${tab}`} className={`wgrid ${tab === "statics" ? "statics" : ""}`}>
-        {tab === "films" && videoTiles(films)}
-        {tab === "fifa" && videoTiles(fifa)}
+        {tab === "films" && videoTiles(films, "Opera Creatives film")}
+        {tab === "fifa" && videoTiles(fifa, "FIFA World Cup anime series film")}
         {tab === "statics" &&
           posters.map((file, i) => (
             <button
@@ -109,9 +110,9 @@ export function WorkGallery({ films, fifa, posters }: { films: VideoItem[]; fifa
               type="button"
               className="tile portrait"
               aria-label={`View creative ${pad(i)}`}
-              onClick={() => setViewing({ kind: "image", src: `/assets/images/${file}` })}
+              onClick={() => setViewing({ kind: "image", src: `/assets/images/${file}`, alt: posterAlts[file] ?? "" })}
             >
-              <Image src={`/assets/images/${file}`} alt="" fill sizes="(max-width: 620px) 50vw, 240px" loading="lazy" />
+              <Image src={`/assets/images/${file}`} alt={posterAlts[file] ?? ""} fill sizes="(max-width: 620px) 50vw, 240px" loading="lazy" />
               <span className="no">{pad(i)}</span>
               <span className="play" aria-hidden="true">
                 +
@@ -137,7 +138,7 @@ export function WorkGallery({ films, fifa, posters }: { films: VideoItem[]; fifa
           ) : (
             <div className="lb img" onMouseDown={(e) => e.stopPropagation()}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={viewing.src} alt="" />
+              <img src={viewing.src} alt={viewing.alt} />
             </div>
           )}
         </div>

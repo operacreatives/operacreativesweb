@@ -26,3 +26,31 @@ export const posters: string[] = [
   "yu6jm2do2bveqskobr5e_13_11zon.webp",
   "ywlw2f2hz0xmlrjzweiz_11_11zon.webp",
 ];
+
+// Alt text for each poster (shown to screen readers and used by image search).
+export const posterAlts: Record<string, string> = {
+  "ashkswjhb6bdrh0oosjy_1_11zon.webp": "Runner seen from above casting a shadow shaped like a Power Drink bottle",
+  "ausufpwcwwwdlxekgqf9_2_11zon.webp": "Athlete in an orange and white outfit crouching on an oversized orange sneaker against a blue sky",
+  "cwgbzxnxcjpp4gzampnj_1_11zon.webp": "Fresh. Vibrant. Seasonal. food ad with bowls of grains and vegetables on a yellow and green background",
+  "cxocu2gdhvtfzackkeev_3_11zon.webp": "Person in a red jacket reaching toward a perfume bottle through a metal ring",
+  "cxyvno1sevgbn66timc3_4_11zon.webp": "Blue magazine cover with a model in a tan blazer and large lettering",
+  "fbzme9nljpwj9smdxc3j_5_11zon.webp": "Black and white editorial cover of a man in a turtleneck titled The Confident Edge",
+  "g5fhbzdujtu2p7gse15b_2_11zon.webp": "Blender bursting with fruit and snack pieces against an orange background",
+  "jggjprw8eis8xxp6t4nm_3_11zon.webp": "Angular black helmet on a red patterned background with the words Bicycle Helmet",
+  "kxtuxs3rw0owipywhd8x_4_11zon.webp": "Coffee machine with a plume of smoke rising on a wooden table",
+  "lqsqd68x3jqryoj11xha_6_11zon.webp": "Fuel the leap sports ad showing an athlete drinking against a blue sky",
+  "lylshvpv1lmeoeglyloz_5_11zon.webp": "Aural wireless headphones product poster with specifications on a dark green background",
+  "mma28e8rytowtgvc5wh0_6_11zon.webp": "Dark gym scene with a supplement tub and the line Earn it. Every day.",
+  "mpeaw82hci1p77l5n6no_7_11zon.webp": "Perfume bottle floating above a reflective surface",
+  "oa0njakxpd8nneyinpvq_8_11zon.webp": "Brown leather sneaker beside books on a wooden shelf",
+  "oiwoucseok4wmhj45bpv_9_11zon.webp": "Spektra Buds wireless earbuds product ad with a feature list",
+  "qulvn2ldqkfceqklunu3_10_11zon.webp": "Citrus Bliss juice bottle surrounded by sliced citrus fruit",
+  "rhmiibdhu9bnwtn0d6au_11_11zon.webp": "Red sports car in front of large Raptor Coupe Spec lettering",
+  "riusghm36dr5lb0ivnaw_12_11zon.webp": "Red running shoes lit by a spotlight on a dark wooden floor",
+  "w6zjb8o4xhj1dbvzrsm8_7_11zon.webp": "Urban Athlete Chronicles editorial poster with a seated man",
+  "wfmpe9gonaklcy6en40q_8_11zon.webp": "Red editorial poster with a model wearing a visor",
+  "wjvbdb6ih6iotjzlqln9_9_11zon.webp": "Man in a yellow hoodie holding Vita-Glow gummies against a yellow background",
+  "y1rld47q3s5ipe9qjpav_10_11zon.webp": "Tennis player sitting on a court next to Sport Shield sunscreen",
+  "yu6jm2do2bveqskobr5e_13_11zon.webp": "Three Aura speakers on a dark background with product specifications",
+  "ywlw2f2hz0xmlrjzweiz_11_11zon.webp": "Man in a red hoodie holding a CRTN creatine tub",
+};
