@@ -4,7 +4,7 @@ import { posters } from "@/data/posters";
 import { vimeoProjects } from "@/data/vimeo-projects";
 import { posterAlts } from "@/data/posters";
 import { buildJsonLd, jsonLdString } from "@/lib/seo";
-import { BOOK_LABEL, CAL_URL, FAQS, LINKS, PROCESS, SERVICES, SITE_DESCRIPTION, SITE_TITLE } from "@/lib/site";
+import { BOOK_LABEL, CAL_URL, FAQS, LINKS, NAV, PROCESS, SHOWREEL_ID, SERVICES, SITE_DESCRIPTION, SITE_TITLE } from "@/lib/site";
 import { resolvePic, type WorkData } from "@/lib/work";
 
 const work: WorkData = {
@@ -74,5 +74,12 @@ describe("links page", () => {
     expect(new Set(LINKS.map((l) => l.href)).size).toBe(LINKS.length);
     expect(LINKS.find((l) => l.label === "Pitch deck")?.href).toBe("/deck?ref=links");
     for (const l of LINKS.filter((x) => x.external)) expect(l.href.startsWith("https://")).toBe(true);
+  });
+});
+
+describe("showreel", () => {
+  it("has a nav link and a Vimeo id", () => {
+    expect(NAV.some((n) => n.href === "#showreel")).toBe(true);
+    expect(SHOWREEL_ID).toMatch(/^\d+$/);
   });
 });

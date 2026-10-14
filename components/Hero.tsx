@@ -2,6 +2,7 @@ import Image from "next/image";
 import { posters } from "@/data/posters";
 import { HERO } from "@/lib/site";
 import { BookButton } from "./BookButton";
+import { ShowreelButton } from "./ShowreelButton";
 
 // Three slowly scrolling columns of our static creatives sit behind the headline.
 function Column({ index }: { index: number }) {
@@ -43,6 +44,7 @@ export function Hero() {
         <p>{HERO.blurb}</p>
         <div className="hero__cta">
           <BookButton source="hero" />
+          <ShowreelButton />
           <a className="btn btn--ghost" href="#work">
             See our work
           </a>

@@ -1,4 +1,4 @@
-import { CAL_URL, CONTACT_EMAIL, FAQS, PROCESS, SERVICES, SITE_DESCRIPTION, SITE_NAME, SITE_URL, SOCIALS, WORK_NOTES } from "@/lib/site";
+import { CAL_URL, CONTACT_EMAIL, FAQS, PROCESS, SERVICES, SHOWREEL, SHOWREEL_ID, SITE_DESCRIPTION, SITE_NAME, SITE_URL, SOCIALS, WORK_NOTES } from "@/lib/site";
 
 // /llms.txt: a plain-text summary of the studio for AI assistants and answer engines.
 // Generated from lib/site.ts, so it always matches what the website says.
@@ -16,6 +16,7 @@ export function GET(): Response {
     ...SERVICES.map((s) => `- ${s.name}: ${s.text}`),
     "",
     "## Work",
+    `- [Showreel](${SITE_URL}/#showreel): ${SHOWREEL.text} Also on Vimeo: https://vimeo.com/${SHOWREEL_ID}`,
     `- [Selected work](${SITE_URL}/#work): ${WORK_NOTES.films}`,
     `- Static creatives: ${WORK_NOTES.statics}`,
     `- FIFA World Cup Anime Series: ${WORK_NOTES.fifa}`,

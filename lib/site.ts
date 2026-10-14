@@ -19,11 +19,19 @@ export const SOCIALS = [
 ];
 
 export const NAV = [
+  { label: "Showreel", href: "#showreel" },
   { label: "Work", href: "#work" },
   { label: "Services", href: "#services" },
   { label: "Process", href: "#process" },
   { label: "FAQ", href: "#faq" },
 ];
+
+export const SHOWREEL = {
+  label: "Showreel",
+  title: "Watch the showreel",
+  text: "Anime, hybrid VFX, dubbing and brand films, cut into one reel.",
+  play: "Play showreel",
+};
 
 export const HERO = {
   lead: "From product shot to",
