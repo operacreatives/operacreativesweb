@@ -24,7 +24,7 @@ export const NAV = [
 
 export const HERO = {
   lead: "From product shot to",
-  accent: "full‑blown film.",
+  accent: "full blown film.",
   blurb: "Opera Creatives is the AI-native production studio for ad creatives, anime series, brand films and more.",
 };
 
@@ -44,7 +44,7 @@ export interface Service {
 }
 
 export const SERVICES: Service[] = [
-  { name: "Anime-style animation", text: "Stylised anime for launches, series and campaigns, from character design to final frame.", pic: "fifa:2" },
+  { name: "Anime style animation", text: "Stylised anime for launches, series and campaigns, from character design to final frame.", pic: "fifa:2" },
   { name: "Anime series & event films", text: "Anime-themed series built for big moments, like our FIFA World Cup Anime Series.", pic: "fifa:0" },
   { name: "Hybrid VFX", text: "Send us ready footage. We add flames, smoke, sparks and more so it looks filmed that way.", pic: "poster:8" },
   { name: "Dubbing", text: "Natural multi-language voices with lip-sync, so one film speaks to every market.", pic: "reel:6" },
@@ -79,18 +79,18 @@ export const FAQS = [
   { q: "What is hybrid VFX?", a: "You bring ready footage. We layer in effects like flames, smoke, sparks and explosions so they look like they were filmed on the day. Most of our VFX projects work this way." },
   { q: "How fast can you deliver a film?", a: "Most projects reach a first cut in days, not weeks. Exact timing depends on length and complexity, and we'll scope it on the call." },
   { q: "Do you do dubbing?", a: "Yes. We dub films into multiple languages with natural voices and lip-sync, so one film can launch in every market." },
-  { q: "Can you make anime-style videos?", a: "Yes. Anime-style animation is one of our specialities, from short loops to full series." },
+  { q: "Can you make anime style videos?", a: "Yes. Anime style animation is one of our specialities, from short loops to full series." },
   { q: "What does a project cost?", a: "It depends on scope, length and volume. Book a discovery call, share the brief, and we'll follow with a clear quote." },
 ];
 
 export const CTA = {
   lines: ["Have an idea?", "Put it on screen."],
-  text: "Book a short, no-pressure call. We’ll show you our work and how we’d bring your idea to life.",
+  text: "Book a short, no pressure call. We’ll show you our work and how we’d bring your idea to life.",
   note: "Pick a time that suits you",
 };
 
 export const WORK_NOTES = {
-  films: "A look at what we make, from anime-style animation to brand films. Click any film to watch it.",
+  films: "A look at what we make, from anime style animation to brand films. Click any film to watch it.",
   statics: "Posters, ad creatives and product visuals made for brands. Click any to view it full size.",
   fifa: "Anime series released during the FIFA World Cup, generating over 150 million impressions across social media.",
 };

@@ -5,7 +5,7 @@ export function Footer() {
     <footer id="footer">
       <div className="credits">
         <div className="big">
-          Made in-house.
+          Made in house.
           <br />
           <em>Made to be watched.</em>
         </div>

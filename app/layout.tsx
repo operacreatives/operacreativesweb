@@ -28,7 +28,7 @@ const SITE_URL = "https://www.operacreatives.com";
 const SITE_NAME = "Opera Creatives";
 const SITE_TITLE = "Opera Creatives — AI-native production studio for anime, VFX, dubbing and brand films";
 const SITE_DESCRIPTION =
-  "Opera Creatives is the AI-native production studio for animation, hybrid VFX, dubbing, brand films, commercials, UGC videos and product visuals. From product shot to full-blown film.";
+  "Opera Creatives is the AI-native production studio for animation, hybrid VFX, dubbing, brand films, commercials, UGC videos and product visuals. From product shot to full blown film.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
