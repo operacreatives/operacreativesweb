@@ -4,7 +4,7 @@
 //
 // Output (print/business-card/out/):
 //   <id>-print.pdf      handout card (no NFC). 2 pages (front, back): CR80 card (85.6 x 54 mm) + 3.175 mm (0.125 in) bleed on every side. Send this to the printer.
-//   <id>-founder-print.pdf  founder edition for the NFC PVC card the founders keep (black and cream, tap symbol on the back). Same files as above, named <id>-founder-*
+//   <id>-founder-print.pdf  the same card with the tap symbol on the back, for the NFC PVC card the founders keep. Same files as above, named <id>-founder-*
 //   <id>-front.png      600 dpi, with bleed
 //   <id>-back.png       600 dpi, with bleed
 //   <id>-preview.png    both sides, trimmed, on a neutral background (for sharing, not for printing)
@@ -15,7 +15,7 @@
 import { chromium } from "@playwright/test";
 import { PDFDocument } from "pdf-lib";
 import QRCode from "qrcode";
-import { founderDoc } from "./founder.mjs";
+import { NFC_SVG } from "./founder.mjs";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
@@ -39,7 +39,7 @@ async function qrFor(url) {
   return `data:image/svg+xml;base64,${Buffer.from(svg).toString("base64")}`;
 }
 
-function cardHtml({ person, qr, content }) {
+function cardHtml({ person, qr, content, nfc }) {
   const logo = pathToFileURL(path.join(here, "assets/logo-mark.png")).href;
   const mascot = pathToFileURL(path.join(here, "assets/mascot.png")).href;
   const rows = [
@@ -85,6 +85,8 @@ html,body{-webkit-print-color-adjust:exact;print-color-adjust:exact;background:#
 .contact{list-style:none;display:flex;flex-direction:column;gap:1.2mm;font-weight:600;font-size:7pt;letter-spacing:-.01em}
 .contact li{display:flex;gap:2mm;align-items:baseline}
 .contact li span{width:7.5mm;flex:none;font-family:var(--mono);font-weight:400;font-size:5pt;letter-spacing:.12em;text-transform:uppercase;color:#ff4a54}
+.back .nfc{position:absolute;right:${BLEED + 5.5}mm;top:${BLEED + 5.5}mm}
+.back .nfc svg{width:5.6mm;height:9.1mm}
 .qr{position:absolute;right:${BLEED + 5.5}mm;bottom:${BLEED + 5.5}mm;width:21mm;text-align:center}
 .qrbox{width:21mm;height:21mm;border-radius:2mm;background:var(--cream);display:grid;place-items:center;padding:2.2mm}
 .qrbox img{width:100%;height:100%;display:block}
@@ -101,6 +103,7 @@ html,body{-webkit-print-color-adjust:exact;print-color-adjust:exact;background:#
     <div class="who"><img src="${logo}" alt=""><b>Opera Creatives</b></div>
     <div><div class="person"><b>${esc(person.name)}</b><span>${esc(person.title)}</span></div><ul class="contact">${rows}</ul></div>
   </div>
+  ${nfc ? `<div class="nfc">${NFC_SVG("#f8e7d8")}</div>` : ""}
   <div class="qr"><div class="qrbox"><img src="${qr}" alt="QR code for ${esc(person.name)}"></div><div class="cap">Scan to connect</div></div>
 </section>
 </body></html>`;
@@ -130,7 +133,7 @@ async function main() {
     for (const person of people.flatMap((q) => [{ ...q, file: q.id, founder: false }, { ...q, file: `${q.id}-founder`, founder: true }])) {
       const htmlPath = path.join(outDir, `${person.file}.html`);
       const qrUrl = `${SITE.base}/${person.id}`;
-      await fs.writeFile(htmlPath, person.founder ? await founderDoc({ person, mode: "pvc", W: TRIM_W, H: TRIM_H, bleed: BLEED, site: SITE.web, baseUrl: SITE.base, content }) : cardHtml({ person, qr: await qrFor(qrUrl), content }));
+      await fs.writeFile(htmlPath, cardHtml({ person, qr: await qrFor(qrUrl), content, nfc: person.founder }));
 
       // 600 dpi = 6.25x CSS pixels
       const ctx = await browser.newContext({ viewport: { width: 520, height: 900 }, deviceScaleFactor: 6.25 });
@@ -161,7 +164,7 @@ async function main() {
       await pvPage.screenshot({ path: path.join(outDir, `${person.file}-preview.png`) });
       await pv.close();
       await fs.rm(pvPath);
-      console.log(`built ${person.file}${person.founder ? " (founder edition, NFC)" : ""}: ${PAGE_W} x ${PAGE_H} mm with bleed (QR: ${qrUrl})`);
+      console.log(`built ${person.file}${person.founder ? " (NFC version: tap symbol on the back)" : ""}: ${PAGE_W} x ${PAGE_H} mm with bleed (QR: ${qrUrl})`);
     }
   } finally {
     await browser.close();
