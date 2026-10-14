@@ -1,8 +1,5 @@
 [
-  {
-    "id": "studio",
-    "name": "",
-    "title": "",
-    "phone": ""
-  }
+  { "id": "kshitij", "name": "Kshitij Satbhai", "title": "Co-founder & Creative Director", "email": "kshitij@operacreatives.com", "phone": "+91 96995 05963" },
+  { "id": "sanchit", "name": "Sanchit Sharma", "title": "Co-founder", "email": "sanchit@operacreatives.com", "phone": "+91 94200 26177" },
+  { "id": "jinesh", "name": "Jinesh Surana", "title": "Co-founder", "email": "jinesh@operacreatives.com", "phone": "+91 90221 24010" }
 ]
