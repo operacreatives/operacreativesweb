@@ -24,13 +24,12 @@ export async function founderDoc({ person, mode, W, H, bleed = 0, site, baseUrl,
   const PW = W + bleed * 2;
   const PH = H + bleed * 2;
   const m = 5.5 + bleed; // safe margin measured from the page edge
-  const RED = "#ea0916";
   const CREAM = "#f8e7d8";
   const INK = "#0b0b0b";
 
   const T =
     mode === "pvc"
-      ? { frontBg: `radial-gradient(circle at 100% 0%,rgba(234,9,22,.4),rgba(234,9,22,0) 48%),${INK}`, backBg: `radial-gradient(circle at 0% 100%,rgba(0,0,0,.28),rgba(0,0,0,0) 60%),${RED}`, fText: CREAM, fSoft: "rgba(248,231,216,.72)", bText: CREAM, bSoft: "rgba(248,231,216,.85)", accent: CREAM, qrBox: CREAM, qrDark: INK }
+      ? { frontBg: `linear-gradient(135deg,#171717,${INK} 55%)`, backBg: `linear-gradient(135deg,#171717,${INK} 55%)`, fText: CREAM, fSoft: "rgba(248,231,216,.72)", bText: CREAM, bSoft: "rgba(248,231,216,.85)", accent: CREAM, qrBox: CREAM, qrDark: INK }
       : mode === "engrave"
         ? { frontBg: "#fff", backBg: "#fff", fText: "#000", fSoft: "#000", bText: "#000", bSoft: "#000", accent: "#000", qrBox: "#000", qrDark: "#fff" }
         : { frontBg: "linear-gradient(115deg,#0b0b0d,#17171a 45%,#0b0b0d)", backBg: "linear-gradient(115deg,#0b0b0d,#17171a 45%,#0b0b0d)", fText: "#d9dade", fSoft: "#d9dade", bText: "#d9dade", bSoft: "#d9dade", accent: "#d9dade", qrBox: "#d9dade", qrDark: "#0e0e10" };
@@ -61,32 +60,31 @@ svg{display:block}
 .front .brand{position:absolute;left:0;right:0;top:${bleed + 30.5}mm;text-align:center}
 .front .brand b{display:block;font-weight:800;font-size:5mm;letter-spacing:-.045em;line-height:1}
 .front .brand span{display:block;margin-top:2mm;font-family:var(--mono);${mono}font-size:${metal ? 5.6 : 5}pt;letter-spacing:.16em;text-transform:uppercase;color:${T.fSoft}}
-.front .nfc{position:absolute;right:${m}mm;top:${m}mm}
-.front .nfc svg{width:5.6mm;height:9.1mm}
 
 /* ----- back: name, contact, QR ----- */
 .back{background:${T.backBg};color:${T.bText}}
 .back .left{position:absolute;left:${m}mm;top:${m}mm;bottom:${m}mm;width:52mm;display:flex;flex-direction:column;justify-content:space-between}
 .back .person b{display:block;font-weight:800;font-size:16pt;letter-spacing:-.045em;line-height:1}
 .back .person span{display:block;margin-top:2mm;font-family:var(--mono);${mono}font-size:${metal ? 6 : 5.4}pt;letter-spacing:.12em;text-transform:uppercase;color:${T.accent}}
-.back .contact{list-style:none;display:flex;flex-direction:column;gap:1.3mm;font-weight:600;font-size:7pt;letter-spacing:-.01em;margin-bottom:3mm}
+.back .contact{list-style:none;display:flex;flex-direction:column;gap:1.3mm;font-weight:600;font-size:7pt;letter-spacing:-.01em;margin-bottom:.5mm}
 .back .contact li{display:flex;gap:2mm;align-items:baseline}
 .back .contact li span{width:8mm;flex:none;font-family:var(--mono);${mono}font-size:${metal ? 6 : 5.2}pt;letter-spacing:.1em;text-transform:uppercase;color:${T.accent}}
-.back .tag{font-weight:700;font-size:6pt;letter-spacing:-.01em;color:${T.bSoft};white-space:nowrap}
+.back .nfc{position:absolute;right:${m}mm;top:${m}mm}
+.back .nfc svg{width:5.6mm;height:9.1mm}
 .back .qr{position:absolute;right:${m}mm;bottom:${m}mm;width:21mm}
 .back .qrbox{width:21mm;height:21mm;border-radius:2mm;background:${T.qrBox};padding:2.2mm}
 .back .qrbox svg{width:100%;height:100%}
 </style></head><body>
 <section class="page front" id="front">
-  <div class="nfc">${NFC_SVG(T.fText)}</div>
   <div class="mark">${frontLogo}</div>
   <div class="brand"><b>Opera Creatives</b><span>${esc(content.studioLine)}</span></div>
 </section>
 <section class="page back" id="back">
   <div class="left">
     <div class="person"><b>${esc(person.name)}</b><span>${esc(person.title)}</span></div>
-    <div><ul class="contact">${rows}</ul><p class="tag">${esc(content.tagline)}</p></div>
+    <ul class="contact">${rows}</ul>
   </div>
+  <div class="nfc">${NFC_SVG(T.bText)}</div>
   <div class="qr"><div class="qrbox">${qrSvg}</div></div>
 </section></body></html>`;
 }
