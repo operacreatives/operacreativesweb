@@ -29,12 +29,13 @@ const SITE = { web: "operacreatives.com", base: "https://www.operacreatives.com"
 async function main() {
   await fs.mkdir(outDir, { recursive: true });
   const people = JSON.parse(await fs.readFile(path.join(here, "people.json"), "utf8"));
+  const content = JSON.parse(await fs.readFile(path.join(here, "content.json"), "utf8"));
   const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH || undefined, args: ["--no-sandbox"] });
   try {
     for (const person of people) {
       for (const mode of ["engrave", "mock"]) {
         const htmlPath = path.join(outDir, `${person.id}-${mode}.html`);
-        await fs.writeFile(htmlPath, await founderDoc({ person, mode, W, H, site: SITE.web, baseUrl: SITE.base }));
+        await fs.writeFile(htmlPath, await founderDoc({ person, mode, W, H, site: SITE.web, baseUrl: SITE.base, content }));
         const ctx = await browser.newContext({ viewport: { width: 400, height: 700 }, deviceScaleFactor: 8 });
         const page = await ctx.newPage();
         await page.goto(pathToFileURL(htmlPath).href, { waitUntil: "networkidle" });

@@ -15,7 +15,7 @@
 import { chromium } from "@playwright/test";
 import { PDFDocument } from "pdf-lib";
 import QRCode from "qrcode";
-import { founderDoc } from "./founder.mjs";
+import { founderDoc, NFC_SVG } from "./founder.mjs";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
@@ -30,7 +30,6 @@ const BLEED = 3.175;
 const PAGE_W = TRIM_W + BLEED * 2;
 const PAGE_H = TRIM_H + BLEED * 2;
 
-const SERVICES = ["Anime style animation · Hybrid VFX", "Dubbing · Brand films · Commercials", "UGC videos · Product visuals"];
 const SITE = { web: "operacreatives.com", base: "https://www.operacreatives.com" };
 
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
@@ -40,7 +39,9 @@ async function qrFor(url) {
   return `data:image/svg+xml;base64,${Buffer.from(svg).toString("base64")}`;
 }
 
-function cardHtml({ person, qr }) {
+function cardHtml({ person, qr, content }) {
+  const half = Math.ceil(content.services.length / 2);
+  const li = (a) => a.map((x) => `<li>${esc(x)}</li>`).join("");
   const logo = pathToFileURL(path.join(here, "assets/logo-mark.png")).href;
   const mascot = pathToFileURL(path.join(here, "assets/mascot.png")).href;
   const rows = [
@@ -65,15 +66,19 @@ html,body{-webkit-print-color-adjust:exact;print-color-adjust:exact;background:#
 @media screen{.page{margin:0 0 6mm}}
 .mono{font-family:var(--mono);text-transform:uppercase;letter-spacing:.12em}
 
-/* ---------- front: cream, simple, mascot peeking in ---------- */
+/* ---------- front: cream, centred logo, services either side of the mascot ---------- */
 .front{background:radial-gradient(circle at 0% 100%,rgba(234,9,22,.2),rgba(234,9,22,0) 55%),radial-gradient(circle at 60% -10%,rgba(255,160,90,.32),rgba(255,160,90,0) 45%),var(--cream);color:var(--ink)}
-.front .mark{position:absolute;left:${BLEED + 5.5}mm;top:${BLEED + 5.5}mm;width:15mm;height:auto}
-.front .brand{position:absolute;left:${BLEED + 5.5 + 17.5}mm;top:${BLEED + 5.5 + 2.4}mm}
-.front .brand b{display:block;font-weight:800;font-size:4.3mm;letter-spacing:-.045em;line-height:1}
-.front .brand span{display:block;margin-top:1.5mm;font-family:var(--mono);font-size:4.4pt;letter-spacing:.14em;text-transform:uppercase;color:rgba(11,11,11,.62)}
-.front .peek{position:absolute;right:${BLEED + 3.5}mm;bottom:${BLEED + 1.6}mm;width:36mm;height:auto}
-.front .svc{position:absolute;left:${BLEED + 5.5}mm;bottom:${BLEED + 7}mm;white-space:nowrap;font-weight:600;font-size:6.2pt;line-height:1.5;letter-spacing:-.005em;color:rgba(11,11,11,.82)}
-.front .base{position:absolute;left:0;right:0;bottom:${BLEED + 3.6 - 0.15}mm;height:.3mm;background:var(--ink)}
+.front .mark{position:absolute;left:50%;transform:translateX(-50%);top:${BLEED + 6}mm;width:21mm;height:auto}
+.front .brand{position:absolute;left:0;right:0;top:${BLEED + 23.4}mm;text-align:center}
+.front .brand b{display:block;font-weight:800;font-size:4.2mm;letter-spacing:-.045em;line-height:1}
+.front .brand span{display:block;margin-top:1.5mm;font-family:var(--mono);font-size:4.8pt;letter-spacing:.14em;text-transform:uppercase;color:rgba(11,11,11,.62)}
+.front .nfc{position:absolute;right:${BLEED + 5.5}mm;top:${BLEED + 5.5}mm}
+.front .nfc svg{width:5.6mm;height:9.1mm}
+.front .svcs{position:absolute;left:${BLEED + 5.5}mm;right:${BLEED + 5.5}mm;bottom:${BLEED + 7}mm;display:grid;grid-template-columns:1fr 26mm 1fr;font-weight:600;font-size:5.8pt;line-height:1.55;letter-spacing:-.005em;color:rgba(11,11,11,.82)}
+.front .svcs ul{list-style:none;white-space:nowrap}
+.front .svcs .l{text-align:right}
+.front .base{position:absolute;left:0;right:0;bottom:${BLEED + 3.45}mm;height:.3mm;background:var(--ink)}
+.front .peek{position:absolute;left:50%;transform:translateX(-50%);bottom:${BLEED + 1.6}mm;width:24mm;height:auto}
 
 /* ---------- back: ink, name, contact, QR ---------- */
 .back{background:radial-gradient(circle at 100% 0%,rgba(234,9,22,.38),rgba(234,9,22,0) 46%),var(--ink);color:var(--cream)}
@@ -94,9 +99,10 @@ html,body{-webkit-print-color-adjust:exact;print-color-adjust:exact;background:#
 </style></head>
 <body>
 <section class="page front" id="front">
+  <div class="nfc">${NFC_SVG("#0b0b0b")}</div>
   <img class="mark" src="${logo}" alt="Opera Creatives logo">
-  <div class="brand"><b>Opera Creatives</b><span>AI native production studio</span></div>
-  <p class="svc">${SERVICES.map(esc).join("<br>")}</p>
+  <div class="brand"><b>Opera Creatives</b><span>${esc(content.studioLine)}</span></div>
+  <div class="svcs"><ul class="l">${li(content.services.slice(0, half))}</ul><span></span><ul class="r">${li(content.services.slice(half))}</ul></div>
   <div class="base"></div><img class="peek" src="${mascot}" alt="">
 </section>
 <section class="page back" id="back">
@@ -126,13 +132,14 @@ async function markTrimAndBleed(pdfPath) {
 async function main() {
   await fs.mkdir(outDir, { recursive: true });
   const people = JSON.parse(await fs.readFile(path.join(here, "people.json"), "utf8"));
+  const content = JSON.parse(await fs.readFile(path.join(here, "content.json"), "utf8"));
 
   const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH || undefined, args: ["--no-sandbox"] });
   try {
     for (const person of people.flatMap((q) => [{ ...q, file: q.id, founder: false }, { ...q, file: `${q.id}-founder`, founder: true }])) {
       const htmlPath = path.join(outDir, `${person.file}.html`);
       const qrUrl = `${SITE.base}/${person.id}`;
-      await fs.writeFile(htmlPath, person.founder ? await founderDoc({ person, mode: "pvc", W: TRIM_W, H: TRIM_H, bleed: BLEED, site: SITE.web, baseUrl: SITE.base }) : cardHtml({ person, qr: await qrFor(qrUrl) }));
+      await fs.writeFile(htmlPath, person.founder ? await founderDoc({ person, mode: "pvc", W: TRIM_W, H: TRIM_H, bleed: BLEED, site: SITE.web, baseUrl: SITE.base, content }) : cardHtml({ person, qr: await qrFor(qrUrl), content }));
 
       // 600 dpi = 6.25x CSS pixels
       const ctx = await browser.newContext({ viewport: { width: 520, height: 900 }, deviceScaleFactor: 6.25 });
