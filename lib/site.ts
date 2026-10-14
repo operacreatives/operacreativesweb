@@ -61,7 +61,7 @@ export interface ProcessStep {
   text: string;
   tag: string;
   visual: ProcessVisual;
-  // "poster:N" / "reel:N" / "fifa:N" references, resolved in lib/v2/work.ts
+  // "poster:N" / "reel:N" / "fifa:N" references, resolved in lib/work.ts
   pics: string[];
 }
 

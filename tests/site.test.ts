@@ -2,8 +2,8 @@ import { describe, expect, it } from "vitest";
 import { fifaProjects } from "@/data/fifa-projects";
 import { posters } from "@/data/posters";
 import { vimeoProjects } from "@/data/vimeo-projects";
-import { BOOK_LABEL, CAL_URL, FAQS, PROCESS, SERVICES } from "@/lib/v2/site";
-import { resolvePic, type WorkData } from "@/lib/v2/work";
+import { BOOK_LABEL, CAL_URL, FAQS, PROCESS, SERVICES } from "@/lib/site";
+import { resolvePic, type WorkData } from "@/lib/work";
 
 const work: WorkData = {
   films: vimeoProjects.map((p) => ({ id: p.id, thumb: `https://example.test/${p.id}.jpg`, tall: false })),
@@ -11,7 +11,7 @@ const work: WorkData = {
   posters,
 };
 
-describe("v2 homepage content", () => {
+describe("homepage content", () => {
   it("sends every booking button straight to the Cal.com page", () => {
     const url = new URL(CAL_URL);
     expect(url.hostname).toBe("cal.com");

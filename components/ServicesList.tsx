@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useRef, useState } from "react";
-import type { PicRef } from "@/lib/v2/work";
+import type { PicRef } from "@/lib/work";
 
 export interface ServiceRow {
   name: string;

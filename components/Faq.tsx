@@ -1,4 +1,4 @@
-import { CONTACT_EMAIL, FAQS } from "@/lib/v2/site";
+import { CONTACT_EMAIL, FAQS } from "@/lib/site";
 
 // `name="faq"` makes the browser close the other questions when one opens.
 export function Faq() {

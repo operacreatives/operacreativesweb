@@ -1,7 +1,7 @@
 "use client";
 
 import posthog from "posthog-js";
-import { BOOK_LABEL, CAL_URL } from "@/lib/v2/site";
+import { BOOK_LABEL, CAL_URL } from "@/lib/site";
 
 interface BookButtonProps {
   source: string;

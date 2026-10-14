@@ -1,5 +1,5 @@
-import { SERVICES } from "@/lib/v2/site";
-import { resolvePic, type WorkData } from "@/lib/v2/work";
+import { SERVICES } from "@/lib/site";
+import { resolvePic, type WorkData } from "@/lib/work";
 import { ServicesList } from "./ServicesList";
 
 export function Services({ work }: { work: WorkData }) {

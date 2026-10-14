@@ -1,6 +1,6 @@
 # Opera Creatives
 
-An editorial, image-led creative agency portfolio built with Next.js App Router, React, TypeScript, and Tailwind CSS.
+The Opera Creatives website: an AI-native production studio for animation, hybrid VFX, dubbing and brand films. Built with Next.js App Router, React and TypeScript.
 
 ## Commands
 
@@ -13,11 +13,15 @@ npm run build
 npm run test:e2e
 ```
 
-The project content is demonstration-only. Images are locally stored placeholders sourced through Lorem Picsum. The contact form validates in the browser and never transmits data.
 
 ## Site structure
 
-- `/` is the live site (`app/(main)`), with its own layout and `app/globals.css`.
-- `/v2` is the redesign preview (`app/v2`, `components/v2`, `lib/v2`). It has its own layout and a fully scoped stylesheet (`app/v2/v2.css`, every rule under `.v2`), is marked `noindex`, and does not affect `/`.
-- Homepage copy for v2 lives in `lib/v2/site.ts`; its work gallery data comes from `data/vimeo-projects.ts`, `data/fifa-projects.ts` and `data/posters.ts`.
-- `backup/live-site-before-redesign` is a snapshot of the live site before the redesign work started.
+- `app/page.tsx` is the home page. Its copy lives in `lib/site.ts`; the work gallery reads `data/vimeo-projects.ts`, `data/fifa-projects.ts` and `data/posters.ts` (posters live in `public/assets/images`).
+- Every "Book a discovery call" button links straight to the Cal.com page set in `lib/site.ts` (`CAL_URL`).
+- Styles are in `app/site.css`, scoped under `.site`.
+- Short links (`/qr`, `/nfc`, and anything created in the dashboard) are handled by `app/[slug]/route.ts`; `/deck` serves `content/deck.html`. `e2e/site.spec.ts` checks that these keep working.
+- `/v2` redirects to `/` (the redesign was previewed there first).
+
+## Previous site
+
+The previous homepage is preserved on the `backup/live-site-v1` branch. To roll back, deploy that branch or reset `main` to it.

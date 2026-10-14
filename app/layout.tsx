@@ -1,17 +1,15 @@
+import "./site.css";
 import type { Metadata } from "next";
-import { Inter, Newsreader, Bebas_Neue, Space_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
+import { Bebas_Neue, Inter, Space_Mono } from "next/font/google";
+import { Footer } from "@/components/Footer";
+import { Header } from "@/components/Header";
+import { RevealObserver } from "@/components/RevealObserver";
 
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
-  weight: ["400", "500", "600"],
-});
-
-const newsreader = Newsreader({
-  subsets: ["latin"],
-  variable: "--font-newsreader",
-  weight: ["400", "500", "600"],
-  style: ["normal", "italic"],
+  weight: ["400", "500", "600", "700", "800"],
 });
 
 const bebasNeue = Bebas_Neue({
@@ -26,13 +24,11 @@ const spaceMono = Space_Mono({
   weight: ["400", "700"],
 });
 
-import { Analytics } from "@vercel/analytics/next";
-
 const SITE_URL = "https://www.operacreatives.com";
 const SITE_NAME = "Opera Creatives";
-const SITE_TITLE = "Opera Creatives — The Production House for the Next Decade of Brands";
+const SITE_TITLE = "Opera Creatives — AI-native production studio for anime, VFX, dubbing and brand films";
 const SITE_DESCRIPTION =
-  "Opera Creatives is an AI-native creative studio built for the speed that e-commerce demands. We blend strategy, storytelling, and production to create work that moves culture.";
+  "Opera Creatives is the AI-native production studio for animation, hybrid VFX, dubbing, brand films, commercials, UGC videos and product visuals. From product shot to full-blown film.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -46,15 +42,15 @@ export const metadata: Metadata = {
 
   keywords: [
     "Opera Creatives",
-    "creative studio",
-    "production house",
-    "AI-native",
-    "e-commerce creative",
+    "AI-native production studio",
+    "anime animation",
+    "hybrid VFX",
+    "dubbing",
     "brand films",
-    "content production",
-    "UGC",
-    "social media content",
-    "brand storytelling",
+    "commercials",
+    "UGC videos",
+    "product visuals",
+    "FIFA World Cup anime series",
   ],
 
   authors: [{ name: SITE_NAME, url: SITE_URL }],
@@ -89,7 +85,7 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Opera Creatives — The Production House for the Next Decade of Brands",
+        alt: "Opera Creatives — AI-native production studio",
       },
     ],
   },
@@ -120,7 +116,7 @@ export const metadata: Metadata = {
     canonical: SITE_URL,
   },
 
-  category: "creative studio",
+  category: "production studio",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
@@ -128,9 +124,18 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en">
       <head>
         <link rel="preconnect" href="https://player.vimeo.com" />
+        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
       </head>
-      <body suppressHydrationWarning className={`${inter.variable} ${newsreader.variable} ${bebasNeue.variable} ${spaceMono.variable}`}>
-        {children}
+      <body suppressHydrationWarning>
+        <div className={`site ${inter.variable} ${bebasNeue.variable} ${spaceMono.variable}`}>
+          <a href="#main-content" className="skip-link">
+            Skip to content
+          </a>
+          <Header />
+          <main id="main-content">{children}</main>
+          <Footer />
+          <RevealObserver />
+        </div>
         <Analytics />
       </body>
     </html>

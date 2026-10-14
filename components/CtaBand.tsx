@@ -1,10 +1,11 @@
 import Image from "next/image";
-import { CTA } from "@/lib/v2/site";
+import { CTA } from "@/lib/site";
 import { BookButton } from "./BookButton";
 
 export function CtaBand() {
   return (
     <section className="ctaw on-red">
+      <span id="collaborate" className="anchor" aria-hidden="true" />
       <Image className="mascot" src="/mascots/peekaboo_mascot.webp" alt="" width={352} height={352} aria-hidden="true" />
       <div className="cta">
         <h2 className="display">

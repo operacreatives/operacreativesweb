@@ -2,9 +2,9 @@
 
 import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
-import { WORK_NOTES } from "@/lib/v2/site";
+import { WORK_NOTES } from "@/lib/site";
 import { buildVimeoEmbedUrl } from "@/lib/vimeo";
-import type { VideoItem } from "@/lib/v2/work";
+import type { VideoItem } from "@/lib/work";
 
 type TabKey = "films" | "statics" | "fifa";
 type Viewing = { kind: "video"; id: string } | { kind: "image"; src: string } | null;

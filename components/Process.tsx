@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import { useRef } from "react";
-import { PROCESS, type ProcessStep } from "@/lib/v2/site";
-import type { PicRef } from "@/lib/v2/work";
+import { PROCESS, type ProcessStep } from "@/lib/site";
+import type { PicRef } from "@/lib/work";
 
 // Deterministic waveform so server and client render the same bars.
 const BARS = Array.from({ length: 56 }, (_, i) => Math.round(18 + 72 * Math.abs(Math.sin(i * 0.55) * Math.cos(i * 0.21 + 1))));
@@ -104,6 +104,7 @@ export function Process({ pics }: { pics: (PicRef | null)[][] }) {
 
   return (
     <section className="proc pad on-dark" id="process">
+      <span id="how-it-works" className="anchor" aria-hidden="true" />
       <div className="proc__head">
         <div>
           <span className="slate">How we work</span>

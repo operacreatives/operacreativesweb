@@ -1,4 +1,4 @@
-import { getWork } from "@/lib/v2/work";
+import { getWork } from "@/lib/work";
 import { WorkGallery } from "./WorkGallery";
 
 export async function Work() {

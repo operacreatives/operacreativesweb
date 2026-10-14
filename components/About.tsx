@@ -1,4 +1,4 @@
-import { ABOUT } from "@/lib/v2/site";
+import { ABOUT } from "@/lib/site";
 
 export function About() {
   return (

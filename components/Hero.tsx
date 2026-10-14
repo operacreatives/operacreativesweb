@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { posters } from "@/data/posters";
-import { HERO } from "@/lib/v2/site";
+import { HERO } from "@/lib/site";
 import { BookButton } from "./BookButton";
 
 // Three slowly scrolling columns of our static creatives sit behind the headline.
