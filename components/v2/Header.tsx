@@ -2,12 +2,25 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NAV, SITE_NAME } from "@/lib/v2/site";
 import { BookButton } from "./BookButton";
 
 export function Header() {
   const [open, setOpen] = useState(false);
+
+  // Lock page scroll behind the open phone menu; Escape closes it.
+  useEffect(() => {
+    if (!open) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = prev;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
 
   return (
     <header className={`hdr ${open ? "menu" : ""}`} data-testid="v2-header">

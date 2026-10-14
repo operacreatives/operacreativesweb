@@ -64,7 +64,7 @@ export function WorkGallery({ films, fifa, posters }: { films: VideoItem[]; fifa
         onBlur={stopHover}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={v.thumb} alt="" loading="lazy" />
+        <img src={v.thumb} alt="" loading="lazy" decoding="async" />
         {hoverId === v.id && pendingId === v.id && <iframe src={buildVimeoEmbedUrl(v.id, "preview")} title="" allow="autoplay" tabIndex={-1} />}
         <span className="no">{pad(i)}</span>
         <span className="play" aria-hidden="true">

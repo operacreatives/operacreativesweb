@@ -90,7 +90,7 @@ export const CTA = {
 };
 
 export const WORK_NOTES = {
-  films: "A look at what we make, from anime-style animation to brand films. Hover to preview, click to watch.",
+  films: "A look at what we make, from anime-style animation to brand films. Click any film to watch it.",
   statics: "Posters, ad creatives and product visuals made for brands. Click any to view it full size.",
   fifa: "Anime series released during the FIFA World Cup, generating over 150 million impressions across social media.",
 };
