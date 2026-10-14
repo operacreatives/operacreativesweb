@@ -25,13 +25,13 @@ export const NAV = [
 export const HERO = {
   lead: "From product shot to",
   accent: "full blown film.",
-  blurb: "Opera Creatives is the AI-native production studio for ad creatives, anime series, brand films and more.",
+  blurb: "Opera Creatives is the AI native production studio for ad creatives, anime series, brand films and more.",
 };
 
 export const ABOUT = {
   label: "About us",
   before: "Opera Creatives is the",
-  accent: "AI-native production studio",
+  accent: "AI native production studio",
   after: "for animation, hybrid VFX, dubbing, brand films, commercials, UGC videos, product visuals and more.",
   sub: "One team, start to finish. Fast turnarounds, no handoffs, and work made to be seen.",
 };

@@ -1,6 +1,6 @@
 # Opera Creatives
 
-The Opera Creatives website: an AI-native production studio for animation, hybrid VFX, dubbing and brand films. Built with Next.js App Router, React and TypeScript.
+The Opera Creatives website: an AI native production studio for animation, hybrid VFX, dubbing and brand films. Built with Next.js App Router, React and TypeScript.
 
 ## Commands
 
