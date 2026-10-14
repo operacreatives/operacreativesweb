@@ -28,6 +28,7 @@ const BLEED = 3.175;
 const PAGE_W = TRIM_W + BLEED * 2;
 const PAGE_H = TRIM_H + BLEED * 2;
 
+const SERVICES = ["Anime style animation · Hybrid VFX", "Dubbing · Brand films · Commercials", "UGC videos · Product visuals"];
 const SITE = { web: "operacreatives.com", base: "https://www.operacreatives.com" };
 
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
@@ -70,23 +71,20 @@ html,body{-webkit-print-color-adjust:exact;print-color-adjust:exact;background:#
 .front .brand span{display:block;margin-top:1.5mm;font-family:var(--mono);font-size:4.4pt;letter-spacing:.14em;text-transform:uppercase;color:rgba(11,11,11,.62)}
 .front .peek{position:absolute;right:${BLEED + 4}mm;bottom:${BLEED + 1.6}mm;width:40mm;height:auto}
 .front .base{position:absolute;left:0;right:0;bottom:${BLEED + 3.6 - 0.15}mm;height:.3mm;background:var(--ink)}
-.front .me{position:absolute;left:${BLEED + 5.5}mm;bottom:${BLEED + 5.5}mm}
-.front .me b{display:block;font-weight:800;font-size:14pt;letter-spacing:-.04em;line-height:1}
-.front .me span{display:block;margin-top:1.6mm;font-family:var(--mono);font-size:5pt;letter-spacing:.12em;text-transform:uppercase;color:var(--red)}
-.front .me i{display:block;margin-top:2.4mm;font-style:normal;font-family:var(--mono);font-size:5pt;letter-spacing:.12em;text-transform:uppercase;color:rgba(11,11,11,.7)}
 
 /* ---------- back: ink, name, contact, QR ---------- */
 .back{background:radial-gradient(circle at 100% 0%,rgba(234,9,22,.38),rgba(234,9,22,0) 46%),var(--ink);color:var(--cream)}
 .left{position:absolute;left:${BLEED + 5.5}mm;top:${BLEED + 5.5}mm;bottom:${BLEED + 5.5}mm;width:52mm;display:flex;flex-direction:column;justify-content:space-between}
 .who{display:flex;align-items:center;gap:2mm}
-.who img{width:8mm;height:auto}
+.who img{width:7.2mm;height:auto}
 .who b{font-weight:800;font-size:3.6mm;letter-spacing:-.04em;line-height:1}
-.person{display:flex;flex-direction:column;gap:1.3mm;margin-bottom:3.2mm}
+.person{display:flex;flex-direction:column;gap:1.2mm;margin-bottom:2.4mm}
 .person b{font-weight:800;font-size:14pt;letter-spacing:-.04em;line-height:1}
 .person span{font-family:var(--mono);font-size:5pt;letter-spacing:.12em;text-transform:uppercase;color:#ff4a54}
-.contact{list-style:none;display:flex;flex-direction:column;gap:1.5mm;font-weight:600;font-size:7pt;letter-spacing:-.01em}
+.contact{list-style:none;display:flex;flex-direction:column;gap:1.2mm;font-weight:600;font-size:7pt;letter-spacing:-.01em}
 .contact li{display:flex;gap:2mm;align-items:baseline}
 .contact li span{width:7.5mm;flex:none;font-family:var(--mono);font-weight:400;font-size:5pt;letter-spacing:.12em;text-transform:uppercase;color:#ff4a54}
+.svc{white-space:nowrap;font-weight:500;font-size:5.2pt;line-height:1.4;color:rgba(248,231,216,.72)}
 .qr{position:absolute;right:${BLEED + 5.5}mm;bottom:${BLEED + 5.5}mm;width:21mm;text-align:center}
 .qrbox{width:21mm;height:21mm;border-radius:2mm;background:var(--cream);display:grid;place-items:center;padding:2.2mm}
 .qrbox img{width:100%;height:100%;display:block}
@@ -97,12 +95,12 @@ html,body{-webkit-print-color-adjust:exact;print-color-adjust:exact;background:#
   <img class="mark" src="${logo}" alt="Opera Creatives logo">
   <div class="brand"><b>Opera Creatives</b><span>AI native production studio</span></div>
   <div class="base"></div><img class="peek" src="${mascot}" alt="">
-  <div class="me"><b>${esc(person.name)}</b><span>${esc(person.title)}</span><i>${esc(SITE.web)}</i></div>
 </section>
 <section class="page back" id="back">
   <div class="left">
     <div class="who"><img src="${logo}" alt=""><b>Opera Creatives</b></div>
     <div><div class="person"><b>${esc(person.name)}</b><span>${esc(person.title)}</span></div><ul class="contact">${rows}</ul></div>
+    <p class="svc">${SERVICES.map(esc).join("<br>")}</p>
   </div>
   <div class="qr"><div class="qrbox"><img src="${qr}" alt="QR code for ${esc(person.name)}"></div><div class="cap">Scan to connect</div></div>
 </section>

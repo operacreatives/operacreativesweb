@@ -11,7 +11,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
-    "card": "node print/business-card/build.mjs"
+    "card": "node print/business-card/build.mjs",
+    "card:metal": "node print/business-card/build-metal.mjs"
   },
   "dependencies": {
     "@fontsource/inter": "^5.2.6",
