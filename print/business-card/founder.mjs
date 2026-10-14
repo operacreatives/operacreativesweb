@@ -57,9 +57,9 @@ svg{display:block}
 .front{background:${T.frontBg};color:${T.fText}}
 .front .mark{position:absolute;left:50%;transform:translateX(-50%);top:${bleed + 8.5}mm;width:26mm}
 .front .mark img,.front .mark svg{width:100%;height:auto;display:block}
-.front .brand{position:absolute;left:0;right:0;top:${bleed + 30.5}mm;text-align:center}
+.front .brand{position:absolute;left:0;right:0;top:${bleed + 30}mm;text-align:center}
 .front .brand b{display:block;font-weight:800;font-size:5mm;letter-spacing:-.045em;line-height:1}
-.front .brand span{display:block;margin-top:2mm;font-family:var(--mono);${mono}font-size:${metal ? 5.6 : 5}pt;letter-spacing:.16em;text-transform:uppercase;color:${T.fSoft}}
+.front .brand span{display:block;margin-top:2mm;font-family:var(--mono);${mono}font-size:${metal ? 6.2 : 6}pt;letter-spacing:.13em;text-transform:uppercase;color:${T.fSoft}}
 
 /* ----- back: name, contact, QR ----- */
 .back{background:${T.backBg};color:${T.bText}}
