@@ -70,8 +70,8 @@ html,body{-webkit-print-color-adjust:exact;print-color-adjust:exact;background:#
 .front .brand{position:absolute;left:0;right:0;top:${BLEED + 23.4}mm;text-align:center}
 .front .brand b{display:block;font-weight:800;font-size:4.2mm;letter-spacing:-.045em;line-height:1}
 .front .brand span{display:block;margin-top:1.5mm;font-family:var(--mono);font-size:4.8pt;letter-spacing:.14em;text-transform:uppercase;color:rgba(11,11,11,.62)}
-.front .base{position:absolute;left:0;right:0;bottom:${BLEED + 3.45}mm;height:.3mm;background:var(--ink)}
-.front .peek{position:absolute;left:50%;transform:translateX(-50%);bottom:${BLEED + 1.6}mm;width:24mm;height:auto}
+.front .base{position:absolute;left:0;right:0;bottom:${BLEED + 3.5}mm;height:.2mm;background:var(--ink)}
+.front .peek{position:absolute;left:50%;transform:translateX(-50%);bottom:${BLEED + 2.41}mm;width:24mm;height:auto}
 
 /* ---------- back: ink, name, contact, QR ---------- */
 .back{background:radial-gradient(circle at 100% 0%,rgba(234,9,22,.38),rgba(234,9,22,0) 46%),var(--ink);color:var(--cream)}
