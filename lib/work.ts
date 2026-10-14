@@ -29,6 +29,17 @@ export async function getWork(): Promise<WorkData> {
   return { films, fifa, posters };
 }
 
+// Moves one film to a new position in the gallery only. The site's "reel:N" references keep the
+// original data order, so the Services and Process thumbnails don't change.
+export function placeFilm<T extends { id: string }>(items: T[], id: string, index: number): T[] {
+  const from = items.findIndex((i) => i.id === id);
+  if (from < 0) return items;
+  const copy = [...items];
+  const [item] = copy.splice(from, 1);
+  copy.splice(index, 0, item);
+  return copy;
+}
+
 export type PicRef = { kind: "poster"; src: string } | { kind: "video"; thumb: string } | null;
 
 // Resolves "poster:3" / "reel:2" / "fifa:0" references used in lib/site.ts.

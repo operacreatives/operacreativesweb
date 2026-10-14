@@ -83,3 +83,13 @@ describe("showreel", () => {
     expect(SHOWREEL_ID).toMatch(/^\d+$/);
   });
 });
+
+describe("work gallery order", () => {
+  it("moves one film to a chosen tile without losing or duplicating any", async () => {
+    const { placeFilm } = await import("@/lib/work");
+    const items = ["a", "b", "c", "d", "e", "f", "g", "h"].map((id) => ({ id }));
+    const moved = placeFilm(items, "b", 7).map((i) => i.id);
+    expect(moved).toEqual(["a", "c", "d", "e", "f", "g", "h", "b"]);
+    expect(placeFilm(items, "missing", 0)).toBe(items);
+  });
+});

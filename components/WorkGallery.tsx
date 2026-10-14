@@ -1,11 +1,14 @@
 "use client";
 
 import Image from "next/image";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { posterAlts } from "@/data/posters";
 import { WORK_NOTES } from "@/lib/site";
 import { buildVimeoEmbedUrl } from "@/lib/vimeo";
-import type { VideoItem } from "@/lib/work";
+import { placeFilm, type VideoItem } from "@/lib/work";
+
+// The architecture film shows in row 2, column 4 of the Films grid (6th-7th tiles shift left).
+const ARCHITECTURE_FILM = "1234104627";
 
 type TabKey = "films" | "statics" | "fifa";
 type Viewing = { kind: "video"; id: string } | { kind: "image"; src: string; alt: string } | null;
@@ -15,7 +18,8 @@ const pad = (n: number) => String(n + 1).padStart(2, "0");
 // On phones only this many tiles show until "View all" is tapped (desktop always shows everything).
 const PREVIEW_COUNT = 6;
 
-export function WorkGallery({ films, fifa, posters }: { films: VideoItem[]; fifa: VideoItem[]; posters: string[] }) {
+export function WorkGallery({ films: filmList, fifa, posters }: { films: VideoItem[]; fifa: VideoItem[]; posters: string[] }) {
+  const films = useMemo(() => placeFilm(filmList, ARCHITECTURE_FILM, 7), [filmList]);
   const [tab, setTab] = useState<TabKey>("films");
   const [viewing, setViewing] = useState<Viewing>(null);
   const [expanded, setExpanded] = useState(false);
