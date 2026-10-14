@@ -25,7 +25,7 @@ html:has(.v2){scroll-behavior:smooth}
 .v2 .slate::before{content:"("}
 .v2 .slate::after{content:")"}
 .v2 .on-dark .slate{color:rgba(248,231,216,.6)}
-.v2 .btn{display:inline-flex;align-items:center;gap:.9rem;padding:.55rem .55rem .55rem 1.1rem;border-radius:4px;font-weight:600;font-size:.98rem;letter-spacing:-.01em;background:var(--ink);color:var(--cream);transition:transform .3s var(--ease)}
+.v2 .btn{text-decoration:none;display:inline-flex;align-items:center;gap:.9rem;padding:.55rem .55rem .55rem 1.1rem;border-radius:4px;font-weight:600;font-size:.98rem;letter-spacing:-.01em;background:var(--ink);color:var(--cream);transition:transform .3s var(--ease)}
 .v2 .btn:hover{transform:translateY(-2px)}
 .v2 .btn i{display:grid;place-items:center;width:2rem;height:2rem;border-radius:3px;background:var(--red);font-style:normal;font-size:1rem;transition:transform .3s var(--ease);color:#fff}
 .v2 .btn:hover i{transform:rotate(45deg)}

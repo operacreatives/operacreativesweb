@@ -5,9 +5,9 @@ export function Footer() {
     <footer>
       <div className="credits">
         <div className="big">
-          Directed by you.
+          Directed by {SITE_NAME}.
           <br />
-          Made by <em>{SITE_NAME}.</em>
+          <em>Made to be shared.</em>
         </div>
       </div>
       <div className="fl">
