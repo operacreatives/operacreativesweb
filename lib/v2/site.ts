@@ -54,13 +54,24 @@ export const SERVICES: Service[] = [
   { name: "Product visuals", text: "Hero shots and motion that make products look premium.", pic: "poster:12" },
 ];
 
-export const PROCESS = [
-  { title: "Brief", text: "Tell us the goal. We turn it into angles, hooks and a direction built for your audience.", tag: "Day 0", pic: "poster:3" },
-  { title: "Storyboard", text: "Every shot planned and styled before a single frame is made.", tag: "Day 1", pic: "poster:18" },
-  { title: "Production", text: "We build the world, characters and motion, or take your ready footage into VFX.", tag: "Days 2–4", pic: "fifa:5" },
-  { title: "Sound design", text: "Original sound, music and mix built alongside the picture.", tag: "Days 3–5", pic: "poster:10" },
-  { title: "VFX", text: "Flames, smoke, sparks and compositing, locked to the look of the film.", tag: "Days 4–6", pic: "poster:6" },
-  { title: "Dub & deliver", text: "Multi-language dubbing, masters and cutdowns for every platform.", tag: "Final cut", pic: "reel:8" },
+export type ProcessVisual = "mood" | "story" | "image" | "wave" | "dub";
+
+export interface ProcessStep {
+  title: string;
+  text: string;
+  tag: string;
+  visual: ProcessVisual;
+  // "poster:N" / "reel:N" / "fifa:N" references, resolved in lib/v2/work.ts
+  pics: string[];
+}
+
+export const PROCESS: ProcessStep[] = [
+  { title: "Brief", text: "Tell us the goal. We turn it into angles, hooks and a direction built for your audience.", tag: "Day 0", visual: "mood", pics: ["poster:9", "poster:2", "poster:3", "poster:12", "poster:22"] },
+  { title: "Storyboard", text: "Every shot planned and styled before a single frame is made.", tag: "Day 1", visual: "story", pics: ["poster:0", "poster:9", "poster:17"] },
+  { title: "Production", text: "We build the world, characters and motion, or take your ready footage into VFX.", tag: "Days 2\u20134", visual: "image", pics: ["fifa:0"] },
+  { title: "Sound design", text: "Original sound, music and mix built alongside the picture.", tag: "Days 3\u20135", visual: "wave", pics: [] },
+  { title: "VFX", text: "Flames, smoke, sparks and compositing, locked to the look of the film.", tag: "Days 4\u20136", visual: "image", pics: ["poster:6"] },
+  { title: "Dub & deliver", text: "Multi-language dubbing, masters and cutdowns for every platform.", tag: "Final cut", visual: "dub", pics: ["fifa:1"] },
 ];
 
 export const FAQS = [

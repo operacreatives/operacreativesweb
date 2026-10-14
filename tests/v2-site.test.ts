@@ -26,7 +26,7 @@ describe("v2 homepage content", () => {
   });
 
   it("only points at pictures that exist", () => {
-    for (const ref of [...SERVICES.map((s) => s.pic), ...PROCESS.map((p) => p.pic)]) {
+    for (const ref of [...SERVICES.map((s) => s.pic), ...PROCESS.flatMap((p) => p.pics)]) {
       expect(resolvePic(ref, work), ref).not.toBeNull();
     }
   });

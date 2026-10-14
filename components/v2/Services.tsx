@@ -19,7 +19,7 @@ export function Services({ work }: { work: WorkData }) {
       <h2 className="display h2 rv">What we make</h2>
       <div className="slist">
         {SERVICES.map((s, i) => (
-          <div className="srow rv" key={s.name}>
+          <div className="srow rv" key={s.name} style={{ "--d": `${(i % 4) * 0.06}s` } as React.CSSProperties}>
             <span className="n mono">{String(i + 1).padStart(2, "0")}</span>
             <h3>{s.name}</h3>
             <p>{s.text}</p>

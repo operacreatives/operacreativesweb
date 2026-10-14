@@ -10,7 +10,7 @@ import { getWork, resolvePic } from "@/lib/v2/work";
 
 export default async function HomePage() {
   const work = await getWork();
-  const processPics = PROCESS.map((step) => resolvePic(step.pic, work));
+  const processPics = PROCESS.map((step) => step.pics.map((ref) => resolvePic(ref, work)));
 
   return (
     <>
