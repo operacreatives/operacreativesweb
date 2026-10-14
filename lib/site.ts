@@ -29,7 +29,6 @@ export const NAV = [
 export const SHOWREEL = {
   label: "Showreel",
   title: "Watch the showreel",
-  text: "Anime, hybrid VFX, dubbing and brand films, cut into one reel.",
   play: "Play showreel",
 };
 

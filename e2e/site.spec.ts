@@ -114,19 +114,16 @@ test.describe("links page", () => {
 });
 
 test.describe("showreel", () => {
-  test("sits under the hero with a play button, and the nav link finds it", async ({ page }) => {
+  test("sits under the hero, has no extra hero button, and loads its player on the page", async ({ page }) => {
     await page.goto("/");
     await expect(page.locator("#showreel")).toHaveCount(1);
-    await expect(page.locator("#showreel").getByRole("button", { name: "Play showreel" })).toBeVisible();
-    await page.locator("#showreel .reel__poster").click();
+    await expect(page.locator(".hero").getByRole("button", { name: /showreel/i })).toHaveCount(0);
+    await page.locator("#showreel").scrollIntoViewIfNeeded();
     await expect(page.locator("#showreel iframe[src*='player.vimeo.com/video/1233639706']")).toHaveCount(1);
   });
 
-  test("the hero button opens the reel in a player", async ({ page }) => {
+  test("the Showreel nav link is the first menu item", async ({ page }) => {
     await page.goto("/");
-    await page.locator(".hero").getByRole("button", { name: "Play showreel" }).click();
-    await expect(page.getByRole("dialog", { name: "Showreel" }).locator("iframe[src*='1233639706']")).toHaveCount(1);
-    await page.keyboard.press("Escape");
-    await expect(page.getByRole("dialog")).toHaveCount(0);
+    await expect(page.locator(".nav a").first()).toHaveAttribute("href", "#showreel");
   });
 });
