@@ -66,10 +66,10 @@ html,body{-webkit-print-color-adjust:exact;print-color-adjust:exact;background:#
 
 /* ---------- front: cream, centred logo, services either side of the mascot ---------- */
 .front{background:radial-gradient(circle at 0% 100%,rgba(234,9,22,.2),rgba(234,9,22,0) 55%),radial-gradient(circle at 60% -10%,rgba(255,160,90,.32),rgba(255,160,90,0) 45%),var(--cream);color:var(--ink)}
-.front .mark{position:absolute;left:50%;transform:translateX(-50%);top:${BLEED + 6}mm;width:21mm;height:auto}
-.front .brand{position:absolute;left:0;right:0;top:${BLEED + 23.4}mm;text-align:center}
-.front .brand b{display:block;font-weight:800;font-size:4.2mm;letter-spacing:-.045em;line-height:1}
-.front .brand span{display:block;margin-top:1.5mm;font-family:var(--mono);font-size:4.8pt;letter-spacing:.14em;text-transform:uppercase;color:rgba(11,11,11,.62)}
+.front .mark{position:absolute;left:50%;transform:translateX(-50%);top:${BLEED + 5.5}mm;width:25mm;height:auto}
+.front .brand{position:absolute;left:0;right:0;top:${BLEED + 25.8}mm;text-align:center}
+.front .brand b{display:block;font-weight:800;font-size:4.9mm;letter-spacing:-.045em;line-height:1}
+.front .brand span{display:block;margin-top:1.7mm;font-family:var(--mono);font-size:6pt;letter-spacing:.13em;text-transform:uppercase;color:rgba(11,11,11,.72)}
 .front .base{position:absolute;left:0;right:0;bottom:${BLEED + 3.5}mm;height:.2mm;background:var(--ink)}
 .front .peek{position:absolute;left:50%;transform:translateX(-50%);bottom:${BLEED + 2.41}mm;width:24mm;height:auto}
 
