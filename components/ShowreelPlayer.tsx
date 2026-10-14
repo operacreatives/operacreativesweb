@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { buildVimeoEmbedUrl } from "@/lib/vimeo";
 
 // The player is added to the page a little before it scrolls into view, so it
@@ -14,6 +15,9 @@ export function ShowreelPlayer({ id }: { id: string }) {
   const [near, setNear] = useState(false);
   const [ready, setReady] = useState(false);
   const [muted, setMuted] = useState(true);
+  const [onScreen, setOnScreen] = useState(false);
+  const [host, setHost] = useState<Element | null>(null);
+
 
   const src = (() => {
     const url = new URL(buildVimeoEmbedUrl(id, "player"));
@@ -54,12 +58,16 @@ export function ShowreelPlayer({ id }: { id: string }) {
       player.current = p;
       p.ready().then(() => {
         if (cancelled) return;
+        // The sound button floats at the bottom right of the page, so it lives in the site
+        // wrapper (not inside the video frame, which animates and would trap a fixed element).
+        setHost(document.querySelector(".site"));
         setReady(true);
         if (visible.current) p.play().catch(() => {});
       });
       io = new IntersectionObserver(
         ([e]) => {
           visible.current = e.isIntersecting;
+          setOnScreen(e.isIntersecting);
           if (e.isIntersecting) p.play().catch(() => {});
           else p.pause().catch(() => {});
         },
@@ -96,11 +104,25 @@ export function ShowreelPlayer({ id }: { id: string }) {
         </div>
       )}
       {near && <iframe ref={frame} className={ready ? "on" : ""} src={src} title="Opera Creatives showreel" allow="autoplay; fullscreen; picture-in-picture" allowFullScreen />}
-      {ready && (
-        <button type="button" className="reel__sound" onClick={toggleSound} aria-label={muted ? "Turn the showreel sound on" : "Turn the showreel sound off"}>
-          {muted ? "Sound on" : "Sound off"}
-        </button>
-      )}
+      {ready &&
+        host &&
+        createPortal(
+          <button
+            type="button"
+            className={`reel__sound ${onScreen ? "show" : ""}`}
+            onClick={toggleSound}
+            tabIndex={onScreen ? 0 : -1}
+            aria-hidden={!onScreen}
+            aria-label={muted ? "Turn the showreel sound on" : "Turn the showreel sound off"}
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5z" />
+              {muted ? <path d="M16 9.5l5 5M21 9.5l-5 5" /> : <path d="M15.5 9a4 4 0 010 6M18 6.5a7.5 7.5 0 010 11" />}
+            </svg>
+            {muted ? "Sound on" : "Sound off"}
+          </button>,
+          host,
+        )}
     </div>
   );
 }
