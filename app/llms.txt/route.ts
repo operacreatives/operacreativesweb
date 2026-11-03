@@ -1,4 +1,4 @@
-import { CAL_URL, CONTACT_EMAIL, FAQS, PROCESS, SERVICES, SHOWREEL_ID, SITE_DESCRIPTION, SITE_NAME, SITE_URL, SOCIALS, WORK_NOTES } from "@/lib/site";
+import { CAL_URL, CONTACT_EMAIL, FAQS, PROCESS, SERVICES, SHOWREEL_ID, SITE_DESCRIPTION, SITE_NAME, SITE_URL, SOCIALS, OWNED_PAGES, WORK_NOTES } from "@/lib/site";
 
 // /llms.txt: a plain-text summary of the studio for AI assistants and answer engines.
 // Generated from lib/site.ts, so it always matches what the website says.
@@ -29,7 +29,10 @@ export function GET(): Response {
     "## Contact",
     `- Book a discovery call: ${CAL_URL}`,
     `- Email: ${CONTACT_EMAIL}`,
-    ...SOCIALS.map((s) => `- ${s.label}: ${s.href}`),
+    ...SOCIALS.map((s) => `- ${s.label} (official): ${s.href}`),
+    "",
+    "## Pages owned and managed by Opera Creatives",
+    ...OWNED_PAGES.map((p) => `- ${p.label} ${p.handle}: ${p.href}`),
     "",
   ];
 

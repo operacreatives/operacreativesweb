@@ -12,10 +12,17 @@ export const BOOK_LABEL = "Book a discovery call";
 export const CONTACT_EMAIL = "hi@operacreatives.com";
 export const SHOWREEL_ID = "1233639706";
 
+// Opera Creatives' own official profiles. Only these go into schema.org sameAs.
 export const SOCIALS = [
-  { label: "Instagram", href: "https://www.instagram.com/operacreatives_" },
-  { label: "LinkedIn", href: "https://linkedin.com/company/operacreatives" },
-  { label: "X", href: "https://x.com/operacreatives_" },
+  { label: "Instagram", handle: "@operacreatives_", href: "https://www.instagram.com/operacreatives_" },
+];
+
+// Separate pages that Opera Creatives owns and grows. Shown under their own
+// heading so they are never mistaken for the studio's official accounts.
+export const OWNED_PAGES_TITLE = "Pages owned & grown by Opera Creatives";
+export const OWNED_PAGES = [
+  { label: "Instagram", handle: "@harpoon.aiart", href: "https://www.instagram.com/harpoon.aiart" },
+  { label: "X", handle: "@wcaianime", href: "https://x.com/wcaianime" },
 ];
 
 export const NAV = [
@@ -105,12 +112,14 @@ export const WORK_NOTES = {
   fifa: "Anime series released during the FIFA World Cup, generating over 150 million impressions across social media.",
 };
 
-// The /links page (Linktree style). The first button is always "Book a discovery call".
+// The /links page (Linktree style). The first button is always "Book a discovery call";
+// the pitch deck closes the main group.
 export const LINKS = [
-  { label: "Pitch deck", note: "See what we make", href: "/deck?ref=links", external: false },
   { label: "Website", note: "operacreatives.com", href: "/?ref=links", external: false },
-  { label: "Instagram", note: "@operacreatives_", href: SOCIALS[0].href, external: true },
-  { label: "LinkedIn", note: "Opera Creatives", href: SOCIALS[1].href, external: true },
-  { label: "X", note: "@operacreatives_", href: SOCIALS[2].href, external: true },
+  { label: "Instagram", note: `${SOCIALS[0].handle} · Official`, href: SOCIALS[0].href, external: true },
   { label: "Email", note: CONTACT_EMAIL, href: `mailto:${CONTACT_EMAIL}`, external: false },
+  { label: "Pitch deck", note: "See what we make", href: "/deck?ref=links", external: false },
 ];
+
+// Second group on the /links page, under OWNED_PAGES_TITLE.
+export const OWNED_LINKS = OWNED_PAGES.map((p) => ({ label: p.label, note: p.handle, href: p.href, external: true }));
