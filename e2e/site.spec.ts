@@ -103,8 +103,11 @@ test.describe("links page", () => {
     await expect(page.getByRole("link", { name: /Book a discovery call/ })).toHaveAttribute("href", /cal\.com\/operacreatives/);
     await expect(page.locator("iframe[src*='player.vimeo.com/video/1233639706']")).toHaveCount(1);
     await expect(page.getByRole("link", { name: /Pitch deck/ })).toHaveAttribute("href", "/deck?ref=links");
-    await expect(page.getByRole("link", { name: /Instagram/ })).toBeVisible();
-    await expect(page.getByRole("link", { name: /LinkedIn/ })).toBeVisible();
+    await expect(page.getByRole("link", { name: /@operacreatives_/ })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Pages owned & grown by Opera Creatives/ })).toBeVisible();
+    await expect(page.getByRole("link", { name: /@harpoon\.aiart/ })).toHaveAttribute("href", "https://www.instagram.com/harpoon.aiart");
+    await expect(page.getByRole("link", { name: /@wcaianime/ })).toHaveAttribute("href", "https://x.com/wcaianime");
+    await expect(page.getByRole("link", { name: /LinkedIn/ })).toHaveCount(0);
   });
 
   test("the home page still has its header", async ({ page }) => {

@@ -1,4 +1,4 @@
-import { CONTACT_EMAIL, SITE_NAME, SOCIALS } from "@/lib/site";
+import { CONTACT_EMAIL, OWNED_PAGES, OWNED_PAGES_TITLE, SITE_NAME, SOCIALS } from "@/lib/site";
 
 export function Footer() {
   return (
@@ -16,6 +16,14 @@ export function Footer() {
           {SOCIALS.map((s) => (
             <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer">
               {s.label}
+            </a>
+          ))}
+        </nav>
+        <nav aria-label={OWNED_PAGES_TITLE} className="fl-owned">
+          <span className="mono">Our pages:</span>
+          {OWNED_PAGES.map((p) => (
+            <a key={p.href} href={p.href} target="_blank" rel="noopener noreferrer">
+              {p.handle} ({p.label})
             </a>
           ))}
         </nav>
