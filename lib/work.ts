@@ -1,3 +1,4 @@
+import { blockchainProjects } from "@/data/blockchain-projects";
 import { fifaProjects } from "@/data/fifa-projects";
 import { posters } from "@/data/posters";
 import { vimeoProjects } from "@/data/vimeo-projects";
@@ -13,6 +14,7 @@ export interface VideoItem {
 export interface WorkData {
   films: VideoItem[];
   fifa: VideoItem[];
+  blockchain: VideoItem[];
   posters: string[];
 }
 
@@ -22,11 +24,12 @@ async function videos(ids: string[]): Promise<VideoItem[]> {
 }
 
 export async function getWork(): Promise<WorkData> {
-  const [films, fifa] = await Promise.all([
+  const [films, fifa, blockchain] = await Promise.all([
     videos(vimeoProjects.map((p) => p.id)),
     videos(fifaProjects.filter(Boolean)),
+    videos(blockchainProjects.filter(Boolean)),
   ]);
-  return { films, fifa, posters };
+  return { films, fifa, blockchain, posters };
 }
 
 // Moves one film to a new position in the gallery only. The site's "reel:N" references keep the

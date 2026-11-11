@@ -20,6 +20,7 @@ export function GET(): Response {
     `- [Selected work](${SITE_URL}/#work): ${WORK_NOTES.films}`,
     `- Static creatives: ${WORK_NOTES.statics}`,
     `- FIFA World Cup Anime Series: ${WORK_NOTES.fifa}`,
+    `- Blockchain: ${WORK_NOTES.blockchain}`,
     "",
     "## How we work",
     ...PROCESS.map((p, i) => `${i + 1}. ${p.title} (${p.tag}): ${p.text}`),
