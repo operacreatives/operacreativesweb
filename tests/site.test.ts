@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { blockchainProjects } from "@/data/blockchain-projects";
 import { fifaProjects } from "@/data/fifa-projects";
 import { posters } from "@/data/posters";
 import { vimeoProjects } from "@/data/vimeo-projects";
@@ -10,6 +11,7 @@ import { resolvePic, type WorkData } from "@/lib/work";
 const work: WorkData = {
   films: vimeoProjects.map((p) => ({ id: p.id, thumb: `https://example.test/${p.id}.jpg`, tall: false })),
   fifa: fifaProjects.map((id) => ({ id, thumb: `https://example.test/${id}.jpg`, tall: false })),
+  blockchain: blockchainProjects.map((id) => ({ id, thumb: `https://example.test/${id}.jpg`, tall: false })),
   posters,
 };
 

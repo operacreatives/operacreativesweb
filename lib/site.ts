@@ -110,6 +110,7 @@ export const WORK_NOTES = {
   films: "A look at what we make, from anime style animation to brand films. Click any film to watch it.",
   statics: "Posters, ad creatives and product visuals made for brands. Click any to view it full size.",
   fifa: "Anime series released during the FIFA World Cup, generating over 150 million impressions across social media.",
+  blockchain: "Films made for Web3, blockchain and crypto brands, including Starknet, Monad, Hyperliquid and Binance. Click any film to watch it.",
 };
 
 // The /links page (Linktree style). The first button is always "Book a discovery call";

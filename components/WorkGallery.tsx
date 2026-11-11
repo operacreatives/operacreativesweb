@@ -10,7 +10,7 @@ import { placeFilm, type VideoItem } from "@/lib/work";
 // The architecture film shows in row 2, column 4 of the Films grid (6th-7th tiles shift left).
 const ARCHITECTURE_FILM = "1234104627";
 
-type TabKey = "films" | "statics" | "fifa";
+type TabKey = "films" | "statics" | "fifa" | "blockchain";
 type Viewing = { kind: "video"; id: string } | { kind: "image"; src: string; alt: string } | null;
 
 const pad = (n: number) => String(n + 1).padStart(2, "0");
@@ -18,7 +18,7 @@ const pad = (n: number) => String(n + 1).padStart(2, "0");
 // On phones only this many tiles show until "View all" is tapped (desktop always shows everything).
 const PREVIEW_COUNT = 6;
 
-export function WorkGallery({ films: filmList, fifa, posters }: { films: VideoItem[]; fifa: VideoItem[]; posters: string[] }) {
+export function WorkGallery({ films: filmList, fifa, blockchain, posters }: { films: VideoItem[]; fifa: VideoItem[]; blockchain: VideoItem[]; posters: string[] }) {
   const films = useMemo(() => placeFilm(filmList, ARCHITECTURE_FILM, 7), [filmList]);
   const [tab, setTab] = useState<TabKey>("films");
   const [viewing, setViewing] = useState<Viewing>(null);
@@ -33,6 +33,7 @@ export function WorkGallery({ films: filmList, fifa, posters }: { films: VideoIt
     { key: "films", label: "Films", count: films.length },
     { key: "statics", label: "Static Creatives", count: posters.length },
     { key: "fifa", label: "FIFA World Cup Anime Series", count: fifa.length },
+    { key: "blockchain", label: "Web3 / Blockchain", count: blockchain.length },
   ];
 
   const close = useCallback(() => setViewing(null), []);
@@ -100,7 +101,9 @@ export function WorkGallery({ films: filmList, fifa, posters }: { films: VideoIt
           <span className="slate">Our work</span>
           <h2 className="display h2 rv">Selected work</h2>
         </div>
-        <div className="tabs" role="tablist" aria-label="Work categories">
+        <div className="tabs__wrap">
+          <span className="tabs__label">Browse by category</span>
+          <div className="tabs" role="tablist" aria-label="Work categories">
           {tabs.map((t) => (
             <button
               key={t.key}
@@ -118,6 +121,7 @@ export function WorkGallery({ films: filmList, fifa, posters }: { films: VideoIt
               {t.label} <small>{t.count}</small>
             </button>
           ))}
+          </div>
         </div>
       </div>
       <p className="work__note">{WORK_NOTES[tab]}</p>
@@ -125,6 +129,7 @@ export function WorkGallery({ films: filmList, fifa, posters }: { films: VideoIt
       <div role="tabpanel" id="work-panel" aria-labelledby={`work-tab-${tab}`} className={`wgrid ${tab === "statics" ? "statics" : ""} ${expanded ? "open" : ""}`}>
         {tab === "films" && videoTiles(films, "Opera Creatives film")}
         {tab === "fifa" && videoTiles(fifa, "FIFA World Cup anime series film")}
+        {tab === "blockchain" && videoTiles(blockchain, "Web3 and blockchain film")}
         {tab === "statics" &&
           posters.map((file, i) => (
             <button
