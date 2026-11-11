@@ -233,14 +233,17 @@ html:has(.site){scroll-behavior:smooth}
   .site .hero__cta .btn{flex:1 1 auto;justify-content:space-between}
   .site .burger{min-height:44px;min-width:76px}
   .site .wall{grid-template-columns:repeat(3,1fr);gap:.6rem}
-  .site .tabs{flex-direction:column}
-  .site .tab,.site .tab:first-child{padding:1rem 0;align-items:center;min-height:56px}
-  .site .tab+.tab{border-left:0;border-top:1px solid var(--line)}
+  .site .tabs{display:grid;grid-template-columns:1fr 1fr}
+  .site .tab,.site .tab:first-child{display:grid;grid-template-columns:auto 1fr;grid-template-areas:"no count" "name name";align-content:start;gap:.45rem .5rem;padding:.8rem .8rem .9rem;min-height:0}
+  .site .tab:nth-child(odd){padding-left:0}
+  .site .tab+.tab{border-left:0}
+  .site .tab:nth-child(even){border-left:1px solid var(--line)}
+  .site .tab:nth-child(n+3){border-top:1px solid var(--line)}
   .site .tab+.tab::after{left:0}
   .site .tab::after{height:3px}
-  .site .tab__no{padding-top:0;min-width:1.6rem}
-  .site .tab__name{font-size:1.75rem}
-  .site .tab__count{padding-top:0;padding-right:.25rem}
+  .site .tab__no{grid-area:no;padding-top:0;font-size:.62rem}
+  .site .tab__name{grid-area:name;font-size:1.3rem;line-height:1}
+  .site .tab__count{grid-area:count;justify-self:end;padding-top:0;font-size:.62rem}
   .site .work__note{min-height:0}
   .site .srow{padding:1.1rem .2rem}
   .site .proc__ctl{display:none}
