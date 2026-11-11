@@ -69,16 +69,21 @@ html:has(.site){scroll-behavior:smooth}
 .site .about p.st em{font-style:normal;color:var(--red)}
 .site .about .sub{margin-top:2rem;max-width:34rem;color:rgba(248,231,216,.75);font-size:1.15rem}
 .site .work__head{display:flex;flex-direction:column;align-items:stretch;gap:1.75rem;margin-bottom:1.5rem}
-.site .tabs__wrap{display:flex;flex-direction:column;gap:.75rem}
-.site .tabs__label{font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
-.site .tabs{display:flex;gap:.6rem;flex-wrap:wrap;padding:.5rem;background:var(--paper);border:1.5px solid var(--line);border-radius:999px;width:fit-content;max-width:100%}
-.site .tab{font-family:var(--sans);font-weight:700;font-size:clamp(.95rem,1.2vw,1.1rem);letter-spacing:0;padding:.85rem 1.4rem;border:1.5px solid var(--ink);border-radius:999px;transition:background .25s,color .25s,border-color .25s,transform .25s;display:inline-flex;gap:.65rem;align-items:center;justify-content:center;background:var(--cream);color:var(--ink);cursor:pointer}
-.site .tab small{font:700 .72rem var(--mono);background:var(--ink);color:var(--cream);border-radius:999px;padding:.2rem .5rem;line-height:1}
-.site .tab:hover{background:var(--ink);color:var(--cream);transform:translateY(-1px)}
-.site .tab:hover small{background:var(--cream);color:var(--ink)}
-.site .tab[aria-selected=true]{background:var(--red);border-color:var(--red);color:#fff}
-.site .tab[aria-selected=true] small{background:#fff;color:var(--red)}
-.site .tab:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+.site .cats{border-top:1.5px solid var(--ink);border-bottom:1.5px solid var(--ink)}
+.site .cats__top{display:flex;justify-content:space-between;gap:1rem;padding:.7rem 0;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
+.site .tabs{display:flex}
+.site .tab{position:relative;display:flex;align-items:flex-start;gap:.55rem;padding:1.15rem 1.25rem 1.3rem;text-align:left;color:var(--ink);cursor:pointer;opacity:.55;flex:1 1 auto;transition:opacity .35s var(--ease)}
+.site .tab+.tab{border-left:1px solid var(--line)}
+.site .tab:first-child{padding-left:0}
+.site .tab::after{content:"";position:absolute;left:0;right:0;bottom:-1.5px;height:4px;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease)}
+.site .tab+.tab::after{left:-1px}
+.site .tab:hover,.site .tab[aria-selected=true]{opacity:1}
+.site .tab[aria-selected=true]::after{transform:scaleX(1)}
+.site .tab__no{font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;padding-top:.35rem;color:var(--mute)}
+.site .tab[aria-selected=true] .tab__no{color:var(--red)}
+.site .tab__name{font-family:var(--display);font-size:clamp(1.55rem,2.3vw,2.4rem);line-height:.95;letter-spacing:.01em;text-transform:uppercase}
+.site .tab__count{font-family:var(--mono);font-size:.7rem;line-height:1;padding-top:.3rem;margin-left:auto;color:var(--mute)}
+.site .tab:focus-visible{outline:2px solid var(--red);outline-offset:-2px}
 .site .work__note{max-width:40rem;color:#4a453f;font-size:1.1rem;margin-bottom:2rem;min-height:3em}
 .site .wgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,21rem),1fr));gap:1rem}
 .site .tile{position:relative;display:block;width:100%;aspect-ratio:16/9;background:linear-gradient(135deg,#2a2622,#0e0d0c);overflow:hidden;border-radius:4px;text-align:left}
@@ -229,9 +234,14 @@ html:has(.site){scroll-behavior:smooth}
   .site .hero__cta .btn{flex:1 1 auto;justify-content:space-between}
   .site .burger{min-height:44px;min-width:76px}
   .site .wall{grid-template-columns:repeat(3,1fr);gap:.6rem}
-  .site .work__head{align-items:flex-start}
-  .site .tabs{display:grid;grid-template-columns:1fr;width:100%;border-radius:1.25rem;gap:.45rem}
-  .site .tab{min-height:50px;padding:.7rem 1.1rem;font-size:1rem;justify-content:space-between;border-radius:.9rem;white-space:nowrap}
+  .site .tabs{flex-direction:column}
+  .site .tab,.site .tab:first-child{padding:1rem 0;align-items:center;min-height:56px}
+  .site .tab+.tab{border-left:0;border-top:1px solid var(--line)}
+  .site .tab+.tab::after{left:0}
+  .site .tab::after{height:3px}
+  .site .tab__no{padding-top:0;min-width:1.6rem}
+  .site .tab__name{font-size:1.75rem}
+  .site .tab__count{padding-top:0;padding-right:.25rem}
   .site .work__note{min-height:0}
   .site .srow{padding:1.1rem .2rem}
   .site .proc__ctl{display:none}
