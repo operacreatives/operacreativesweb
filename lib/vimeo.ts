@@ -79,7 +79,12 @@ export async function fetchVimeoAspect(id: string, revalidateSeconds?: number): 
   try {
     const res = await fetch(
       `https://vimeo.com/api/oembed.json?url=${encodeURIComponent(`https://vimeo.com/${id}`)}&width=1280`,
-      revalidateSeconds === undefined ? { cache: "no-store" } : { next: { revalidate: revalidateSeconds } },
+      {
+        // A slow or throttled Vimeo must never stall the page build (Next.js fails a page after 60s);
+        // after 8s we use the fallback thumbnail instead.
+        signal: AbortSignal.timeout(8000),
+        ...(revalidateSeconds === undefined ? { cache: "no-store" as const } : { next: { revalidate: revalidateSeconds } }),
+      },
     );
     if (!res.ok) return fallback();
     const data = (await res.json()) as {
