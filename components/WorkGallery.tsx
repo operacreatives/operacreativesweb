@@ -101,28 +101,33 @@ export function WorkGallery({ films: filmList, fifa, blockchain, posters }: { fi
           <span className="slate">Our work</span>
           <h2 className="display h2 rv">Selected work</h2>
         </div>
-        <div className="tabs__wrap">
-          <span className="tabs__label">Browse by category</span>
-          <div className="tabs" role="tablist" aria-label="Work categories">
-          {tabs.map((t) => (
-            <button
-              key={t.key}
-              type="button"
-              role="tab"
-              id={`work-tab-${t.key}`}
-              aria-selected={tab === t.key}
-              aria-controls="work-panel"
-              className="tab"
-              onClick={() => {
-                setTab(t.key);
-                setExpanded(false);
-              }}
-            >
-              {t.label} <small>{t.count}</small>
-            </button>
-          ))}
+        <nav className="cats" aria-label="Work categories">
+          <div className="cats__top">
+            <span>Browse by category</span>
+            <span>{pad(tabs.length - 1)} categories</span>
           </div>
-        </div>
+          <div className="tabs" role="tablist" aria-label="Work categories">
+            {tabs.map((t, i) => (
+              <button
+                key={t.key}
+                type="button"
+                role="tab"
+                id={`work-tab-${t.key}`}
+                aria-selected={tab === t.key}
+                aria-controls="work-panel"
+                className="tab"
+                onClick={() => {
+                  setTab(t.key);
+                  setExpanded(false);
+                }}
+              >
+                <span className="tab__no">{pad(i)}</span>
+                <span className="tab__name">{t.label}</span>
+                <sup className="tab__count">{t.count}</sup>
+              </button>
+            ))}
+          </div>
+        </nav>
       </div>
       <p className="work__note">{WORK_NOTES[tab]}</p>
 
