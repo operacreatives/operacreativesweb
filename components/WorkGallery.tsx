@@ -102,10 +102,6 @@ export function WorkGallery({ films: filmList, fifa, blockchain, posters }: { fi
           <h2 className="display h2 rv">Selected work</h2>
         </div>
         <nav className="cats" aria-label="Work categories">
-          <div className="cats__top">
-            <span>Browse by category</span>
-            <span>{pad(tabs.length - 1)} categories</span>
-          </div>
           <div className="tabs" role="tablist" aria-label="Work categories">
             {tabs.map((t, i) => (
               <button
