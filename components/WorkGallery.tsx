@@ -33,7 +33,7 @@ export function WorkGallery({ films: filmList, fifa, blockchain, posters }: { fi
     { key: "films", label: "Films", count: films.length },
     { key: "statics", label: "Static Creatives", count: posters.length },
     { key: "fifa", label: "FIFA World Cup Anime Series", count: fifa.length },
-    { key: "blockchain", label: "Blockchain", count: blockchain.length },
+    { key: "blockchain", label: "Web3 / Blockchain", count: blockchain.length },
   ];
 
   const close = useCallback(() => setViewing(null), []);
@@ -101,7 +101,9 @@ export function WorkGallery({ films: filmList, fifa, blockchain, posters }: { fi
           <span className="slate">Our work</span>
           <h2 className="display h2 rv">Selected work</h2>
         </div>
-        <div className="tabs" role="tablist" aria-label="Work categories">
+        <div className="tabs__wrap">
+          <span className="tabs__label">Browse by category</span>
+          <div className="tabs" role="tablist" aria-label="Work categories">
           {tabs.map((t) => (
             <button
               key={t.key}
@@ -119,6 +121,7 @@ export function WorkGallery({ films: filmList, fifa, blockchain, posters }: { fi
               {t.label} <small>{t.count}</small>
             </button>
           ))}
+          </div>
         </div>
       </div>
       <p className="work__note">{WORK_NOTES[tab]}</p>
@@ -126,7 +129,7 @@ export function WorkGallery({ films: filmList, fifa, blockchain, posters }: { fi
       <div role="tabpanel" id="work-panel" aria-labelledby={`work-tab-${tab}`} className={`wgrid ${tab === "statics" ? "statics" : ""} ${expanded ? "open" : ""}`}>
         {tab === "films" && videoTiles(films, "Opera Creatives film")}
         {tab === "fifa" && videoTiles(fifa, "FIFA World Cup anime series film")}
-        {tab === "blockchain" && videoTiles(blockchain, "Blockchain film")}
+        {tab === "blockchain" && videoTiles(blockchain, "Web3 and blockchain film")}
         {tab === "statics" &&
           posters.map((file, i) => (
             <button
