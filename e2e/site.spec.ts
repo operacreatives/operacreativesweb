@@ -39,10 +39,14 @@ test.describe("homepage", () => {
 });
 
 test.describe("links that must never break", () => {
-  test("/v2 redirects to the home page", async ({ request }) => {
-    const res = await request.get("/v2", { maxRedirects: 0 });
-    expect([301, 302, 307, 308]).toContain(res.status());
-    expect(new URL(res.headers()["location"], "http://localhost").pathname).toBe("/");
+  test("/v2 and /v2/portfolio serve the V2 preview pages", async ({ request }) => {
+    for (const [path, title] of [["/v2", "Opera Creatives"], ["/v2/portfolio", "Portfolio"]]) {
+      const res = await request.get(path, { maxRedirects: 0 });
+      expect(res.status()).toBe(200);
+      const html = await res.text();
+      expect(html).toContain(`<title>${title}`);
+      expect(html).toContain('content="noindex"');
+    }
   });
 
   test("/qr and /nfc redirect to the deck with their ref", async ({ request }) => {

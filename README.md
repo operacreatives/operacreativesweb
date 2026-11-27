@@ -20,7 +20,7 @@ npm run test:e2e
 - Every "Book a discovery call" button links straight to the Cal.com page set in `lib/site.ts` (`CAL_URL`).
 - Styles are in `app/site.css`, scoped under `.site`.
 - Short links (`/qr`, `/nfc`, and anything created in the dashboard) are handled by `app/[slug]/route.ts`; `/deck` serves `content/deck.html`. `e2e/site.spec.ts` checks that these keep working.
-- `/v2` redirects to `/` (the redesign was previewed there first).
+- `/v2` and `/v2/portfolio` are a standalone V2 redesign preview for team approval (static HTML in `public/v2`, routed in `next.config.ts`, noindex). Content and links for both pages live in `public/v2/data.js`; film thumbnails are in `public/v2/films`. The live home page is separate and unchanged.
 
 ## Search and AI visibility
 
