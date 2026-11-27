@@ -52,10 +52,10 @@ window.OC = {
     { id: "1197791358", t: "Headphones", c: "product", d: 15, note: "Product spec" },
     { id: "1197791356", t: "Grand Seiko", c: "product", d: 15, note: "Product spec" },
     // Web3
-    { id: "1245089928", t: "Starknet", c: "web3", d: 34, note: "Web3 film" },
-    { id: "1245089922", t: "Monad", c: "web3", d: 30, note: "Web3 film" },
-    { id: "1245089914", t: "Hyperliquid", c: "web3", d: 44, note: "Web3 film" },
-    { id: "1245089909", t: "Binance", c: "web3", d: 61, note: "Web3 film" },
+    { id: "1245089928", t: "Starknet", c: "web3", d: 34, note: "Web3 concept" },
+    { id: "1245089922", t: "Monad", c: "web3", d: 30, note: "Web3 concept" },
+    { id: "1245089914", t: "Hyperliquid", c: "web3", d: 44, note: "Web3 concept" },
+    { id: "1245089909", t: "Binance", c: "web3", d: 61, note: "Web3 concept" },
     // FIFA World Cup anime series
     { id: "1212302168", h: "680b6f2367", t: "Tournament of Power", c: "anime", d: 84, note: "World Cup anime" },
     { id: "1212301782", h: "64d56e4171", t: "Argentina vs Spain: Luffy & Shanks", c: "anime", d: 81, note: "World Cup anime" },
