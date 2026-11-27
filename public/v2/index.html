@@ -158,21 +158,39 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .preview img{width:100%;height:100%;object-fit:cover}
 
 /* anime feature */
-.anime{background:var(--ink);color:var(--paper);border-radius:calc(var(--r) + 10px);padding:clamp(2.5rem,6vw,5rem) 0;margin:0 clamp(.5rem,1.5vw,1.25rem);overflow:hidden}
+.anime{--inset:max(var(--gut),calc((100vw - var(--max))/2 + var(--gut)));background:var(--ink);color:var(--paper);border-radius:calc(var(--r) + 10px);padding:clamp(3rem,6vw,5.5rem) 0 clamp(2.5rem,5vw,4rem);margin:0 clamp(.5rem,1.5vw,1.25rem);overflow:hidden;position:relative;isolation:isolate}
+.anime::before{content:"";position:absolute;right:-12rem;top:-14rem;width:40rem;aspect-ratio:1;border-radius:50%;background:radial-gradient(closest-side,rgba(234,9,22,.28),rgba(234,9,22,0));z-index:-1;pointer-events:none}
 .anime .eyebrow{color:rgba(244,241,236,.55)}
-.anime .lede{color:rgba(244,241,236,.65)}
-.anime__big{font-weight:500;letter-spacing:-.06em;line-height:.9;font-size:clamp(4rem,13vw,13rem);margin:.5rem 0 1rem}
-.anime__big .serif{color:var(--red);letter-spacing:-.03em}
-.strip{display:flex;gap:1rem;overflow-x:auto;scroll-snap-type:x mandatory;padding:0 var(--gut) 1rem;scrollbar-width:thin;scrollbar-color:#444 transparent;cursor:grab}
+.anime__head{display:grid;grid-template-columns:auto 1fr;gap:clamp(2rem,6vw,6rem);align-items:end;padding-bottom:clamp(2rem,4vw,3rem);border-bottom:1px solid rgba(244,241,236,.14)}
+.anime__big{font-weight:500;letter-spacing:-.065em;line-height:.82;font-size:clamp(4.5rem,12vw,11.5rem);margin-left:-.04em}
+.anime__big .serif{color:var(--red);letter-spacing:-.02em;font-size:.8em;margin-left:.04em}
+.anime__cap{margin-top:1rem;color:rgba(244,241,236,.6)}
+.anime__copy{max-width:30rem;justify-self:end}
+.anime__copy h3{font-weight:500;letter-spacing:-.035em;font-size:clamp(1.5rem,2.4vw,2.1rem);line-height:1.1}
+.anime__copy h3 .serif{color:var(--red)}
+.anime__copy p{color:rgba(244,241,236,.65);margin:.8rem 0 1.4rem}
+.anime__facts{display:flex;gap:1.6rem;flex-wrap:wrap;margin-bottom:1.6rem}
+.anime__facts div{display:grid;gap:.15rem}
+.anime__facts b{font-weight:500;font-size:1.5rem;letter-spacing:-.04em}
+.anime__facts .mono{color:rgba(244,241,236,.5)}
+.anime .pill{background:var(--paper);color:var(--ink)}
+.anime .pill:hover{background:var(--red);color:#fff}
+.anime__bar{display:flex;justify-content:space-between;align-items:center;gap:1rem;margin:clamp(1.8rem,3vw,2.4rem) 0 1.2rem}
+.anime__bar .mono{color:rgba(244,241,236,.5)}
+.strip{display:flex;gap:clamp(.8rem,1.4vw,1.2rem);overflow-x:auto;scroll-snap-type:x mandatory;padding:0 var(--inset) .4rem;scroll-padding-inline:var(--inset);scrollbar-width:none;cursor:grab}
+.strip::-webkit-scrollbar{display:none}
 .strip.drag{cursor:grabbing;scroll-snap-type:none}
-.ep{flex:0 0 clamp(16rem,30vw,26rem);scroll-snap-align:start;text-align:left}
+.ep{flex:0 0 clamp(16rem,28vw,25rem);scroll-snap-align:start;text-align:left}
 .ep .card__media{background:#222}
-.ep .card__info .mono{color:rgba(244,241,236,.5)}
-.ep .num{color:var(--red)}
+.ep .card__info{margin-top:.9rem}
+.ep .card__info strong{font-size:1.02rem}
+.ep .num{color:var(--red);margin-right:.3rem}
+.progress{height:2px;background:rgba(244,241,236,.14);border-radius:2px;margin:clamp(1.6rem,3vw,2.2rem) var(--inset) 0;overflow:hidden}
+.progress i{display:block;height:100%;width:0;background:var(--red);border-radius:2px;transition:width .2s}
 .strip-nav{display:flex;gap:.5rem}
-.strip-nav button{width:2.8rem;height:2.8rem;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(244,241,236,.25);color:var(--paper);transition:background .25s}
+.strip-nav button{width:2.8rem;height:2.8rem;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(244,241,236,.25);color:var(--paper);transition:background .25s,opacity .25s}
 .strip-nav button:hover{background:var(--red);box-shadow:none}
-.anime__foot{display:flex;justify-content:space-between;align-items:center;gap:1rem;margin-top:1.6rem}
+.strip-nav button:disabled{opacity:.3;pointer-events:none}
 
 /* services */
 .svc{display:grid;grid-template-columns:5fr 7fr;gap:clamp(2rem,5vw,5rem);align-items:start}
@@ -294,6 +312,8 @@ details p{color:var(--mute);padding:0 2.5rem 1.5rem 0;max-width:38rem}
   .card.film,.card.poster,.card.film.tall{grid-column:span 1}
   .card.film:not(.tall){grid-column:span 2}
   .svc__media{display:none}
+  .anime__head{grid-template-columns:1fr}
+  .anime__copy{justify-self:start}
   .svc__item p{max-height:6rem;opacity:1;margin-top:.4rem}
   .steps{grid-template-columns:1fr 1fr}
   .ftr__top{grid-template-columns:1fr 1fr}
@@ -388,17 +408,26 @@ details p{color:var(--mute);padding:0 2.5rem 1.5rem 0;max-width:38rem}
   <!-- ANIME FEATURE -->
   <section id="anime" class="anime">
     <div class="wrap">
-      <div class="sec-head" style="margin-bottom:1rem">
-        <div><div class="eyebrow mono"><span>(02)</span><span>Case study · FIFA World Cup anime series</span></div>
-        <div class="anime__big">150M<span class="serif">+</span></div></div>
-        <p class="lede">An anime series released during the FIFA World Cup, generating over 150 million impressions across social media. Twelve episodes, made as the tournament happened.</p>
+      <div class="eyebrow mono"><span>(02)</span><span>Case study · FIFA World Cup anime series</span></div>
+      <div class="anime__head">
+        <div>
+          <div class="anime__big">150M<span class="serif">+</span></div>
+          <div class="anime__cap mono">Impressions across social media</div>
+        </div>
+        <div class="anime__copy">
+          <h3>The World Cup, <span class="serif">in anime.</span></h3>
+          <p>An anime series released during the FIFA World Cup, made match by match as the tournament happened.</p>
+          <div class="anime__facts">
+            <div><b id="epCount">12</b><span class="mono">Episodes</span></div>
+            <div><b id="epMins">13</b><span class="mono">Minutes</span></div>
+          </div>
+          <a class="pill" href="/v2/portfolio?cat=anime">Watch the full series <span class="arr">→</span></a>
+        </div>
       </div>
+      <div class="anime__bar"><span class="mono">Episodes · drag or use the arrows</span><div class="strip-nav"><button id="sPrev" aria-label="Previous episodes">←</button><button id="sNext" aria-label="Next episodes">→</button></div></div>
     </div>
     <div class="strip" id="strip"></div>
-    <div class="wrap anime__foot">
-      <span class="mono" style="color:rgba(244,241,236,.55)">Drag or use the arrows</span>
-      <div class="strip-nav"><button id="sPrev" aria-label="Previous">←</button><button id="sNext" aria-label="Next">→</button></div>
-    </div>
+    <div class="progress"><i id="prog"></i></div>
   </section>
 
   <!-- SERVICES -->
@@ -480,7 +509,7 @@ details p{color:var(--mute);padding:0 2.5rem 1.5rem 0;max-width:38rem}
       <a class="ftr__mail js-mail-big"><span class="serif">Tell us the goal</span><span class="ulink" id="mailText"></span></a>
       <div><h4 class="mono">Studio</h4><ul><li><a class="ulink" href="#work">Work</a></li><li><a class="ulink" href="#services">Services</a></li><li><a class="ulink" href="#process">Process</a></li><li><a class="ulink" href="/v2/portfolio">Portfolio</a></li><li><a class="ulink js-deck" target="_blank" rel="noopener">Pitch deck ↗</a></li></ul></div>
       <div><h4 class="mono">Official</h4><ul><li><a class="ulink js-ig" target="_blank" rel="noopener"></a></li><li><a class="ulink js-cal" target="_blank" rel="noopener">Book a call ↗</a></li></ul></div>
-      <div><h4 class="mono">Pages we grow</h4><ul id="owned"></ul></div>
+      <div><h4 class="mono">Pages we own</h4><ul id="owned"></ul></div>
     </div>
     <div class="ftr__word" aria-hidden="true"><span>Opera</span><span class="serif">creatives</span></div>
     <div class="ftr__base mono"><span>© <span id="yr"></span> Opera Creatives</span><span>AI native production studio</span><a href="#top" class="ulink">Back to top ↑</a></div>
@@ -574,7 +603,11 @@ strip.addEventListener("pointerdown",e=>{if(e.pointerType!=="mouse")return;dragX
 addEventListener("pointermove",e=>{if(dragX===null)return;const dx=e.clientX-dragX;if(Math.abs(dx)>4)moved=true;strip.scrollLeft=startScroll-dx});
 addEventListener("pointerup",()=>{dragX=null;strip.classList.remove("drag")});
 strip.querySelectorAll(".ep").forEach(b=>b.addEventListener("click",e=>{if(moved){e.preventDefault();return}openLB(+b.dataset.i,anime.map(([,i])=>i))}));
-const step=()=>strip.querySelector(".ep").offsetWidth+16;
+const step=()=>strip.querySelector(".ep").offsetWidth+parseFloat(getComputedStyle(strip).columnGap||16);
+$("#epCount").textContent=anime.length;
+$("#epMins").textContent=Math.round(anime.reduce((a,[w])=>a+w.d,0)/60);
+const syncStrip=()=>{const max=strip.scrollWidth-strip.clientWidth;const p=max>0?strip.scrollLeft/max:1;$("#prog").style.width=(Math.max(.08,p)*100)+"%";$("#sPrev").disabled=strip.scrollLeft<4;$("#sNext").disabled=strip.scrollLeft>max-4};
+strip.addEventListener("scroll",syncStrip,{passive:true});addEventListener("resize",syncStrip);syncStrip();
 $("#sPrev").onclick=()=>strip.scrollBy({left:-step(),behavior:"smooth"});
 $("#sNext").onclick=()=>strip.scrollBy({left:step(),behavior:"smooth"});
 
