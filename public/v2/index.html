@@ -93,13 +93,14 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .reel__bar .pl b{display:grid;place-items:center;width:2.4rem;height:2.4rem;border-radius:50%;background:#fff;color:var(--ink);font-size:.75rem}
 .reel iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .reel.playing{cursor:auto}
+.reel .reel__live{position:absolute;inset:0;width:100%;height:100%;border:0;opacity:0;transition:opacity .8s}
+.reel.live .reel__live{opacity:1}
+.reel .reel__hit{position:absolute;inset:0;z-index:2;background:transparent}
+.reel.playing .reel__hit,.reel.playing .reel__bar{display:none}
+.reel__bar{z-index:3;pointer-events:none}
+.reel__bar .snd{display:flex;align-items:center;gap:.5rem;padding:.45rem .8rem;border-radius:999px;background:rgba(255,255,255,.16);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
 
-/* collaborators */
-.collab{display:flex;align-items:center;gap:clamp(1.5rem,4vw,4rem);padding:2rem 0;border-bottom:1px solid var(--line);margin-top:clamp(2.5rem,5vw,4rem);flex-wrap:wrap}
-.collab .mono{color:var(--mute)}
-.collab ul{list-style:none;display:flex;gap:clamp(1.5rem,4vw,3.5rem);flex-wrap:wrap}
-.collab li{font-family:var(--serif);font-style:italic;font-size:clamp(1.5rem,2.4vw,2.1rem);color:var(--ink-2);letter-spacing:-.01em}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--line)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--line);margin-top:clamp(2.5rem,5vw,4rem)}
 .stats div{padding:2rem 0 2.2rem;border-right:1px solid var(--line);padding-left:1.4rem}
 .stats div:first-child{padding-left:0}
 .stats div:last-child{border-right:0}
@@ -371,15 +372,12 @@ details p{color:var(--mute);padding:0 2.5rem 1.5rem 0;max-width:38rem}
         </div>
       </div>
 
-      <div class="reel" id="reel" role="button" tabindex="0" aria-label="Play showreel" data-cursor="Play reel">
+      <div class="reel" id="reel" role="button" tabindex="0" aria-label="Play showreel" data-cursor="Sound on">
         <img src="/v2/films/1233639706.webp" alt="Opera Creatives Showreel 2026">
-        <div class="reel__bar"><span class="pl"><b>▶</b><span class="mono">Showreel 2026</span></span><span class="mono">1:36</span></div>
+        <div class="reel__hit"></div>
+        <div class="reel__bar"><span class="pl"><b>▶</b><span class="mono">Showreel 2026 · 1:36</span></span><span class="snd mono">🔊 Watch with sound</span></div>
       </div>
 
-      <div class="collab">
-        <span class="mono">Films made for</span>
-        <ul><li>Starknet</li><li>Monad</li><li>Hyperliquid</li><li>Binance</li></ul>
-      </div>
       <div class="stats">
         <div><strong>150M<span class="serif">+</span></strong><p>Impressions on our FIFA World Cup anime series</p></div>
         <div><strong id="filmCount">40</strong><p>Films, spots and series in this reel</p></div>
@@ -639,8 +637,27 @@ $$("#wall button").forEach(b=>b.onclick=()=>openLB(+b.dataset.i,posterIdx.map(([
 $("#faqs").innerHTML=OC.faqs.map(([q,a],i)=>`<details${i===0?" open":""}><summary>${q}<span>+</span></summary><p>${a}</p></details>`).join("");
 
 // ---------- SHOWREEL ----------
+// Starts playing on its own, muted and looping. Clicking switches to the full player with sound.
 const reel=$("#reel");
-const playReel=()=>{if(reel.classList.contains("playing"))return;reel.classList.add("playing");cursor.classList.remove("on");reel.insertAdjacentHTML("beforeend",`<iframe src="${OC.player(OC.showreel)}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="Showreel"></iframe>`)};
+const reelBase=`https://player.vimeo.com/video/${OC.showreel.id}?title=0&byline=0&portrait=0&badge=0&dnt=1&playsinline=1`;
+const calm=matchMedia("(prefers-reduced-motion: reduce)").matches;
+if(!calm){
+  const live=document.createElement("iframe");
+  live.className="reel__live"; live.title="Showreel preview"; live.allow="autoplay; fullscreen; picture-in-picture"; live.tabIndex=-1;
+  live.setAttribute("aria-hidden","true");
+  live.src=reelBase+"&autoplay=1&muted=1&loop=1&autopause=0&controls=0&quality=540p";
+  // reveal the video only once Vimeo says it is really playing; until then the poster stays
+  addEventListener("message",e=>{
+    if(e.source!==live.contentWindow||!/vimeo\.com$/.test(new URL(e.origin).hostname))return;
+    let d=e.data;try{if(typeof d==="string")d=JSON.parse(d)}catch(_){return}
+    if(d.event==="ready")["play","playProgress","timeupdate"].forEach(v=>live.contentWindow.postMessage(JSON.stringify({method:"addEventListener",value:v}),e.origin));
+    if(d.event==="play"||d.event==="playProgress"||d.event==="timeupdate")reel.classList.add("live");
+  });
+  reel.querySelector(".reel__hit").before(live);
+}
+const playReel=()=>{if(reel.classList.contains("playing"))return;reel.classList.add("playing");cursor.classList.remove("on");
+  const prev=reel.querySelector(".reel__live"); if(prev) prev.remove();
+  reel.insertAdjacentHTML("beforeend",`<iframe src="${reelBase}&autoplay=1&muted=0&controls=1" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="Showreel" style="z-index:4"></iframe>`)};
 reel.onclick=playReel; reel.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();playReel()}};
 
 // ---------- LIGHTBOX ----------
