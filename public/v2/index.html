@@ -108,7 +108,9 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .stats p{color:var(--mute);font-size:.88rem;margin-top:.5rem;max-width:14rem}
 
 /* work */
-.bar{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:1rem 0;border-block:1px solid var(--line);position:sticky;top:0;z-index:20;background:rgba(244,241,236,.9);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.bar{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:1rem 0;border-block:1px solid var(--line);position:sticky;top:4.25rem;z-index:20;isolation:isolate;background:var(--paper)}
+.bar::before{content:"";position:absolute;left:calc(-1*var(--gut));right:calc(-1*var(--gut));top:-4.3rem;bottom:0;z-index:-1;background:var(--paper);opacity:0;transition:opacity .2s}
+.bar.stuck::before{opacity:1}
 .cats{display:flex;gap:1.4rem;flex-wrap:wrap}
 .cats button{font-size:1.02rem;color:var(--soft);transition:color .25s;letter-spacing:-.01em}
 .cats button sup{font-family:var(--mono);font-size:.6rem;margin-left:.15rem}
@@ -591,6 +593,10 @@ function render(push){
 }
 $("#more").onclick=()=>{showAll=true;render()};
 $$(".views button").forEach(b=>b.onclick=()=>{view=b.dataset.view;$$(".views button").forEach(x=>x.setAttribute("aria-pressed",x===b));grid.classList.toggle("off",view==="list");list.classList.toggle("on",view==="list");render()});
+// fill the strip behind the floating header only while the filter bar is pinned
+const barEl=document.querySelector(".bar");
+const barStick=()=>barEl.classList.toggle("stuck",barEl.getBoundingClientRect().top<=parseFloat(getComputedStyle(barEl).top)+1);
+addEventListener("scroll",barStick,{passive:true});addEventListener("resize",barStick);barStick();
 const cardObs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");cardObs.unobserve(e.target)}}),{rootMargin:"0px 0px -6% 0px"});
 render();
 
