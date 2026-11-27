@@ -15,8 +15,8 @@ window.OC = {
 
   cats: [
     { id: "all", label: "All" },
-    { id: "anime", label: "Anime" },
     { id: "commercials", label: "Commercials" },
+    { id: "anime", label: "Anime" },
     { id: "films", label: "Films" },
     { id: "product", label: "Product" },
     { id: "web3", label: "Web3" },
@@ -143,7 +143,7 @@ OC.work = (() => {
     ...OC.films.map((f) => ({ ...f, kind: "film", src: OC.thumb(f.id) })),
     ...OC.posters.map((p) => ({ ...p, kind: "poster", c: "posters", note: "Poster", src: OC.poster(p.f) }))
   ];
-  const order = ["anime", "commercials", "posters", "films", "product", "posters", "web3"];
+  const order = ["commercials", "anime", "posters", "films", "product", "posters", "web3"];
   const pools = {}; items.forEach((w) => (pools[w.c] = pools[w.c] || []).push(w));
   const out = [];
   while (out.length < items.length) order.forEach((c) => { const w = pools[c] && pools[c].shift(); if (w) out.push(w); });
