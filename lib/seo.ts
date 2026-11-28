@@ -1,4 +1,4 @@
-import { CAL_URL, CONTACT_EMAIL, FAQS, SERVICES, SITE_DESCRIPTION, SITE_NAME, SITE_TITLE, SITE_URL, SOCIALS } from "@/lib/site";
+import { CAL_URL, CONTACT_EMAIL, FAQS, LIVE_SERVICES as SERVICES, SITE_DESCRIPTION, SITE_NAME, SITE_TITLE, SITE_URL, SOCIALS } from "@/lib/site";
 
 // Structured data (schema.org) for search engines and AI assistants.
 // Everything is generated from lib/site.ts so it can never drift from the page copy.

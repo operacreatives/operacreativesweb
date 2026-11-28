@@ -1,21 +1,21 @@
 import { expect, test } from "@playwright/test";
 
-test.describe("homepage", () => {
-  test("shows the hero and is indexable", async ({ page }) => {
-    await page.goto("/", { waitUntil: "domcontentloaded" });
+test.describe("previous homepage (/v1)", () => {
+  test("is kept at /v1 and not indexed", async ({ page }) => {
+    await page.goto("/v1", { waitUntil: "domcontentloaded" });
     await expect(page.getByRole("heading", { level: 1 })).toContainText("From product shot to");
-    await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /^index/);
+    await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
   });
 
   test("booking buttons go straight to Cal.com", async ({ page }) => {
-    await page.goto("/", { waitUntil: "domcontentloaded" });
+    await page.goto("/v1", { waitUntil: "domcontentloaded" });
     const links = page.locator('a.btn[href^="https://cal.com/"]');
     expect(await links.count()).toBeGreaterThanOrEqual(3);
     await expect(links.first()).toHaveAttribute("target", "_blank");
   });
 
   test("work tabs switch between films, static creatives and FIFA series", async ({ page }) => {
-    await page.goto("/", { waitUntil: "domcontentloaded" });
+    await page.goto("/v1", { waitUntil: "domcontentloaded" });
     await expect(page.locator(".tile")).toHaveCount(24);
     await page.getByRole("tab", { name: /Static Creatives/ }).click();
     await expect(page.locator(".tile")).toHaveCount(24);
@@ -24,14 +24,14 @@ test.describe("homepage", () => {
   });
 
   test("opening one FAQ closes the others", async ({ page }) => {
-    await page.goto("/", { waitUntil: "domcontentloaded" });
+    await page.goto("/v1", { waitUntil: "domcontentloaded" });
     await page.locator("#faq summary").nth(0).click();
     await page.locator("#faq summary").nth(2).click();
     await expect(page.locator("#faq details[open]")).toHaveCount(1);
   });
 
   test("old in-page links still land on a section", async ({ page }) => {
-    await page.goto("/", { waitUntil: "domcontentloaded" });
+    await page.goto("/v1", { waitUntil: "domcontentloaded" });
     for (const id of ["work", "how-it-works", "collaborate", "footer"]) {
       await expect(page.locator(`#${id}`)).toHaveCount(1);
     }
@@ -39,13 +39,28 @@ test.describe("homepage", () => {
 });
 
 test.describe("links that must never break", () => {
-  test("/v2 and /v2/portfolio serve the V2 preview pages", async ({ request }) => {
-    for (const [path, title] of [["/v2", "Opera Creatives"], ["/v2/portfolio", "Portfolio"]]) {
+  test("the homepage and /portfolio serve the live pages, indexable", async ({ request }) => {
+    for (const [path, title, canonical] of [
+      ["/", "Opera Creatives |", "https://www.operacreatives.com"],
+      ["/portfolio", "Portfolio | Opera Creatives", "https://www.operacreatives.com/portfolio"],
+    ]) {
       const res = await request.get(path, { maxRedirects: 0 });
       expect(res.status()).toBe(200);
       const html = await res.text();
       expect(html).toContain(`<title>${title}`);
-      expect(html).toContain('content="noindex"');
+      expect(html).toContain(`<link rel="canonical" href="${canonical}">`);
+      expect(html).toContain('<meta name="robots" content="index, follow');
+      expect(html).not.toContain("<!--SEO-->");
+      expect(html).not.toContain("\u2014");
+      expect(html).not.toContain("—");
+    }
+  });
+
+  test("/v2 links still work by redirecting to the live pages", async ({ request }) => {
+    for (const [from, to] of [["/v2", "/"], ["/v2/portfolio", "/portfolio"]]) {
+      const res = await request.get(from, { maxRedirects: 0 });
+      expect([301, 308]).toContain(res.status());
+      expect(new URL(res.headers()["location"], "http://localhost").pathname).toBe(to);
     }
   });
 
@@ -75,6 +90,14 @@ test.describe("search and AI visibility", () => {
     const raw = await page.locator('script[type="application/ld+json"]').first().textContent();
     const types = JSON.parse(raw ?? "{}")["@graph"].map((n: { "@type": string }) => n["@type"]);
     expect(types).toEqual(expect.arrayContaining(["Organization", "WebSite", "WebPage", "FAQPage"]));
+  });
+
+  test("portfolio ships CollectionPage and breadcrumb structured data", async ({ page }) => {
+    await page.goto("/portfolio", { waitUntil: "domcontentloaded" });
+    const raw = await page.locator('script[type="application/ld+json"]').first().textContent();
+    const types = JSON.parse(raw ?? "{}")["@graph"].map((n: { "@type": string }) => n["@type"]);
+    expect(types).toEqual(expect.arrayContaining(["CollectionPage", "BreadcrumbList"]));
+    await expect(page.locator("h1")).toHaveCount(1);
   });
 
   test("has exactly one h1 and a canonical link", async ({ page }) => {
@@ -114,15 +137,15 @@ test.describe("links page", () => {
     await expect(page.getByRole("link", { name: /LinkedIn/ })).toHaveCount(0);
   });
 
-  test("the home page still has its header", async ({ page }) => {
-    await page.goto("/");
+  test("the previous homepage still has its header", async ({ page }) => {
+    await page.goto("/v1");
     await expect(page.getByTestId("site-header")).toBeVisible();
   });
 });
 
 test.describe("showreel", () => {
   test("sits under the hero, has no extra hero button, and loads its player on the page", async ({ page }) => {
-    await page.goto("/");
+    await page.goto("/v1");
     await expect(page.locator("#showreel")).toHaveCount(1);
     await expect(page.locator(".hero").getByRole("button", { name: /showreel/i })).toHaveCount(0);
     await page.locator("#showreel").scrollIntoViewIfNeeded();
@@ -130,7 +153,7 @@ test.describe("showreel", () => {
   });
 
   test("the Showreel nav link is the first menu item", async ({ page }) => {
-    await page.goto("/");
+    await page.goto("/v1");
     await expect(page.locator(".nav a").first()).toHaveAttribute("href", "#showreel");
   });
 });
@@ -139,7 +162,7 @@ test.describe("work section on phones", () => {
   test.use({ viewport: { width: 390, height: 844 } });
 
   test("shows a short preview, and View all / View less expands and collapses it", async ({ page }) => {
-    await page.goto("/");
+    await page.goto("/v1");
     const tiles = page.locator("#work-panel .tile:visible");
     await expect(tiles).toHaveCount(6);
     await page.getByRole("button", { name: /View all/ }).click();
@@ -149,7 +172,7 @@ test.describe("work section on phones", () => {
   });
 
   test("switching tabs starts collapsed again", async ({ page }) => {
-    await page.goto("/");
+    await page.goto("/v1");
     await page.getByRole("button", { name: /View all/ }).click();
     await page.getByRole("tab", { name: /Static Creatives/ }).click();
     await expect(page.locator("#work-panel .tile:visible")).toHaveCount(6);
@@ -160,7 +183,7 @@ test.describe("work section on desktop", () => {
   test.use({ viewport: { width: 1280, height: 800 } });
 
   test("shows everything and no View all button", async ({ page }) => {
-    await page.goto("/");
+    await page.goto("/v1");
     await expect(page.getByRole("button", { name: /View all/ })).toBeHidden();
     expect(await page.locator("#work-panel .tile:visible").count()).toBeGreaterThan(6);
   });

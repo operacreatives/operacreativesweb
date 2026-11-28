@@ -6,17 +6,23 @@ import { Process } from "@/components/Process";
 import { Showreel } from "@/components/Showreel";
 import { Services } from "@/components/Services";
 import { Work } from "@/components/Work";
-import { jsonLdString } from "@/lib/seo";
 import { PROCESS } from "@/lib/site";
+import type { Metadata } from "next";
 import { getWork, resolvePic } from "@/lib/work";
 
-export default async function HomePage() {
+// The previous homepage, kept as /v1 so it is never lost. The live homepage is app/route.ts (site-v2/).
+export const metadata: Metadata = {
+  title: "Previous homepage (v1)",
+  robots: { index: false, follow: true },
+  alternates: { canonical: "/v1" },
+};
+
+export default async function V1HomePage() {
   const work = await getWork();
   const processPics = PROCESS.map((step) => step.pics.map((ref) => resolvePic(ref, work)));
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString() }} />
       <Hero />
       <Showreel />
       <About />

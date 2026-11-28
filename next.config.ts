@@ -5,15 +5,12 @@ const nextConfig: NextConfig = {
   images: {
     formats: ["image/avif", "image/webp"],
   },
-  async rewrites() {
-    // V2 preview for team approval: static pages in public/v2. The live home page is untouched.
-    // beforeFiles so the [slug] short-link route never catches them.
-    return {
-      beforeFiles: [
-        { source: "/v2", destination: "/v2/index.html" },
-        { source: "/v2/portfolio", destination: "/v2/portfolio.html" },
-      ],
-    };
+  async redirects() {
+    // V2 was previewed at /v2 and is now the live homepage (app/route.ts) and /portfolio.
+    return [
+      { source: "/v2", destination: "/", permanent: true },
+      { source: "/v2/portfolio", destination: "/portfolio", permanent: true },
+    ];
   },
 };
 

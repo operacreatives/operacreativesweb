@@ -6,7 +6,7 @@ import { ChromeGate } from "@/components/ChromeGate";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { RevealObserver } from "@/components/RevealObserver";
-import { SITE_DESCRIPTION, SITE_NAME, SITE_TITLE, SITE_URL } from "@/lib/site";
+import { SITE_DESCRIPTION, SITE_KEYWORDS, SITE_NAME, SITE_TITLE, SITE_URL } from "@/lib/site";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -39,24 +39,12 @@ export const metadata: Metadata = {
 
   title: {
     default: SITE_TITLE,
-    template: `%s — ${SITE_NAME}`,
+    template: `%s | ${SITE_NAME}`,
   },
 
   description: SITE_DESCRIPTION,
 
-  keywords: [
-    "Opera Creatives",
-    "AI native production studio",
-    "anime style animation",
-    "AI video production",
-    "hybrid VFX",
-    "dubbing",
-    "brand films",
-    "commercials",
-    "UGC videos",
-    "product visuals",
-    "FIFA World Cup anime series",
-  ],
+  keywords: SITE_KEYWORDS,
 
   authors: [{ name: SITE_NAME, url: SITE_URL }],
 
@@ -90,7 +78,7 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Opera Creatives — AI native production studio",
+        alt: "Opera Creatives, AI native production studio",
       },
     ],
   },
