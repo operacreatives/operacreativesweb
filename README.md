@@ -16,11 +16,11 @@ npm run test:e2e
 
 ## Site structure
 
-- `app/page.tsx` is the home page. Its copy lives in `lib/site.ts`; the work gallery reads `data/vimeo-projects.ts`, `data/fifa-projects.ts` and `data/posters.ts` (posters live in `public/assets/images`).
+- The live homepage (`/`) and portfolio (`/portfolio`) are hand-built HTML pages in `site-v2/` (`index.html`, `portfolio.html`), served by `app/route.ts` and `app/portfolio/route.ts`. Their SEO head (title, description, canonical, Open Graph, Twitter, icons, JSON-LD, Vercel Analytics) is generated in `lib/v2page.ts` from `lib/site.ts`; each template has a `<!--SEO-->` placeholder for it. Films, posters, services and links for both pages live in `public/v2/data.js`; film thumbnails are in `public/v2/films`. `/v2` and `/v2/portfolio` redirect to them.
+- The previous homepage is kept at `/v1` (`app/v1/page.tsx`, noindex). Its copy lives in `lib/site.ts`; its work gallery reads `data/vimeo-projects.ts`, `data/fifa-projects.ts` and `data/posters.ts` (posters live in `public/assets/images`).
 - Every "Book a discovery call" button links straight to the Cal.com page set in `lib/site.ts` (`CAL_URL`).
 - Styles are in `app/site.css`, scoped under `.site`.
 - Short links (`/qr`, `/nfc`, and anything created in the dashboard) are handled by `app/[slug]/route.ts`; `/deck` serves `content/deck.html`. `e2e/site.spec.ts` checks that these keep working.
-- `/v2` and `/v2/portfolio` are a standalone V2 redesign preview for team approval (static HTML in `public/v2`, routed in `next.config.ts`, noindex). Content and links for both pages live in `public/v2/data.js`; film thumbnails are in `public/v2/films`. The live home page is separate and unchanged.
 
 ## Search and AI visibility
 

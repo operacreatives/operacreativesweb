@@ -5,7 +5,7 @@ import { posters } from "@/data/posters";
 import { vimeoProjects } from "@/data/vimeo-projects";
 import { posterAlts } from "@/data/posters";
 import { buildJsonLd, jsonLdString } from "@/lib/seo";
-import { BOOK_LABEL, CAL_URL, FAQS, LINKS, NAV, OWNED_LINKS, PROCESS, SHOWREEL_ID, SERVICES, SITE_DESCRIPTION, SITE_TITLE } from "@/lib/site";
+import { BOOK_LABEL, CAL_URL, FAQS, LINKS, LIVE_SERVICES, NAV, OWNED_LINKS, PROCESS, SHOWREEL_ID, SERVICES, SITE_DESCRIPTION, SITE_TITLE } from "@/lib/site";
 import { resolvePic, type WorkData } from "@/lib/work";
 
 const work: WorkData = {
@@ -52,8 +52,9 @@ describe("search and AI visibility", () => {
     const org = graph.find((n) => n["@type"] === "Organization");
     const faq = graph.find((n) => n["@type"] === "FAQPage");
     expect(org?.sameAs).toEqual(["https://www.instagram.com/operacreatives_"]);
-    expect(org?.knowsAbout).toHaveLength(SERVICES.length);
-    expect(org?.hasOfferCatalog?.itemListElement).toHaveLength(SERVICES.length);
+    expect(org?.knowsAbout).toHaveLength(LIVE_SERVICES.length);
+    expect(org?.hasOfferCatalog?.itemListElement).toHaveLength(LIVE_SERVICES.length);
+    expect(LIVE_SERVICES).toHaveLength(7);
     expect(faq?.mainEntity).toHaveLength(FAQS.length);
   });
 

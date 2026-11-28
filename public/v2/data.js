@@ -1,4 +1,4 @@
-/* Opera Creatives — shared content for every draft.
+/* Opera Creatives: content shared by the homepage (/) and the portfolio (/portfolio).
    Edit titles, categories or links here; all pages update.
    Films: Vimeo id (+ private hash where needed). Thumbnails are real Vimeo stills saved in public/v2/films/ (posters: public/assets/images/). */
 window.OC = {
@@ -100,8 +100,7 @@ window.OC = {
 
   // pic: "film:<id>" or "poster:<file>"
   services: [
-    { n: "Anime style animation", x: "Stylised anime for launches, series and campaigns, from character design to final frame.", pic: "film:1212301782" },
-    { n: "Anime series & event films", x: "Anime-themed series built for big moments, like our FIFA World Cup Anime Series.", pic: "film:1212302168" },
+    { n: "Anime series", x: "Stylised anime series and films for launches and campaigns, from character design to final frame, like our FIFA World Cup Anime Series.", pic: "film:1212301782" },
     { n: "Hybrid VFX", x: "Send us ready footage. We add flames, smoke, sparks and more so it looks filmed that way.", pic: "film:1203214002" },
     { n: "Dubbing", x: "Natural multi-language voices with lip-sync, so one film speaks to every market.", pic: "film:1154852720" },
     { n: "Brand films", x: "Story-led films that make people remember the name.", pic: "film:1233647571" },

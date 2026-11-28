@@ -3,6 +3,19 @@
 export const SITE_URL = "https://www.operacreatives.com";
 export const SITE_NAME = "Opera Creatives";
 export const SITE_TITLE = "Opera Creatives | AI native studio for anime, VFX & dubbing";
+export const SITE_KEYWORDS = [
+  "Opera Creatives",
+  "AI native production studio",
+  "anime style animation",
+  "AI video production",
+  "hybrid VFX",
+  "dubbing",
+  "brand films",
+  "commercials",
+  "UGC videos",
+  "product visuals",
+  "FIFA World Cup anime series",
+];
 export const SITE_DESCRIPTION =
   "Opera Creatives is the AI native production studio for animation, hybrid VFX, dubbing, brand films, commercials, UGC videos and product visuals. Book a call.";
 
@@ -71,6 +84,12 @@ export const SERVICES: Service[] = [
   { name: "Product visuals", text: "Hero shots and motion that make products look premium.", pic: "poster:12" },
 ];
 
+// The live homepage's service list (seven, mirrored in public/v2/data.js). Used for structured data and llms.txt.
+export const LIVE_SERVICES: { name: string; text: string }[] = [
+  { name: "Anime series", text: "Stylised anime series and films for launches and campaigns, from character design to final frame, like our FIFA World Cup Anime Series." },
+  ...SERVICES.filter((s) => !s.name.startsWith("Anime")).map(({ name, text }) => ({ name, text })),
+];
+
 export type ProcessVisual = "mood" | "story" | "image" | "wave" | "dub";
 
 export interface ProcessStep {
@@ -110,7 +129,7 @@ export const WORK_NOTES = {
   films: "A look at what we make, from anime style animation to brand films. Click any film to watch it.",
   statics: "Posters, ad creatives and product visuals made for brands. Click any to view it full size.",
   fifa: "Anime series released during the FIFA World Cup, generating over 150 million impressions across social media.",
-  blockchain: "Films made for Web3, blockchain and crypto brands, including Starknet, Monad, Hyperliquid and Binance. Click any film to watch it.",
+  blockchain: "Concept films exploring Web3, blockchain and crypto brands. Click any film to watch it.",
 };
 
 // The /links page (Linktree style). The first button is always "Book a discovery call";

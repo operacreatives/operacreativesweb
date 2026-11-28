@@ -3,16 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Portfolio — Opera Creatives</title>
-<meta name="description" content="The full Opera Creatives portfolio: anime series, commercials, brand films, product spots, Web3 films and posters. Tap any frame to play.">
-<link rel="icon" href="/favicon.ico">
-<meta name="robots" content="noindex">
-<link rel="canonical" href="https://www.operacreatives.com/v2/portfolio">
-<meta property="og:title" content="Portfolio — Opera Creatives">
-<meta property="og:description" content="Anime series, commercials, brand films, product spots, Web3 films and posters. Tap any frame to play.">
-<meta property="og:image" content="https://www.operacreatives.com/og-image.png">
-<meta property="og:url" content="https://www.operacreatives.com/v2/portfolio">
-<meta name="twitter:card" content="summary_large_image">
+<!--SEO-->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://player.vimeo.com">
@@ -203,9 +194,9 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 
 <header class="hdr">
   <div class="wrap">
-    <a href="/v2" class="brand glass"><img src="/logo-oc-mark.webp" alt="">Opera Creatives</a>
+    <a href="/" class="brand glass"><img src="/logo-oc-mark.webp" alt="">Opera Creatives</a>
     <nav class="glass" aria-label="Main">
-      <a href="/v2#work">Work</a><a href="/v2#anime">Anime</a><a href="/v2#services">Services</a><a href="/v2#process">Process</a><a href="/v2/portfolio" class="on" aria-current="page">Portfolio</a>
+      <a href="/#work">Work</a><a href="/#anime">Anime</a><a href="/#services">Services</a><a href="/#process">Process</a><a href="/portfolio" class="on" aria-current="page">Portfolio</a>
     </nav>
     <div style="display:flex;gap:.6rem">
       <a class="pill js-cal" target="_blank" rel="noopener">Book a call →</a>
@@ -214,7 +205,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   </div>
 </header>
 <div class="mnav" id="mnav">
-  <a href="/v2">Home</a><a href="/v2#work">Work</a><a href="/v2#services">Services</a><a href="/v2/portfolio">Portfolio</a>
+  <a href="/">Home</a><a href="/#work">Work</a><a href="/#services">Services</a><a href="/portfolio">Portfolio</a>
   <a class="pill js-cal" target="_blank" rel="noopener">Book a discovery call →</a>
 </div>
 
@@ -265,12 +256,12 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 <footer class="ftr">
   <div class="wrap">
     <div class="ftr__row">
-      <a href="/v2" class="ftr__word">Opera <span class="serif">creatives</span></a>
+      <a href="/" class="ftr__word">Opera <span class="serif">creatives</span></a>
       <ul class="mono">
         <li><a class="ulink js-mail-t"></a></li>
         <li><a class="ulink js-ig" target="_blank" rel="noopener">Instagram</a></li>
         <li><a class="ulink js-deck" target="_blank" rel="noopener">Pitch deck</a></li>
-        <li><a class="ulink" href="/v2">Website</a></li>
+        <li><a class="ulink" href="/">Website</a></li>
       </ul>
     </div>
     <div class="ftr__base mono"><span>© <span id="yr"></span> Opera Creatives · AI native production studio</span><a href="#" class="ulink">Back to top ↑</a></div>
@@ -341,7 +332,7 @@ SECTIONS.forEach((s,si)=>{
       </button>`).join("")}</div>`).join("");
   root.insertAdjacentHTML("beforeend",`
   <section class="cat" id="${s.c}" data-c="${s.c}">
-    <div class="cat__rule mono"><span>${pad(si+1)} — ${s.kicker}</span><b>${list.length} ${s.c==="posters"?"stills":list.length===1?"film":"films"}</b></div>
+    <div class="cat__rule mono"><span>${pad(si+1)} · ${s.kicker}</span><b>${list.length} ${s.c==="posters"?"stills":list.length===1?"film":"films"}</b></div>
     <div class="cat__head"><h2><span class="serif">${s.pre}</span>${s.word}</h2><p>${s.x}</p></div>
     ${html}
   </section>`);
@@ -350,7 +341,7 @@ SECTIONS.forEach((s,si)=>{
 // category tabs at the top: each one is its own shareable link (?cat=...)
 const tabs=$("#tabs");
 const FILTERS=[{id:"all",label:"All",n:items.length},...SECTIONS.map(s=>({id:s.c,label:label(s.c),n:byCat(s.c).length}))];
-tabs.innerHTML=`<span class="mono lbl">Browse</span>`+FILTERS.map(f=>`<a href="${f.id==="all"?"/v2/portfolio":"/v2/portfolio?cat="+f.id}" data-f="${f.id}">${f.label}<sup>${f.n}</sup></a>`).join("");
+tabs.innerHTML=`<span class="mono lbl">Browse</span>`+FILTERS.map(f=>`<a href="${f.id==="all"?"/portfolio":"/portfolio?cat="+f.id}" data-f="${f.id}">${f.label}<sup>${f.n}</sup></a>`).join("");
 const WORD={all:"work",commercials:"commercials",anime:"anime",films:"films",product:"product",web3:"Web3",posters:"stills"};
 let cat="all";
 function setCat(id,{scroll=true,push=true}={}){
@@ -362,7 +353,7 @@ function setCat(id,{scroll=true,push=true}={}){
   const w=$("#hWord"); w.textContent=WORD[id]; w.style.animation="none"; w.offsetHeight; w.style.animation="";
   const sec=SECTIONS.find(s=>s.c===id);
   $("#hLine").textContent=sec?sec.x:"Commercials, anime, films, product, Web3 and posters.";
-  document.title=(id==="all"?"Portfolio":label(id)+" Portfolio")+" — Opera Creatives";
+  document.title=(id==="all"?"Portfolio":label(id)+" Portfolio")+" | Opera Creatives";
   const on=tabs.querySelector(`[data-f="${id}"]`); on&&on.scrollIntoView({inline:"center",block:"nearest"});
   if(push){const u=new URL(location);id==="all"?u.searchParams.delete("cat"):u.searchParams.set("cat",id);u.hash="";history.pushState({cat:id},"",u)}
   if(scroll) scrollTo({top:0,behavior:"smooth"});
