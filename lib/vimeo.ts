@@ -30,7 +30,7 @@ export function buildVimeoEmbedUrl(id: string, mode: VimeoMode): string {
   return url.toString();
 }
 
-// Fallback used only when the oEmbed thumbnail lookup fails — a low-res proxy,
+// Fallback used only when the oEmbed thumbnail lookup fails: a low-res proxy,
 // better than nothing but never the preferred path.
 export function buildVimeoThumbnailUrl(id: string): string {
   const baseId = id.split("?")[0];
